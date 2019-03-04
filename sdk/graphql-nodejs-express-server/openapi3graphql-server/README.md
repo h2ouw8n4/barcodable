@@ -1,0 +1,18 @@
+# GraphQL express API server
+
+Barcodable.com API
+
+## Requirements
+
+- node 10+
+
+## Gettings started
+
+    npm install
+    npm run start
+
+# TODOs
+
+- use `ID`-type for unique identifiers instead of `Int` (detect UUID)
+- add example responses to resolvers.mustache
+- support for union types

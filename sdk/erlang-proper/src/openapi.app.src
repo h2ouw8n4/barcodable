@@ -1,0 +1,21 @@
+{ application, openapi
+, [ {description, "Barcodable.com API"}
+  , {vsn, "0.1.0"}
+  , {registered, []}
+  , { applications
+    , [ kernel
+      , stdlib
+      , ssl
+      , jsx
+      ]
+    }
+  , { env
+    , [ {host, "http://virtserver.swaggerhub.com"}
+      , {basic_auth, {"admin", "admin"}}
+      ]
+    }
+  , {modules, []}
+  , {maintainers, []}
+  , {licenses, ["Apache 2.0"]}
+  , {links, []}
+]}.

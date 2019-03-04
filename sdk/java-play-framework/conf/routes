@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /api                        controllers.ApiDocController.api
+
+
+#Functions for ProductConversion API
+GET     /mindviser/barcodable/1.0.0/api/v1/convert/:upc | ean | asin                     controllers.ProductConversionApiController.convertCode(upcEanAsin: String)
+
+#Functions for ProductLookup API
+GET     /mindviser/barcodable/1.0.0/api/v1/asin/:asin                     controllers.ProductLookupApiController.getItemByASIN(asin: String)
+GET     /mindviser/barcodable/1.0.0/api/v1/ean/:ean                     controllers.ProductLookupApiController.getItemByEAN(ean: String)
+GET     /mindviser/barcodable/1.0.0/api/v1/upc/:upc                     controllers.ProductLookupApiController.getItemByUPC(upc: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET /assets/*file           controllers.Assets.at(file)
+GET /versionedAssets/*file  controllers.Assets.versioned(file)
