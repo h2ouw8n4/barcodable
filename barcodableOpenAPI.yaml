@@ -203,14 +203,14 @@ paths:
                 properties:
                   upcs:
                     type: array
-                    description: A list of UPCs.
+                    description: A list of UPCs
                     example:
                       - '190198155795'
                     items:
                       type: string
                   eans:
                     type: array
-                    description: A list of EANs.
+                    description: A list of EANs
                     example:
                       - 0190198155795
                     items:
