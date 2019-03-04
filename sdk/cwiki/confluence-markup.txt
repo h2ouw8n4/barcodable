@@ -1,0 +1,533 @@
+h1. Barcodable.com API Barcodable.com API
+
+*Version:* 1.5.0
+
+----
+
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+
+h2. Endpoints
+
+    h3. convertCode
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/v1/convert/{upc | ean | asin}
+    {code}
+    *Summary:* Convert between UPC, EAN, and ASIN product codes.
+    *Description:* Returns the converted UPC, EAN, and ASIN codes.
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |upc Pipe ean Pipe asin |UPC, EAN, or ASIN |(/) |null |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     successful operation
+        {code:title=Response Type}
+inline_response_200
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "successful operation",
+  "headers" : {
+    "X-ValidAuthorization" : {
+      "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "boolean"
+      }
+    },
+    "X-RateLimit-Limit" : {
+      "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Remaining" : {
+      "description" : "An integer specifying the number of remaining requests per day.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Reset" : {
+      "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_200"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 400
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+inline_response_400
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_400"
+      }
+    }
+  }
+}
+        {code}
+    ----
+
+    h3. getItemByASIN
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/v1/asin/{asin}
+    {code}
+    *Summary:* Find item by asin code
+    *Description:* Returns a single item
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |asin |ASIN code of item to return |(/) |null |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     successful operation
+        {code:title=Response Type}
+item
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "successful operation",
+  "headers" : {
+    "X-ValidAuthorization" : {
+      "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "boolean"
+      }
+    },
+    "X-RateLimit-Limit" : {
+      "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Remaining" : {
+      "description" : "An integer specifying the number of remaining requests per day.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Reset" : {
+      "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/item"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 400
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+invalid_code
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/invalid_code"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+not_found
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/not_found"
+      }
+    }
+  }
+}
+        {code}
+    ----
+
+    h3. getItemByEAN
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/v1/ean/{ean}
+    {code}
+    *Summary:* Find item by UPC code
+    *Description:* Returns a single item
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |ean |EAN code of item to return |(/) |null |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     successful operation
+        {code:title=Response Type}
+item
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "successful operation",
+  "headers" : {
+    "X-ValidAuthorization" : {
+      "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "boolean"
+      }
+    },
+    "X-RateLimit-Limit" : {
+      "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Remaining" : {
+      "description" : "An integer specifying the number of remaining requests per day.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Reset" : {
+      "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/item"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 400
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+invalid_code
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/invalid_code"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+not_found
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/not_found"
+      }
+    }
+  }
+}
+        {code}
+    ----
+
+    h3. getItemByUPC
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/v1/upc/{upc}
+    {code}
+    *Summary:* Find item by UPC code
+    *Description:* Returns a single item
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |upc |UPC code of item to return |(/) |null |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     successful operation
+        {code:title=Response Type}
+item
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "successful operation",
+  "headers" : {
+    "X-ValidAuthorization" : {
+      "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "boolean"
+      }
+    },
+    "X-RateLimit-Limit" : {
+      "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Remaining" : {
+      "description" : "An integer specifying the number of remaining requests per day.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "X-RateLimit-Reset" : {
+      "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/item"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 400
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+invalid_code
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/invalid_code"
+      }
+    }
+  }
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     search results matching criteria
+        {code:title=Response Type}
+not_found
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "search results matching criteria",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/not_found"
+      }
+    }
+  }
+}
+        {code}
+    ----
+
+h2. Models
+
+        h3. InlineResponse200
+        ||Field Name||Required||Type||Description||
+         |upcs | |array[String] |A list of UPCs |
+ |eans | |array[String] |A list of EANs |
+ |asins | |array[String] |A list of ASINs |
+ |message | |String | |
+        h3. InlineResponse400
+        ||Field Name||Required||Type||Description||
+         |message | |String | |
+ |status | |Integer | |
+        h3. InvalidCode
+        ||Field Name||Required||Type||Description||
+         |message | |String | |
+ |status | |Integer | |
+        h3. Item
+        ||Field Name||Required||Type||Description||
+         |upc | |String | |
+ |ean | |String | |
+ |isbn | |String | |
+ |asin | |String | |
+ |title | |String | |
+ |sku | |String | |
+ |mpn | |String | |
+ |partUnderscorenumber | |String | |
+ |upcs | |array[String] |A list of matching upc codes. |
+ |description | |String | |
+ |brand | |String | |
+ |manufacturer | |String | |
+ |color | |String | |
+ |newUnderscoreprice | |BigDecimal | |
+ |usedUnderscoreprice | |BigDecimal | |
+ |currencyUnderscorecode | |String | |
+ |url | |String | |
+ |features | |array[String] |A list of product feature descriptions. |
+ |dimensions | |array[Object] |Product dimensions and weight.  (&#39;meters&#39;, &#39;centimeters&#39;, &#39;millimeters&#39;, &#39;inches&#39;, &#39;feet&#39;, &#39;yards&#39;, &#39;ounces&#39;, &#39;pounds&#39;, &#39;grams&#39;, &#39;milligrams&#39;, &#39;kilograms&#39;) |
+ |images | |array[String] |A list product images. |
+ |matchedUnderscoreitems | |array[Object] |Matched items for this product. |
+ |isoUnderscorecountryUnderscorecodes | |array[String] |A list of country codes from which this item belongs. |
+ |companyUnderscorename | |String |The company name registered to the product&#39;s UPC or EAN. |
+ |companyUnderscoreaddress | |String |The company address registered to the product&#39;s UPC or EAN. |
+ |categories | |array[String] |A list of categories for this product. |
+ |categoryUnderscorehierarchies | |array[String] |A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. |
+        h3. NotFound
+        ||Field Name||Required||Type||Description||
+         |message | |String | |
+ |status | |Integer | |

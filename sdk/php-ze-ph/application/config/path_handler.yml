@@ -1,0 +1,25 @@
+Articus\PathHandler\RouteInjection\Factory:
+  paths:
+    '/magicCashew/barcodable/1.0.0':
+    - App\Handler\ApiV1AsinAsin
+    - App\Handler\ApiV1ConvertUpcEanAsin
+    - App\Handler\ApiV1EanEan
+    - App\Handler\ApiV1UpcUpc
+  handlers:
+    abstract_factories:
+    - Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory
+#  consumers:
+#    factories:
+#    invokables:
+#  attributes:
+#    factories:
+#    invokables:
+#  producers:
+#    factories:
+#    invokables:
+
+Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory:
+  App\Handler\ApiV1AsinAsin: []
+  App\Handler\ApiV1ConvertUpcEanAsin: []
+  App\Handler\ApiV1EanEan: []
+  App\Handler\ApiV1UpcUpc: []
