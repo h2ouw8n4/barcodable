@@ -32,7 +32,11 @@ defmodule BarcodableComAPI.Api.ProductLookup do
     |> url("/api/v1/asin/#{asin}")
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
-    |> decode(%BarcodableComAPI.Model.Item{})
+    |> evaluate_response([
+      { 200, %BarcodableComAPI.Model.Item{}},
+      { 400, %BarcodableComAPI.Model.InvalidCode{}},
+      { 404, %BarcodableComAPI.Model.NotFound{}}
+    ])
   end
 
   @doc """
@@ -56,7 +60,11 @@ defmodule BarcodableComAPI.Api.ProductLookup do
     |> url("/api/v1/ean/#{ean}")
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
-    |> decode(%BarcodableComAPI.Model.Item{})
+    |> evaluate_response([
+      { 200, %BarcodableComAPI.Model.Item{}},
+      { 400, %BarcodableComAPI.Model.InvalidCode{}},
+      { 404, %BarcodableComAPI.Model.NotFound{}}
+    ])
   end
 
   @doc """
@@ -80,6 +88,10 @@ defmodule BarcodableComAPI.Api.ProductLookup do
     |> url("/api/v1/upc/#{upc}")
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
-    |> decode(%BarcodableComAPI.Model.Item{})
+    |> evaluate_response([
+      { 200, %BarcodableComAPI.Model.Item{}},
+      { 400, %BarcodableComAPI.Model.InvalidCode{}},
+      { 404, %BarcodableComAPI.Model.NotFound{}}
+    ])
   end
 end

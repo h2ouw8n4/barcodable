@@ -1,0 +1,18 @@
+{
+  "namespace": "model",
+  "type": "record",
+  "doc": "",
+  "name": "InlineResponse400",
+  "fields": [
+    {
+      "name": "message",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "status",
+      "type": ["null", "int"],
+      "doc": ""
+    }
+  ]
+}

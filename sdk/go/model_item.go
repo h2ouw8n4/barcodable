@@ -9,7 +9,7 @@
  */
 
 package openapi
-
+// Item struct for Item
 type Item struct {
 	Upc string `json:"upc,omitempty"`
 	Ean string `json:"ean,omitempty"`

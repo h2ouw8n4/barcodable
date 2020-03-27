@@ -362,18 +362,16 @@ build_request_path() {
 
     local query_request_part=""
 
-    local count=0
     for qparam in "${query_params[@]}"; do
+        if [[ "${operation_parameters[$qparam]}" == "" ]]; then
+            continue
+        fi
+
         # Get the array of parameter values
         local parameter_value=""
         local parameter_values
         mapfile -t parameter_values < <(sed -e 's/'":::"'/\n/g' <<<"${operation_parameters[$qparam]}")
 
-        if [[ -n "${parameter_values[*]}" ]]; then
-            if [[ $((count++)) -gt 0 ]]; then
-                query_request_part+="&"
-            fi
-        fi
 
 
         #
@@ -441,6 +439,9 @@ build_request_path() {
         fi
 
         if [[ -n "${parameter_value}" ]]; then
+            if [[ -n "${query_request_part}" ]]; then
+                query_request_part+="&"
+            fi
             query_request_part+="${parameter_value}"
         fi
 

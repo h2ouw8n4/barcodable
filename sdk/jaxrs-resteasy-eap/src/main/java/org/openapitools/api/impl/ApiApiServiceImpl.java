@@ -17,7 +17,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaResteasyEapServerCodegen", date = "2019-03-04T22:39:11.462Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaResteasyEapServerCodegen", date = "2020-03-27T18:10:16.110-04:00[America/New_York]")
 public class ApiApiServiceImpl implements ApiApi {
       public Response convertCode(String upcEanAsin,SecurityContext securityContext) {
       // do some magic!

@@ -1,11 +1,12 @@
 library openapi.api;
 
-import 'package:http/io_client.dart';
+import 'package:http/http.dart' as http;
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 import 'package:jaguar_retrofit/jaguar_retrofit.dart';
 import 'package:openapi/auth/api_key_auth.dart';
 import 'package:openapi/auth/basic_auth.dart';
 import 'package:openapi/auth/oauth.dart';
+import 'package:jaguar_mimetype/jaguar_mimetype.dart';
 
 import 'package:openapi/api/product_conversion_api.dart';
 import 'package:openapi/api/product_lookup_api.dart';
@@ -17,17 +18,23 @@ import 'package:openapi/model/item.dart';
 import 'package:openapi/model/not_found.dart';
 
 
-final jsonJaguarRepo = JsonRepo()
+
+final _jsonJaguarRepo = JsonRepo()
 ..add(InlineResponse200Serializer())
 ..add(InlineResponse400Serializer())
 ..add(InvalidCodeSerializer())
 ..add(ItemSerializer())
 ..add(NotFoundSerializer())
 ;
+final Map<String, CodecRepo> defaultConverters = {
+    MimeTypes.json: _jsonJaguarRepo,
+};
+
+
 
 final _defaultInterceptors = [OAuthInterceptor(), BasicAuthInterceptor(), ApiKeyAuthInterceptor()];
 
-class JaguarApiGen {
+class Openapi {
     List<Interceptor> interceptors;
     String basePath = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0";
     Route _baseRoute;
@@ -36,8 +43,8 @@ class JaguarApiGen {
     /**
     * Add custom global interceptors, put overrideInterceptors to true to set your interceptors only (auth interceptors will not be added)
     */
-    JaguarApiGen({List<Interceptor> interceptors, bool overrideInterceptors = false, String baseUrl, this.timeout = const Duration(minutes: 2)}) {
-        _baseRoute = Route(baseUrl ?? basePath).withClient(globalClient ?? IOClient());
+    Openapi({List<Interceptor> interceptors, bool overrideInterceptors = false, String baseUrl, this.timeout = const Duration(minutes: 2)}) {
+        _baseRoute = Route(baseUrl ?? basePath).withClient(globalClient ?? http.Client());
         if(interceptors == null) {
             this.interceptors = _defaultInterceptors;
         }
@@ -71,14 +78,14 @@ class JaguarApiGen {
     * Get ProductConversionApi instance, base route and serializer can be overridden by a given but be careful,
     * by doing that all interceptors will not be executed
     */
-    ProductConversionApi getProductConversionApi({Route base, SerializerRepo serializers}) {
+    ProductConversionApi getProductConversionApi({Route base, Map<String, CodecRepo> converters}) {
         if(base == null) {
             base = _baseRoute;
         }
-        if(serializers == null) {
-            serializers = jsonJaguarRepo;
+        if(converters == null) {
+            converters = defaultConverters;
         }
-        return ProductConversionApi(base: base, serializers: serializers, timeout: timeout);
+        return ProductConversionApi(base: base, converters: converters, timeout: timeout);
     }
 
     
@@ -86,14 +93,14 @@ class JaguarApiGen {
     * Get ProductLookupApi instance, base route and serializer can be overridden by a given but be careful,
     * by doing that all interceptors will not be executed
     */
-    ProductLookupApi getProductLookupApi({Route base, SerializerRepo serializers}) {
+    ProductLookupApi getProductLookupApi({Route base, Map<String, CodecRepo> converters}) {
         if(base == null) {
             base = _baseRoute;
         }
-        if(serializers == null) {
-            serializers = jsonJaguarRepo;
+        if(converters == null) {
+            converters = defaultConverters;
         }
-        return ProductLookupApi(base: base, serializers: serializers, timeout: timeout);
+        return ProductLookupApi(base: base, converters: converters, timeout: timeout);
     }
 
     

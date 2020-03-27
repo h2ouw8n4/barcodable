@@ -2,13 +2,13 @@ function New-InlineResponse200 {
     [CmdletBinding()]
     Param (
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${upcs},
         [Parameter(Position = 1, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${eans},
         [Parameter(Position = 2, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${asins},
         [Parameter(Position = 3, ValueFromPipelineByPropertyName = $true)]
         [String]

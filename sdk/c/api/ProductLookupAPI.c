@@ -11,12 +11,14 @@
     snprintf(dst, 256, "%ld", (long int)(src));\
 }while(0)
 
+
 // Find item by asin code
 //
 // Returns a single item
 //
 item_t*
-ProductLookupAPI_getItemByASIN(apiClient_t *apiClient, char* asin) {
+ProductLookupAPI_getItemByASIN(apiClient_t *apiClient, char * asin )
+{
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
     list_t    *localVarFormParameters = NULL;
@@ -32,14 +34,15 @@ ProductLookupAPI_getItemByASIN(apiClient_t *apiClient, char* asin) {
 
     // Path Params
     long sizeOfPathParams_asin = strlen(asin)+3 + strlen("{ asin }");
-
     if(asin == NULL) {
         goto end;
     }
     char* localVarToReplace_asin = malloc(sizeOfPathParams_asin);
-    sprintf(localVarToReplace_asin, "%s%s%s", "{", "asin", "}");
+    sprintf(localVarToReplace_asin, "{%s}", "asin");
 
     localVarPath = strReplace(localVarPath, localVarToReplace_asin, asin);
+
+
     list_addElement(localVarHeaderType,"application/json"); //produces
     apiClient_invoke(apiClient,
                     localVarPath,
@@ -61,7 +64,9 @@ ProductLookupAPI_getItemByASIN(apiClient_t *apiClient, char* asin) {
         printf("%s\n","search results matching criteria");
     }
     //nonprimitive not container
-    item_t *elementToReturn = item_parseFromJSON(apiClient->dataReceived);
+    cJSON *ProductLookupAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
+    item_t *elementToReturn = item_parseFromJSON(ProductLookupAPIlocalVarJSON);
+    cJSON_Delete(ProductLookupAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
     }
@@ -88,7 +93,8 @@ end:
 // Returns a single item
 //
 item_t*
-ProductLookupAPI_getItemByEAN(apiClient_t *apiClient, char* ean) {
+ProductLookupAPI_getItemByEAN(apiClient_t *apiClient, char * ean )
+{
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
     list_t    *localVarFormParameters = NULL;
@@ -104,14 +110,15 @@ ProductLookupAPI_getItemByEAN(apiClient_t *apiClient, char* ean) {
 
     // Path Params
     long sizeOfPathParams_ean = strlen(ean)+3 + strlen("{ ean }");
-
     if(ean == NULL) {
         goto end;
     }
     char* localVarToReplace_ean = malloc(sizeOfPathParams_ean);
-    sprintf(localVarToReplace_ean, "%s%s%s", "{", "ean", "}");
+    sprintf(localVarToReplace_ean, "{%s}", "ean");
 
     localVarPath = strReplace(localVarPath, localVarToReplace_ean, ean);
+
+
     list_addElement(localVarHeaderType,"application/json"); //produces
     apiClient_invoke(apiClient,
                     localVarPath,
@@ -133,7 +140,9 @@ ProductLookupAPI_getItemByEAN(apiClient_t *apiClient, char* ean) {
         printf("%s\n","search results matching criteria");
     }
     //nonprimitive not container
-    item_t *elementToReturn = item_parseFromJSON(apiClient->dataReceived);
+    cJSON *ProductLookupAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
+    item_t *elementToReturn = item_parseFromJSON(ProductLookupAPIlocalVarJSON);
+    cJSON_Delete(ProductLookupAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
     }
@@ -160,7 +169,8 @@ end:
 // Returns a single item
 //
 item_t*
-ProductLookupAPI_getItemByUPC(apiClient_t *apiClient, char* upc) {
+ProductLookupAPI_getItemByUPC(apiClient_t *apiClient, char * upc )
+{
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
     list_t    *localVarFormParameters = NULL;
@@ -176,14 +186,15 @@ ProductLookupAPI_getItemByUPC(apiClient_t *apiClient, char* upc) {
 
     // Path Params
     long sizeOfPathParams_upc = strlen(upc)+3 + strlen("{ upc }");
-
     if(upc == NULL) {
         goto end;
     }
     char* localVarToReplace_upc = malloc(sizeOfPathParams_upc);
-    sprintf(localVarToReplace_upc, "%s%s%s", "{", "upc", "}");
+    sprintf(localVarToReplace_upc, "{%s}", "upc");
 
     localVarPath = strReplace(localVarPath, localVarToReplace_upc, upc);
+
+
     list_addElement(localVarHeaderType,"application/json"); //produces
     apiClient_invoke(apiClient,
                     localVarPath,
@@ -205,7 +216,9 @@ ProductLookupAPI_getItemByUPC(apiClient_t *apiClient, char* upc) {
         printf("%s\n","search results matching criteria");
     }
     //nonprimitive not container
-    item_t *elementToReturn = item_parseFromJSON(apiClient->dataReceived);
+    cJSON *ProductLookupAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
+    item_t *elementToReturn = item_parseFromJSON(ProductLookupAPIlocalVarJSON);
+    cJSON_Delete(ProductLookupAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
     }

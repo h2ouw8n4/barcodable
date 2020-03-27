@@ -62,179 +62,128 @@ class Item {
 
   Item.fromJson(Map<String, dynamic> json) {
     if (json == null) return;
-    if (json['upc'] == null) {
-      upc = null;
-    } else {
-          upc = json['upc'];
-    }
-    if (json['ean'] == null) {
-      ean = null;
-    } else {
-          ean = json['ean'];
-    }
-    if (json['isbn'] == null) {
-      isbn = null;
-    } else {
-          isbn = json['isbn'];
-    }
-    if (json['asin'] == null) {
-      asin = null;
-    } else {
-          asin = json['asin'];
-    }
-    if (json['title'] == null) {
-      title = null;
-    } else {
-          title = json['title'];
-    }
-    if (json['sku'] == null) {
-      sku = null;
-    } else {
-          sku = json['sku'];
-    }
-    if (json['mpn'] == null) {
-      mpn = null;
-    } else {
-          mpn = json['mpn'];
-    }
-    if (json['part_number'] == null) {
-      partNumber = null;
-    } else {
-          partNumber = json['part_number'];
-    }
-    if (json['upcs'] == null) {
-      upcs = null;
-    } else {
-      upcs = (json['upcs'] as List).cast<String>();
-    }
-    if (json['description'] == null) {
-      description = null;
-    } else {
-          description = json['description'];
-    }
-    if (json['brand'] == null) {
-      brand = null;
-    } else {
-          brand = json['brand'];
-    }
-    if (json['manufacturer'] == null) {
-      manufacturer = null;
-    } else {
-          manufacturer = json['manufacturer'];
-    }
-    if (json['color'] == null) {
-      color = null;
-    } else {
-          color = json['color'];
-    }
-    if (json['new_price'] == null) {
-      newPrice = null;
-    } else {
-          newPrice = json['new_price'];
-    }
-    if (json['used_price'] == null) {
-      usedPrice = null;
-    } else {
-          usedPrice = json['used_price'];
-    }
-    if (json['currency_code'] == null) {
-      currencyCode = null;
-    } else {
-          currencyCode = json['currency_code'];
-    }
-    if (json['url'] == null) {
-      url = null;
-    } else {
-          url = json['url'];
-    }
-    if (json['features'] == null) {
-      features = null;
-    } else {
-      features = (json['features'] as List).cast<String>();
-    }
-    if (json['dimensions'] == null) {
-      dimensions = null;
-    } else {
-      dimensions = Object.listFromJson(json['dimensions']);
-    }
-    if (json['images'] == null) {
-      images = null;
-    } else {
-      images = (json['images'] as List).cast<String>();
-    }
-    if (json['matched_items'] == null) {
-      matchedItems = null;
-    } else {
-      matchedItems = Object.listFromJson(json['matched_items']);
-    }
-    if (json['iso_country_codes'] == null) {
-      isoCountryCodes = null;
-    } else {
-      isoCountryCodes = (json['iso_country_codes'] as List).cast<String>();
-    }
-    if (json['company_name'] == null) {
-      companyName = null;
-    } else {
-          companyName = json['company_name'];
-    }
-    if (json['company_address'] == null) {
-      companyAddress = null;
-    } else {
-          companyAddress = json['company_address'];
-    }
-    if (json['categories'] == null) {
-      categories = null;
-    } else {
-      categories = (json['categories'] as List).cast<String>();
-    }
-    if (json['category_hierarchies'] == null) {
-      categoryHierarchies = null;
-    } else {
-      categoryHierarchies = (json['category_hierarchies'] as List).cast<String>();
-    }
+    upc = json['upc'];
+    ean = json['ean'];
+    isbn = json['isbn'];
+    asin = json['asin'];
+    title = json['title'];
+    sku = json['sku'];
+    mpn = json['mpn'];
+    partNumber = json['part_number'];
+    upcs = (json['upcs'] == null) ?
+      null :
+      (json['upcs'] as List).cast<String>();
+    description = json['description'];
+    brand = json['brand'];
+    manufacturer = json['manufacturer'];
+    color = json['color'];
+    newPrice = json['new_price'];
+    usedPrice = json['used_price'];
+    currencyCode = json['currency_code'];
+    url = json['url'];
+    features = (json['features'] == null) ?
+      null :
+      (json['features'] as List).cast<String>();
+    dimensions = (json['dimensions'] == null) ?
+      null :
+      Object.listFromJson(json['dimensions']);
+    images = (json['images'] == null) ?
+      null :
+      (json['images'] as List).cast<String>();
+    matchedItems = (json['matched_items'] == null) ?
+      null :
+      Object.listFromJson(json['matched_items']);
+    isoCountryCodes = (json['iso_country_codes'] == null) ?
+      null :
+      (json['iso_country_codes'] as List).cast<String>();
+    companyName = json['company_name'];
+    companyAddress = json['company_address'];
+    categories = (json['categories'] == null) ?
+      null :
+      (json['categories'] as List).cast<String>();
+    categoryHierarchies = (json['category_hierarchies'] == null) ?
+      null :
+      (json['category_hierarchies'] as List).cast<String>();
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'upc': upc,
-      'ean': ean,
-      'isbn': isbn,
-      'asin': asin,
-      'title': title,
-      'sku': sku,
-      'mpn': mpn,
-      'part_number': partNumber,
-      'upcs': upcs,
-      'description': description,
-      'brand': brand,
-      'manufacturer': manufacturer,
-      'color': color,
-      'new_price': newPrice,
-      'used_price': usedPrice,
-      'currency_code': currencyCode,
-      'url': url,
-      'features': features,
-      'dimensions': dimensions,
-      'images': images,
-      'matched_items': matchedItems,
-      'iso_country_codes': isoCountryCodes,
-      'company_name': companyName,
-      'company_address': companyAddress,
-      'categories': categories,
-      'category_hierarchies': categoryHierarchies
-    };
+    Map <String, dynamic> json = {};
+    if (upc != null)
+      json['upc'] = upc;
+    if (ean != null)
+      json['ean'] = ean;
+    if (isbn != null)
+      json['isbn'] = isbn;
+    if (asin != null)
+      json['asin'] = asin;
+    if (title != null)
+      json['title'] = title;
+    if (sku != null)
+      json['sku'] = sku;
+    if (mpn != null)
+      json['mpn'] = mpn;
+    if (partNumber != null)
+      json['part_number'] = partNumber;
+    if (upcs != null)
+      json['upcs'] = upcs;
+    if (description != null)
+      json['description'] = description;
+    if (brand != null)
+      json['brand'] = brand;
+    if (manufacturer != null)
+      json['manufacturer'] = manufacturer;
+    if (color != null)
+      json['color'] = color;
+    if (newPrice != null)
+      json['new_price'] = newPrice;
+    if (usedPrice != null)
+      json['used_price'] = usedPrice;
+    if (currencyCode != null)
+      json['currency_code'] = currencyCode;
+    if (url != null)
+      json['url'] = url;
+    if (features != null)
+      json['features'] = features;
+    if (dimensions != null)
+      json['dimensions'] = dimensions;
+    if (images != null)
+      json['images'] = images;
+    if (matchedItems != null)
+      json['matched_items'] = matchedItems;
+    if (isoCountryCodes != null)
+      json['iso_country_codes'] = isoCountryCodes;
+    if (companyName != null)
+      json['company_name'] = companyName;
+    if (companyAddress != null)
+      json['company_address'] = companyAddress;
+    if (categories != null)
+      json['categories'] = categories;
+    if (categoryHierarchies != null)
+      json['category_hierarchies'] = categoryHierarchies;
+    return json;
   }
 
   static List<Item> listFromJson(List<dynamic> json) {
-    return json == null ? new List<Item>() : json.map((value) => new Item.fromJson(value)).toList();
+    return json == null ? List<Item>() : json.map((value) => Item.fromJson(value)).toList();
   }
 
   static Map<String, Item> mapFromJson(Map<String, dynamic> json) {
-    var map = new Map<String, Item>();
-    if (json != null && json.length > 0) {
-      json.forEach((String key, dynamic value) => map[key] = new Item.fromJson(value));
+    var map = Map<String, Item>();
+    if (json != null && json.isNotEmpty) {
+      json.forEach((String key, dynamic value) => map[key] = Item.fromJson(value));
     }
     return map;
+  }
+
+  // maps a json object with a list of Item-objects as value to a dart map
+  static Map<String, List<Item>> mapListFromJson(Map<String, dynamic> json) {
+    var map = Map<String, List<Item>>();
+     if (json != null && json.isNotEmpty) {
+       json.forEach((String key, dynamic value) {
+         map[key] = Item.listFromJson(value);
+       });
+     }
+     return map;
   }
 }
 

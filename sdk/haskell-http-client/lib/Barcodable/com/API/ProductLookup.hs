@@ -73,7 +73,6 @@ getItemByASIN (Asin asin) =
   _mkRequest "GET" ["/api/v1/asin/",toPath asin]
 
 data GetItemByASIN  
-
 -- | @application/json@
 instance Produces GetItemByASIN MimeJSON
 
@@ -93,7 +92,6 @@ getItemByEAN (Ean ean) =
   _mkRequest "GET" ["/api/v1/ean/",toPath ean]
 
 data GetItemByEAN  
-
 -- | @application/json@
 instance Produces GetItemByEAN MimeJSON
 
@@ -113,7 +111,6 @@ getItemByUPC (Upc upc) =
   _mkRequest "GET" ["/api/v1/upc/",toPath upc]
 
 data GetItemByUPC  
-
 -- | @application/json@
 instance Produces GetItemByUPC MimeJSON
 

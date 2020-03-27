@@ -73,7 +73,6 @@ convertCode (UpcEanAsin upcEanAsin) =
   _mkRequest "GET" ["/api/v1/convert/",toPath upcEanAsin,"|",toPath upcEanAsin,"|",toPath upcEanAsin]
 
 data ConvertCode  
-
 -- | @application/json@
 instance Produces ConvertCode MimeJSON
 

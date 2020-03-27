@@ -21,6 +21,10 @@ import scalaz.concurrent.Task
 
 import HelperCodecs._
 
+import org.openapitools.client.api.InvalidCode
+import org.openapitools.client.api.Item
+import org.openapitools.client.api.NotFound
+
 object ProductLookupApi {
 
   val client = PooledHttp1Client()

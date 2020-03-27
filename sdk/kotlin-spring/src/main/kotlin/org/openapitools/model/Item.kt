@@ -2,8 +2,13 @@ package org.openapitools.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import javax.validation.Valid
-import javax.validation.constraints.*
+import javax.validation.constraints.DecimalMax
+import javax.validation.constraints.DecimalMin
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
+import javax.validation.constraints.Size
 
 /**
  * 
@@ -34,59 +39,59 @@ import javax.validation.constraints.*
  * @param categories A list of categories for this product.
  * @param categoryHierarchies A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category.
  */
-data class Item (
+data class Item(
 
-        @JsonProperty("upc") val upc: String? = null,
+    @JsonProperty("upc") val upc: kotlin.String? = null,
 
-        @JsonProperty("ean") val ean: String? = null,
+    @JsonProperty("ean") val ean: kotlin.String? = null,
 
-        @JsonProperty("isbn") val isbn: String? = null,
+    @JsonProperty("isbn") val isbn: kotlin.String? = null,
 
-        @JsonProperty("asin") val asin: String? = null,
+    @JsonProperty("asin") val asin: kotlin.String? = null,
 
-        @JsonProperty("title") val title: String? = null,
+    @JsonProperty("title") val title: kotlin.String? = null,
 
-        @JsonProperty("sku") val sku: String? = null,
+    @JsonProperty("sku") val sku: kotlin.String? = null,
 
-        @JsonProperty("mpn") val mpn: String? = null,
+    @JsonProperty("mpn") val mpn: kotlin.String? = null,
 
-        @JsonProperty("part_number") val partNumber: String? = null,
+    @JsonProperty("part_number") val partNumber: kotlin.String? = null,
 
-        @JsonProperty("upcs") val upcs: List<String>? = null,
+    @JsonProperty("upcs") val upcs: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("description") val description: String? = null,
+    @JsonProperty("description") val description: kotlin.String? = null,
 
-        @JsonProperty("brand") val brand: String? = null,
+    @JsonProperty("brand") val brand: kotlin.String? = null,
 
-        @JsonProperty("manufacturer") val manufacturer: String? = null,
+    @JsonProperty("manufacturer") val manufacturer: kotlin.String? = null,
 
-        @JsonProperty("color") val color: String? = null,
+    @JsonProperty("color") val color: kotlin.String? = null,
 
-        @JsonProperty("new_price") val newPrice: java.math.BigDecimal? = null,
+    @JsonProperty("new_price") val newPrice: java.math.BigDecimal? = null,
 
-        @JsonProperty("used_price") val usedPrice: java.math.BigDecimal? = null,
+    @JsonProperty("used_price") val usedPrice: java.math.BigDecimal? = null,
 
-        @JsonProperty("currency_code") val currencyCode: String? = null,
+    @JsonProperty("currency_code") val currencyCode: kotlin.String? = null,
 
-        @JsonProperty("url") val url: String? = null,
+    @JsonProperty("url") val url: kotlin.String? = null,
 
-        @JsonProperty("features") val features: List<String>? = null,
+    @JsonProperty("features") val features: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("dimensions") val dimensions: List<Any>? = null,
+    @JsonProperty("dimensions") val dimensions: kotlin.collections.List<kotlin.Any>? = null,
 
-        @JsonProperty("images") val images: List<String>? = null,
+    @JsonProperty("images") val images: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("matched_items") val matchedItems: List<Any>? = null,
+    @JsonProperty("matched_items") val matchedItems: kotlin.collections.List<kotlin.Any>? = null,
 
-        @JsonProperty("iso_country_codes") val isoCountryCodes: List<String>? = null,
+    @JsonProperty("iso_country_codes") val isoCountryCodes: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("company_name") val companyName: String? = null,
+    @JsonProperty("company_name") val companyName: kotlin.String? = null,
 
-        @JsonProperty("company_address") val companyAddress: String? = null,
+    @JsonProperty("company_address") val companyAddress: kotlin.String? = null,
 
-        @JsonProperty("categories") val categories: List<String>? = null,
+    @JsonProperty("categories") val categories: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("category_hierarchies") val categoryHierarchies: List<String>? = null
+    @JsonProperty("category_hierarchies") val categoryHierarchies: kotlin.collections.List<kotlin.String>? = null
 ) {
 
 }

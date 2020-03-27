@@ -49,8 +49,8 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/openapi-android-client-1.0.0.jar
-* target/lib/*.jar
+- target/openapi-android-client-1.0.0.jar
+- target/lib/*.jar
 
 ## Getting Started
 
@@ -104,6 +104,7 @@ Authentication schemes defined for the API:
 ### ApiKeyAuth
 
 - **Type**: API key
+
 - **API key parameter name**: Authorization
 - **Location**: HTTP header
 

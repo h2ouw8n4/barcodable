@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**GetItemByUPC**](ProductLookupApi.md#getitembyupc) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-<a name="getitembyasin"></a>
-# **GetItemByASIN**
+
+## GetItemByASIN
+
 > Item GetItemByASIN (string asin)
 
 Find item by asin code
@@ -18,8 +19,9 @@ Find item by asin code
 Returns a single item
 
 ### Example
+
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
@@ -29,9 +31,10 @@ namespace Example
 {
     public class GetItemByASINExample
     {
-        public void main()
+        public static void Main()
         {
-            var apiInstance = new ProductLookupApi();
+            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0";
+            var apiInstance = new ProductLookupApi(Configuration.Default);
             var asin = asin_example;  // string | ASIN code of item to return
 
             try
@@ -40,9 +43,11 @@ namespace Example
                 Item result = apiInstance.GetItemByASIN(asin);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling ProductLookupApi.GetItemByASIN: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
@@ -50,6 +55,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -65,13 +71,24 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+| **400** | search results matching criteria |  -  |
+| **404** | search results matching criteria |  -  |
 
-<a name="getitembyean"></a>
-# **GetItemByEAN**
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetItemByEAN
+
 > Item GetItemByEAN (string ean)
 
 Find item by UPC code
@@ -79,8 +96,9 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
@@ -90,9 +108,10 @@ namespace Example
 {
     public class GetItemByEANExample
     {
-        public void main()
+        public static void Main()
         {
-            var apiInstance = new ProductLookupApi();
+            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0";
+            var apiInstance = new ProductLookupApi(Configuration.Default);
             var ean = ean_example;  // string | EAN code of item to return
 
             try
@@ -101,9 +120,11 @@ namespace Example
                 Item result = apiInstance.GetItemByEAN(ean);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling ProductLookupApi.GetItemByEAN: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
@@ -111,6 +132,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -126,13 +148,24 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+| **400** | search results matching criteria |  -  |
+| **404** | search results matching criteria |  -  |
 
-<a name="getitembyupc"></a>
-# **GetItemByUPC**
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetItemByUPC
+
 > Item GetItemByUPC (string upc)
 
 Find item by UPC code
@@ -140,8 +173,9 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
@@ -151,9 +185,10 @@ namespace Example
 {
     public class GetItemByUPCExample
     {
-        public void main()
+        public static void Main()
         {
-            var apiInstance = new ProductLookupApi();
+            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0";
+            var apiInstance = new ProductLookupApi(Configuration.Default);
             var upc = upc_example;  // string | UPC code of item to return
 
             try
@@ -162,9 +197,11 @@ namespace Example
                 Item result = apiInstance.GetItemByUPC(upc);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling ProductLookupApi.GetItemByUPC: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
@@ -172,6 +209,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -187,8 +225,18 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+| **400** | search results matching criteria |  -  |
+| **404** | search results matching criteria |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

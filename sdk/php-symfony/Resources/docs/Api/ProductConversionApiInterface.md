@@ -15,7 +15,7 @@ services:
     acme.my_bundle.api.productConversion:
         class: Acme\MyBundle\Api\ProductConversionApi
         tags:
-            - { name: "open_apiserver.api", api: "productConversion" }
+            - { name: "open_api_server.api", api: "productConversion" }
     # ...
 ```
 

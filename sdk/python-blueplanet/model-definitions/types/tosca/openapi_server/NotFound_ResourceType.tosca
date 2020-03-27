@@ -1,0 +1,40 @@
+"$schema"   = "http://cyaninc.com/json-schemas/tosca-lite-v1/definition-module#"
+title       = "openapi_server NotFound"
+package     = openapi_server
+version     = "1.0"
+description = "Defines a NotFound"
+authors     = ["F. Bar (foo@bar.baz)"]
+
+imports {
+  Root = tosca.resourceTypes.Root
+}
+resourceTypes {
+
+  NotFound {
+    title = NotFound
+    description = NotFound
+    derivedFrom = Root
+    properties {
+        message {
+          type =  string
+          description = ""
+          optional = false
+        }
+        status {
+          type =  integer
+          description = ""
+          optional = false
+        }
+    }
+  }
+}
+
+serviceTemplates {
+
+  NotFound {
+    title = NotFound
+    description = NotFound
+    implements = openapi_server.resourceTypes.NotFound
+
+  }
+}

@@ -3,36 +3,36 @@
 # Do not edit the class manually.
 
 # productConversion
-open_apiserver_productConversion_convertcode:
+open_api_server_productConversion_convertcode:
     path:     /api/v1/convert/{upc | ean | asin}
     methods:  [GET]
     defaults:
-        _controller: open_apiserver.controller.productConversion:convertCodeAction
+        _controller: open_api_server.controller.productConversion:convertCodeAction
     requirements:
         upcEanAsin: '[a-z0-9]+'
 
 # productLookup
-open_apiserver_productLookup_getitembyasin:
+open_api_server_productLookup_getitembyasin:
     path:     /api/v1/asin/{asin}
     methods:  [GET]
     defaults:
-        _controller: open_apiserver.controller.productLookup:getItemByASINAction
+        _controller: open_api_server.controller.productLookup:getItemByASINAction
     requirements:
         asin: '[a-z0-9]+'
 
-open_apiserver_productLookup_getitembyean:
+open_api_server_productLookup_getitembyean:
     path:     /api/v1/ean/{ean}
     methods:  [GET]
     defaults:
-        _controller: open_apiserver.controller.productLookup:getItemByEANAction
+        _controller: open_api_server.controller.productLookup:getItemByEANAction
     requirements:
         ean: '[a-z0-9]+'
 
-open_apiserver_productLookup_getitembyupc:
+open_api_server_productLookup_getitembyupc:
     path:     /api/v1/upc/{upc}
     methods:  [GET]
     defaults:
-        _controller: open_apiserver.controller.productLookup:getItemByUPCAction
+        _controller: open_api_server.controller.productLookup:getItemByUPCAction
     requirements:
         upc: '[a-z0-9]+'
 

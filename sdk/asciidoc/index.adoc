@@ -1,0 +1,687 @@
+= Barcodable.com API
+support@barcodable.com
+1.5.0
+:toc: left
+:numbered:
+:toclevels: 3
+:source-highlighter: highlightjs
+:keywords: openapi, rest, Barcodable.com API 
+:specDir: 
+:snippetDir: 
+:generator-template: v1 2019-12-20
+:info-url: https://openapi-generator.tech
+:app-name: Barcodable.com API
+
+[abstract]
+.Abstract
+Barcodable.com API
+
+
+// markup not found, no include::{specDir}intro.adoc[opts=optional]
+
+
+== Access
+
+
+* *APIKey* KeyParamName:     _Authorization_,     KeyInQuery: _false_, KeyInHeader: _true_
+
+
+== Endpoints
+
+
+[.ProductConversion]
+=== ProductConversion
+
+
+[.convertCode]
+==== convertCode
+    
+`GET /api/v1/convert/{upc | ean | asin}`
+
+Convert between UPC, EAN, and ASIN product codes.
+
+===== Description 
+
+Returns the converted UPC, EAN, and ASIN codes.
+
+
+// markup not found, no include::{specDir}api/v1/convert/\{upc | ean | asin\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| upc | ean | asin 
+| UPC, EAN, or ASIN  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+
+
+===== Return Type
+
+<<inline_response_200>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| successful operation
+|  <<inline_response_200>>
+
+
+| 400
+| search results matching criteria
+|  <<inline_response_400>>
+
+|===         
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}api/v1/convert/\{upc | ean | asin\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}api/v1/convert/\{upc | ean | asin\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :api/v1/convert/{upc | ean | asin}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}api/v1/convert/\{upc | ean | asin\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.ProductLookup]
+=== ProductLookup
+
+
+[.getItemByASIN]
+==== getItemByASIN
+    
+`GET /api/v1/asin/{asin}`
+
+Find item by asin code
+
+===== Description 
+
+Returns a single item
+
+
+// markup not found, no include::{specDir}api/v1/asin/\{asin\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| asin 
+| ASIN code of item to return  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+
+
+===== Return Type
+
+<<item>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| successful operation
+|  <<item>>
+
+
+| 400
+| search results matching criteria
+|  <<invalid_code>>
+
+
+| 404
+| search results matching criteria
+|  <<not_found>>
+
+|===         
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}api/v1/asin/\{asin\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}api/v1/asin/\{asin\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :api/v1/asin/{asin}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}api/v1/asin/\{asin\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getItemByEAN]
+==== getItemByEAN
+    
+`GET /api/v1/ean/{ean}`
+
+Find item by UPC code
+
+===== Description 
+
+Returns a single item
+
+
+// markup not found, no include::{specDir}api/v1/ean/\{ean\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| ean 
+| EAN code of item to return  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+
+
+===== Return Type
+
+<<item>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| successful operation
+|  <<item>>
+
+
+| 400
+| search results matching criteria
+|  <<invalid_code>>
+
+
+| 404
+| search results matching criteria
+|  <<not_found>>
+
+|===         
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}api/v1/ean/\{ean\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}api/v1/ean/\{ean\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :api/v1/ean/{ean}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}api/v1/ean/\{ean\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getItemByUPC]
+==== getItemByUPC
+    
+`GET /api/v1/upc/{upc}`
+
+Find item by UPC code
+
+===== Description 
+
+Returns a single item
+
+
+// markup not found, no include::{specDir}api/v1/upc/\{upc\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| upc 
+| UPC code of item to return  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+
+
+===== Return Type
+
+<<item>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| successful operation
+|  <<item>>
+
+
+| 400
+| search results matching criteria
+|  <<invalid_code>>
+
+
+| 404
+| search results matching criteria
+|  <<not_found>>
+
+|===         
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}api/v1/upc/\{upc\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}api/v1/upc/\{upc\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :api/v1/upc/{upc}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}api/v1/upc/\{upc\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[#models]
+== Models
+
+
+[#InlineResponse200]
+=== _InlineResponse200_ 
+
+
+
+[.fields-InlineResponse200]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| upcs 
+|  
+| List  of <<string>> 
+| A list of UPCs
+|  
+
+| eans 
+|  
+| List  of <<string>> 
+| A list of EANs
+|  
+
+| asins 
+|  
+| List  of <<string>> 
+| A list of ASINs
+|  
+
+| message 
+|  
+| String  
+| 
+|  
+
+|===
+
+
+[#InlineResponse400]
+=== _InlineResponse400_ 
+
+
+
+[.fields-InlineResponse400]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| message 
+|  
+| String  
+| 
+|  
+
+| status 
+|  
+| Integer  
+| 
+|  
+
+|===
+
+
+[#InvalidCode]
+=== _InvalidCode_ 
+
+
+
+[.fields-InvalidCode]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| message 
+|  
+| String  
+| 
+|  
+
+| status 
+|  
+| Integer  
+| 
+|  
+
+|===
+
+
+[#Item]
+=== _Item_ 
+
+
+
+[.fields-Item]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| upc 
+|  
+| String  
+| 
+|  
+
+| ean 
+|  
+| String  
+| 
+|  
+
+| isbn 
+|  
+| String  
+| 
+|  
+
+| asin 
+|  
+| String  
+| 
+|  
+
+| title 
+|  
+| String  
+| 
+|  
+
+| sku 
+|  
+| String  
+| 
+|  
+
+| mpn 
+|  
+| String  
+| 
+|  
+
+| part_number 
+|  
+| String  
+| 
+|  
+
+| upcs 
+|  
+| List  of <<string>> 
+| A list of matching upc codes.
+|  
+
+| description 
+|  
+| String  
+| 
+|  
+
+| brand 
+|  
+| String  
+| 
+|  
+
+| manufacturer 
+|  
+| String  
+| 
+|  
+
+| color 
+|  
+| String  
+| 
+|  
+
+| new_price 
+|  
+| BigDecimal  
+| 
+|  
+
+| used_price 
+|  
+| BigDecimal  
+| 
+|  
+
+| currency_code 
+|  
+| String  
+| 
+|  
+
+| url 
+|  
+| String  
+| 
+|  
+
+| features 
+|  
+| List  of <<string>> 
+| A list of product feature descriptions.
+|  
+
+| dimensions 
+|  
+| List  of <<object>> 
+| Product dimensions and weight.  (&#39;meters&#39;, &#39;centimeters&#39;, &#39;millimeters&#39;, &#39;inches&#39;, &#39;feet&#39;, &#39;yards&#39;, &#39;ounces&#39;, &#39;pounds&#39;, &#39;grams&#39;, &#39;milligrams&#39;, &#39;kilograms&#39;)
+|  
+
+| images 
+|  
+| List  of <<string>> 
+| A list product images.
+|  
+
+| matched_items 
+|  
+| List  of <<object>> 
+| Matched items for this product.
+|  
+
+| iso_country_codes 
+|  
+| List  of <<string>> 
+| A list of country codes from which this item belongs.
+|  
+
+| company_name 
+|  
+| String  
+| The company name registered to the product&#39;s UPC or EAN.
+|  
+
+| company_address 
+|  
+| String  
+| The company address registered to the product&#39;s UPC or EAN.
+|  
+
+| categories 
+|  
+| List  of <<string>> 
+| A list of categories for this product.
+|  
+
+| category_hierarchies 
+|  
+| List  of <<string>> 
+| A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category.
+|  
+
+|===
+
+
+[#NotFound]
+=== _NotFound_ 
+
+
+
+[.fields-NotFound]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| message 
+|  
+| String  
+| 
+|  
+
+| status 
+|  
+| Integer  
+| 
+|  
+
+|===
+
+

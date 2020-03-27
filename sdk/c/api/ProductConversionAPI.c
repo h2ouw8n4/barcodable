@@ -11,12 +11,14 @@
     snprintf(dst, 256, "%ld", (long int)(src));\
 }while(0)
 
+
 // Convert between UPC, EAN, and ASIN product codes.
 //
 // Returns the converted UPC, EAN, and ASIN codes.
 //
 inline_response_200_t*
-ProductConversionAPI_convertCode(apiClient_t *apiClient, char* upc | ean | asin) {
+ProductConversionAPI_convertCode(apiClient_t *apiClient, char * upc | ean | asin )
+{
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
     list_t    *localVarFormParameters = NULL;
@@ -32,14 +34,15 @@ ProductConversionAPI_convertCode(apiClient_t *apiClient, char* upc | ean | asin)
 
     // Path Params
     long sizeOfPathParams_upc | ean | asin = strlen(upc | ean | asin)+3 + strlen("{ upc | ean | asin }");
-
     if(upc | ean | asin == NULL) {
         goto end;
     }
     char* localVarToReplace_upc | ean | asin = malloc(sizeOfPathParams_upc | ean | asin);
-    sprintf(localVarToReplace_upc | ean | asin, "%s%s%s", "{", "upc | ean | asin", "}");
+    sprintf(localVarToReplace_upc | ean | asin, "{%s}", "upc | ean | asin");
 
     localVarPath = strReplace(localVarPath, localVarToReplace_upc | ean | asin, upc | ean | asin);
+
+
     list_addElement(localVarHeaderType,"application/json"); //produces
     apiClient_invoke(apiClient,
                     localVarPath,
@@ -58,7 +61,9 @@ ProductConversionAPI_convertCode(apiClient_t *apiClient, char* upc | ean | asin)
         printf("%s\n","search results matching criteria");
     }
     //nonprimitive not container
-    inline_response_200_t *elementToReturn = inline_response_200_parseFromJSON(apiClient->dataReceived);
+    cJSON *ProductConversionAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
+    inline_response_200_t *elementToReturn = inline_response_200_parseFromJSON(ProductConversionAPIlocalVarJSON);
+    cJSON_Delete(ProductConversionAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
     }

@@ -19,7 +19,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJerseyServerCodegen", date = "2019-03-04T22:39:07.141Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJerseyServerCodegen", date = "2020-03-27T18:10:13.410-04:00[America/New_York]")
 public abstract class ApiApiService {
     public abstract Response convertCode(String upcEanAsin,SecurityContext securityContext) throws NotFoundException;
     public abstract Response getItemByASIN(String asin,SecurityContext securityContext) throws NotFoundException;

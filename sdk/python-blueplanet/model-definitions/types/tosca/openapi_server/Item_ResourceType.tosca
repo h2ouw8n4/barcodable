@@ -1,0 +1,168 @@
+"$schema"   = "http://cyaninc.com/json-schemas/tosca-lite-v1/definition-module#"
+title       = "openapi_server Item"
+package     = openapi_server
+version     = "1.0"
+description = "Defines a Item"
+authors     = ["F. Bar (foo@bar.baz)"]
+
+imports {
+  Root = tosca.resourceTypes.Root
+}
+resourceTypes {
+
+  Item {
+    title = Item
+    description = Item
+    derivedFrom = Root
+    properties {
+        upc {
+          type =  string
+          description = ""
+          optional = false
+        }
+        ean {
+          type =  string
+          description = ""
+          optional = false
+        }
+        isbn {
+          type =  string
+          description = ""
+          optional = false
+        }
+        asin {
+          type =  string
+          description = ""
+          optional = false
+        }
+        title {
+          type =  string
+          description = ""
+          optional = false
+        }
+        sku {
+          type =  string
+          description = ""
+          optional = false
+        }
+        mpn {
+          type =  string
+          description = ""
+          optional = false
+        }
+        part_number {
+          type =  string
+          description = ""
+          optional = false
+        }
+        upcs {
+          type = array
+          items.type =  string
+          description = "A list of matching upc codes."
+          optional = false
+        }
+        description {
+          type =  string
+          description = ""
+          optional = false
+        }
+        brand {
+          type =  string
+          description = ""
+          optional = false
+        }
+        manufacturer {
+          type =  string
+          description = ""
+          optional = false
+        }
+        color {
+          type =  string
+          description = ""
+          optional = false
+        }
+        new_price {
+          type =  
+          description = ""
+          optional = false
+        }
+        used_price {
+          type =  
+          description = ""
+          optional = false
+        }
+        currency_code {
+          type =  string
+          description = ""
+          optional = false
+        }
+        url {
+          type =  string
+          description = ""
+          optional = false
+        }
+        features {
+          type = array
+          items.type =  string
+          description = "A list of product feature descriptions."
+          optional = false
+        }
+        dimensions {
+          type = array
+          items.type = object
+          description = "Product dimensions and weight.  (&#39;meters&#39;, &#39;centimeters&#39;, &#39;millimeters&#39;, &#39;inches&#39;, &#39;feet&#39;, &#39;yards&#39;, &#39;ounces&#39;, &#39;pounds&#39;, &#39;grams&#39;, &#39;milligrams&#39;, &#39;kilograms&#39;)"
+          optional = false
+        }
+        images {
+          type = array
+          items.type =  string
+          description = "A list product images."
+          optional = false
+        }
+        matched_items {
+          type = array
+          items.type = object
+          description = "Matched items for this product."
+          optional = false
+        }
+        iso_country_codes {
+          type = array
+          items.type =  string
+          description = "A list of country codes from which this item belongs."
+          optional = false
+        }
+        company_name {
+          type =  string
+          description = "The company name registered to the product&#39;s UPC or EAN."
+          optional = false
+        }
+        company_address {
+          type =  string
+          description = "The company address registered to the product&#39;s UPC or EAN."
+          optional = false
+        }
+        categories {
+          type = array
+          items.type =  string
+          description = "A list of categories for this product."
+          optional = false
+        }
+        category_hierarchies {
+          type = array
+          items.type =  string
+          description = "A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category."
+          optional = false
+        }
+    }
+  }
+}
+
+serviceTemplates {
+
+  Item {
+    title = Item
+    description = Item
+    implements = openapi_server.resourceTypes.Item
+
+  }
+}

@@ -7,9 +7,9 @@ extern crate futures;
 #[macro_use]
 extern crate swagger;
 #[allow(unused_extern_crates)]
-extern crate uuid;
 extern crate clap;
 extern crate tokio_core;
+extern crate uuid;
 
 use swagger::{ContextBuilder, EmptyContext, XSpanIdString, Has, Push, AuthData};
 
@@ -77,22 +77,22 @@ fn main() {
 
         Some("ConvertCode") => {
             let result = core.run(client.convert_code("upc___ean___asin_example".to_string()));
-            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &Has<XSpanIdString>).get().clone());
+            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &dyn Has<XSpanIdString>).get().clone());
          },
 
         Some("GetItemByASIN") => {
             let result = core.run(client.get_item_by_asin("asin_example".to_string()));
-            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &Has<XSpanIdString>).get().clone());
+            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &dyn Has<XSpanIdString>).get().clone());
          },
 
         Some("GetItemByEAN") => {
             let result = core.run(client.get_item_by_ean("ean_example".to_string()));
-            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &Has<XSpanIdString>).get().clone());
+            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &dyn Has<XSpanIdString>).get().clone());
          },
 
         Some("GetItemByUPC") => {
             let result = core.run(client.get_item_by_upc("upc_example".to_string()));
-            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &Has<XSpanIdString>).get().clone());
+            println!("{:?} (X-Span-ID: {:?})", result, (client.context() as &dyn Has<XSpanIdString>).get().clone());
          },
 
         _ => {

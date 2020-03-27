@@ -14,35 +14,40 @@ class InlineResponse400 {
 
   InlineResponse400.fromJson(Map<String, dynamic> json) {
     if (json == null) return;
-    if (json['message'] == null) {
-      message = null;
-    } else {
-          message = json['message'];
-    }
-    if (json['status'] == null) {
-      status = null;
-    } else {
-          status = json['status'];
-    }
+    message = json['message'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'message': message,
-      'status': status
-    };
+    Map <String, dynamic> json = {};
+    if (message != null)
+      json['message'] = message;
+    if (status != null)
+      json['status'] = status;
+    return json;
   }
 
   static List<InlineResponse400> listFromJson(List<dynamic> json) {
-    return json == null ? new List<InlineResponse400>() : json.map((value) => new InlineResponse400.fromJson(value)).toList();
+    return json == null ? List<InlineResponse400>() : json.map((value) => InlineResponse400.fromJson(value)).toList();
   }
 
   static Map<String, InlineResponse400> mapFromJson(Map<String, dynamic> json) {
-    var map = new Map<String, InlineResponse400>();
-    if (json != null && json.length > 0) {
-      json.forEach((String key, dynamic value) => map[key] = new InlineResponse400.fromJson(value));
+    var map = Map<String, InlineResponse400>();
+    if (json != null && json.isNotEmpty) {
+      json.forEach((String key, dynamic value) => map[key] = InlineResponse400.fromJson(value));
     }
     return map;
+  }
+
+  // maps a json object with a list of InlineResponse400-objects as value to a dart map
+  static Map<String, List<InlineResponse400>> mapListFromJson(Map<String, dynamic> json) {
+    var map = Map<String, List<InlineResponse400>>();
+     if (json != null && json.isNotEmpty) {
+       json.forEach((String key, dynamic value) {
+         map[key] = InlineResponse400.listFromJson(value);
+       });
+     }
+     return map;
   }
 }
 

@@ -7,18 +7,21 @@ Method | HTTP request | Description
 [**convertCode**](ProductConversionApi.md#convertCode) | **GET** /api/v1/convert/{upc | ean | asin} | Convert between UPC, EAN, and ASIN product codes.
 
 
-## **convertCode**
+
+## convertCode
 
 Convert between UPC, EAN, and ASIN product codes.
 
 Returns the converted UPC, EAN, and ASIN codes.
 
 ### Example
+
 ```bash
  convertCode upc | ean | asin=value
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -34,8 +37,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not Applicable
- - **Accept**: application/json
+- **Content-Type**: Not Applicable
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

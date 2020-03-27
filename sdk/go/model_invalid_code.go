@@ -9,7 +9,7 @@
  */
 
 package openapi
-
+// InvalidCode struct for InvalidCode
 type InvalidCode struct {
 	Message string `json:"message,omitempty"`
 	Status int32 `json:"status,omitempty"`

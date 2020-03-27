@@ -355,6 +355,9 @@ Item::fromJson(char* jsonStr)
 			jsonToValue(&new_price, node, "long long", "");
 		} else {
 			
+			long long* obj = static_cast<long long*> (&new_price);
+			obj->fromJson(json_to_string(node, false));
+			
 		}
 	}
 	const gchar *used_priceKey = "used_price";
@@ -365,6 +368,9 @@ Item::fromJson(char* jsonStr)
 		if (isprimitive("long long")) {
 			jsonToValue(&used_price, node, "long long", "");
 		} else {
+			
+			long long* obj = static_cast<long long*> (&used_price);
+			obj->fromJson(json_to_string(node, false));
 			
 		}
 	}
@@ -711,6 +717,11 @@ Item::toJson()
 	}
 	else {
 		
+		long long obj = static_cast<long long> (getNewPrice());
+		GError *mygerror;
+		mygerror = NULL;
+		node = json_from_string(obj.toJson(), &mygerror);
+		
 	}
 	const gchar *new_priceKey = "new_price";
 	json_object_set_member(pJsonObject, new_priceKey, node);
@@ -719,6 +730,11 @@ Item::toJson()
 		node = converttoJson(&obj, "long long", "");
 	}
 	else {
+		
+		long long obj = static_cast<long long> (getUsedPrice());
+		GError *mygerror;
+		mygerror = NULL;
+		node = json_from_string(obj.toJson(), &mygerror);
 		
 	}
 	const gchar *used_priceKey = "used_price";

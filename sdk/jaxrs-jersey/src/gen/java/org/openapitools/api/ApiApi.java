@@ -34,7 +34,7 @@ import javax.validation.Valid;
 
 
 @io.swagger.annotations.Api(description = "the api API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJerseyServerCodegen", date = "2019-03-04T22:39:07.141Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJerseyServerCodegen", date = "2020-03-27T18:10:13.410-04:00[America/New_York]")
 public class ApiApi  {
    private final ApiApiService delegate;
 
@@ -68,10 +68,10 @@ public class ApiApi  {
         @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = InlineResponse200.class),
         
         @io.swagger.annotations.ApiResponse(code = 400, message = "search results matching criteria", response = InlineResponse400.class) })
-    public Response convertCode(@ApiParam(value = "UPC, EAN, or ASIN",required=true) @PathParam("upc | ean | asin") String upcEanAsin
+    public Response convertCode(@ApiParam(value = "UPC, EAN, or ASIN", required = true) @PathParam("upc | ean | asin") @NotNull  String upcEanAsin
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.convertCode(upcEanAsin,securityContext);
+        return delegate.convertCode(upcEanAsin, securityContext);
     }
     @GET
     @Path("/v1/asin/{asin}")
@@ -84,10 +84,10 @@ public class ApiApi  {
         @io.swagger.annotations.ApiResponse(code = 400, message = "search results matching criteria", response = InvalidCode.class),
         
         @io.swagger.annotations.ApiResponse(code = 404, message = "search results matching criteria", response = NotFound.class) })
-    public Response getItemByASIN(@ApiParam(value = "ASIN code of item to return",required=true) @PathParam("asin") String asin
+    public Response getItemByASIN(@ApiParam(value = "ASIN code of item to return", required = true) @PathParam("asin") @NotNull  String asin
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getItemByASIN(asin,securityContext);
+        return delegate.getItemByASIN(asin, securityContext);
     }
     @GET
     @Path("/v1/ean/{ean}")
@@ -100,10 +100,10 @@ public class ApiApi  {
         @io.swagger.annotations.ApiResponse(code = 400, message = "search results matching criteria", response = InvalidCode.class),
         
         @io.swagger.annotations.ApiResponse(code = 404, message = "search results matching criteria", response = NotFound.class) })
-    public Response getItemByEAN(@ApiParam(value = "EAN code of item to return",required=true) @PathParam("ean") String ean
+    public Response getItemByEAN(@ApiParam(value = "EAN code of item to return", required = true) @PathParam("ean") @NotNull  String ean
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getItemByEAN(ean,securityContext);
+        return delegate.getItemByEAN(ean, securityContext);
     }
     @GET
     @Path("/v1/upc/{upc}")
@@ -116,9 +116,9 @@ public class ApiApi  {
         @io.swagger.annotations.ApiResponse(code = 400, message = "search results matching criteria", response = InvalidCode.class),
         
         @io.swagger.annotations.ApiResponse(code = 404, message = "search results matching criteria", response = NotFound.class) })
-    public Response getItemByUPC(@ApiParam(value = "UPC code of item to return",required=true) @PathParam("upc") String upc
+    public Response getItemByUPC(@ApiParam(value = "UPC code of item to return", required = true) @PathParam("upc") @NotNull  String upc
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getItemByUPC(upc,securityContext);
+        return delegate.getItemByUPC(upc, securityContext);
     }
 }

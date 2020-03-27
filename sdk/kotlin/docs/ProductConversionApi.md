@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="convertCode"></a>
 # **convertCode**
-> InlineResponse200 convertCode(upcEanAsin)
+> InlineResponse200 convertCode(upcPipeEanPipeAsin)
 
 Convert between UPC, EAN, and ASIN product codes.
 
@@ -22,9 +22,9 @@ Returns the converted UPC, EAN, and ASIN codes.
 //import org.openapitools.client.models.*
 
 val apiInstance = ProductConversionApi()
-val upcEanAsin : kotlin.String = upcEanAsin_example // kotlin.String | UPC, EAN, or ASIN
+val upcPipeEanPipeAsin : kotlin.String = upcPipeEanPipeAsin_example // kotlin.String | UPC, EAN, or ASIN
 try {
-    val result : InlineResponse200 = apiInstance.convertCode(upcEanAsin)
+    val result : InlineResponse200 = apiInstance.convertCode(upcPipeEanPipeAsin)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ProductConversionApi#convertCode")
@@ -39,7 +39,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **upcEanAsin** | **kotlin.String**| UPC, EAN, or ASIN | [default to null]
+ **upcPipeEanPipeAsin** | **kotlin.String**| UPC, EAN, or ASIN |
 
 ### Return type
 

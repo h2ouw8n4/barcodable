@@ -14,21 +14,20 @@
 
 
 
-
 typedef struct inline_response_400_t {
-        char *message; //no enum string
-        int status; //numeric
+    char *message; // string
+    int status; //numeric
 
 } inline_response_400_t;
 
 inline_response_400_t *inline_response_400_create(
-        char *message,
-        int status
+    char *message,
+    int status
 );
 
 void inline_response_400_free(inline_response_400_t *inline_response_400);
 
-inline_response_400_t *inline_response_400_parseFromJSON(char *jsonString);
+inline_response_400_t *inline_response_400_parseFromJSON(cJSON *inline_response_400JSON);
 
 cJSON *inline_response_400_convertToJSON(inline_response_400_t *inline_response_400);
 

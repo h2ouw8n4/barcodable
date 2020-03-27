@@ -9,7 +9,7 @@ using Sharpility.Base;
 using Sharpility.Extensions;
 using Sharpility.Util;
 
-namespace Org.OpenAPITools.magicCashewbarcodable1_0_0.Utils
+namespace Org.OpenAPITools._magicCashew_barcodable_1_0_0.Utils
 {
     internal static class Parameters
     {

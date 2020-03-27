@@ -1,13 +1,14 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
+
 part 'not_found.jser.dart';
 
 class NotFound {
   
-  @Alias('message')
+  @Alias('message', isNullable: false,  )
   final String message;
   
-  @Alias('status')
+  @Alias('status', isNullable: false,  )
   final int status;
   
 
@@ -31,3 +32,4 @@ class NotFound {
 class NotFoundSerializer extends Serializer<NotFound> with _$NotFoundSerializer {
 
 }
+

@@ -19,7 +19,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSCXFCDIServerCodegen", date = "2019-03-04T22:39:04.582Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSCXFCDIServerCodegen", date = "2020-03-27T18:10:12.020-04:00[America/New_York]")
 public interface ApiApiService {
       public Response convertCode(String upcEanAsin, SecurityContext securityContext);
       public Response getItemByASIN(String asin, SecurityContext securityContext);

@@ -2,7 +2,7 @@
 
 Barcodable.com API
 - API version: 1.5.0
-  - Build date: 2019-03-04T22:38:44.329Z[Etc/UTC]
+  - Build date: 2020-03-27T18:09:57.026-04:00[America/New_York]
 
 Barcodable.com API
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.5.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.openapitools:openapi-java-client:1.0.0"
+compile "org.openapitools:openapi-java-client:1.5.0"
 ```
 
 ### Others
@@ -63,7 +63,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.0.0.jar`
+* `target/openapi-java-client-1.5.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -72,28 +72,31 @@ Please follow the [installation](#installation) instruction and execute the foll
 
 ```java
 
-import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
 import org.openapitools.client.api.ProductConversionApi;
 
-import java.io.File;
-import java.util.*;
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0");
 
-public class ProductConversionApiExample {
-
-    public static void main(String[] args) {
-        
-        ProductConversionApi apiInstance = new ProductConversionApi();
-        String upcEanAsin = "upcEanAsin_example"; // String | UPC, EAN, or ASIN
-        try {
-            InlineResponse200 result = apiInstance.convertCode(upcEanAsin);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ProductConversionApi#convertCode");
-            e.printStackTrace();
-        }
+    ProductConversionApi apiInstance = new ProductConversionApi(defaultClient);
+    String upcEanAsin = "upcEanAsin_example"; // String | UPC, EAN, or ASIN
+    try {
+      InlineResponse200 result = apiInstance.convertCode(upcEanAsin);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ProductConversionApi#convertCode");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
+  }
 }
 
 ```

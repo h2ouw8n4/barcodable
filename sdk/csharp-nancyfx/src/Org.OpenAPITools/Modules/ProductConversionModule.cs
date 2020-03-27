@@ -3,11 +3,11 @@ using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
 using Sharpility.Base;
-using Org.OpenAPITools.magicCashewbarcodable1_0_0.Models;
-using Org.OpenAPITools.magicCashewbarcodable1_0_0.Utils;
+using Org.OpenAPITools._magicCashew_barcodable_1_0_0.Models;
+using Org.OpenAPITools._magicCashew_barcodable_1_0_0.Utils;
 using NodaTime;
 
-namespace Org.OpenAPITools.magicCashewbarcodable1_0_0.Modules
+namespace Org.OpenAPITools._magicCashew_barcodable_1_0_0.Modules
 { 
 
     /// <summary>

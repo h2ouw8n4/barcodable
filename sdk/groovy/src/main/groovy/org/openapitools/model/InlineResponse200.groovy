@@ -10,13 +10,10 @@ import java.util.List;
 class InlineResponse200 {
     /* A list of UPCs */
     List<String> upcs = new ArrayList<String>()
-
     /* A list of EANs */
     List<String> eans = new ArrayList<String>()
-
     /* A list of ASINs */
     List<String> asins = new ArrayList<String>()
-
-    String message = 
-
+    
+    String message
 }

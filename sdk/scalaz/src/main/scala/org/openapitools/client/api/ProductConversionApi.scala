@@ -21,6 +21,9 @@ import scalaz.concurrent.Task
 
 import HelperCodecs._
 
+import org.openapitools.client.api.InlineResponse200
+import org.openapitools.client.api.InlineResponse400
+
 object ProductConversionApi {
 
   val client = PooledHttp1Client()

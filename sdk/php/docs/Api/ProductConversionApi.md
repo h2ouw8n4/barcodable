@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**convertCode**](ProductConversionApi.md#convertCode) | **GET** /api/v1/convert/{upc | ean | asin} | Convert between UPC, EAN, and ASIN product codes.
 
 
-# **convertCode**
+
+## convertCode
+
 > \OpenAPI\Client\Model\InlineResponse200 convertCode($upc___ean___asin)
 
 Convert between UPC, EAN, and ASIN product codes.
@@ -15,6 +17,7 @@ Convert between UPC, EAN, and ASIN product codes.
 Returns the converted UPC, EAN, and ASIN codes.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -38,6 +41,7 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **upc___ean___asin** | **string**| UPC, EAN, or ASIN |
@@ -52,8 +56,10 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)
 

@@ -1,0 +1,37 @@
+{
+  "namespace": "model",
+  "type": "record",
+  "doc": "",
+  "name": "InlineResponse200",
+  "fields": [
+    {
+      "name": "upcs",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of UPCs"
+    },
+    {
+      "name": "eans",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of EANs"
+    },
+    {
+      "name": "asins",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of ASINs"
+    },
+    {
+      "name": "message",
+      "type": ["null", "string"],
+      "doc": ""
+    }
+  ]
+}

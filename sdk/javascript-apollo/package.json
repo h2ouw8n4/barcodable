@@ -1,0 +1,24 @@
+{
+  "name": "barcodable_com_api",
+  "version": "1.5.0",
+  "description": "Barcodable_com_API",
+  "license": "Apache 2.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha --require @babel/register --recursive"
+  },
+  "browser": {
+    "fs": false
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.7.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.0"
+  },
+  "files": [
+    "src"
+  ]
+}

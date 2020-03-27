@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-03-27T18:10:17.418-04:00[America/New_York]")
 public class NotFound   {
   
   private @Valid String message;
@@ -62,8 +63,8 @@ public class NotFound   {
       return false;
     }
     NotFound notFound = (NotFound) o;
-    return Objects.equals(message, notFound.message) &&
-        Objects.equals(status, notFound.status);
+    return Objects.equals(this.message, notFound.message) &&
+        Objects.equals(this.status, notFound.status);
   }
 
   @Override

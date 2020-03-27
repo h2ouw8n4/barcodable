@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-03-27T18:10:17.418-04:00[America/New_York]")
 public class Item   {
   
   private @Valid String upc;
@@ -507,32 +508,32 @@ public class Item   {
       return false;
     }
     Item item = (Item) o;
-    return Objects.equals(upc, item.upc) &&
-        Objects.equals(ean, item.ean) &&
-        Objects.equals(isbn, item.isbn) &&
-        Objects.equals(asin, item.asin) &&
-        Objects.equals(title, item.title) &&
-        Objects.equals(sku, item.sku) &&
-        Objects.equals(mpn, item.mpn) &&
-        Objects.equals(partNumber, item.partNumber) &&
-        Objects.equals(upcs, item.upcs) &&
-        Objects.equals(description, item.description) &&
-        Objects.equals(brand, item.brand) &&
-        Objects.equals(manufacturer, item.manufacturer) &&
-        Objects.equals(color, item.color) &&
-        Objects.equals(newPrice, item.newPrice) &&
-        Objects.equals(usedPrice, item.usedPrice) &&
-        Objects.equals(currencyCode, item.currencyCode) &&
-        Objects.equals(url, item.url) &&
-        Objects.equals(features, item.features) &&
-        Objects.equals(dimensions, item.dimensions) &&
-        Objects.equals(images, item.images) &&
-        Objects.equals(matchedItems, item.matchedItems) &&
-        Objects.equals(isoCountryCodes, item.isoCountryCodes) &&
-        Objects.equals(companyName, item.companyName) &&
-        Objects.equals(companyAddress, item.companyAddress) &&
-        Objects.equals(categories, item.categories) &&
-        Objects.equals(categoryHierarchies, item.categoryHierarchies);
+    return Objects.equals(this.upc, item.upc) &&
+        Objects.equals(this.ean, item.ean) &&
+        Objects.equals(this.isbn, item.isbn) &&
+        Objects.equals(this.asin, item.asin) &&
+        Objects.equals(this.title, item.title) &&
+        Objects.equals(this.sku, item.sku) &&
+        Objects.equals(this.mpn, item.mpn) &&
+        Objects.equals(this.partNumber, item.partNumber) &&
+        Objects.equals(this.upcs, item.upcs) &&
+        Objects.equals(this.description, item.description) &&
+        Objects.equals(this.brand, item.brand) &&
+        Objects.equals(this.manufacturer, item.manufacturer) &&
+        Objects.equals(this.color, item.color) &&
+        Objects.equals(this.newPrice, item.newPrice) &&
+        Objects.equals(this.usedPrice, item.usedPrice) &&
+        Objects.equals(this.currencyCode, item.currencyCode) &&
+        Objects.equals(this.url, item.url) &&
+        Objects.equals(this.features, item.features) &&
+        Objects.equals(this.dimensions, item.dimensions) &&
+        Objects.equals(this.images, item.images) &&
+        Objects.equals(this.matchedItems, item.matchedItems) &&
+        Objects.equals(this.isoCountryCodes, item.isoCountryCodes) &&
+        Objects.equals(this.companyName, item.companyName) &&
+        Objects.equals(this.companyAddress, item.companyAddress) &&
+        Objects.equals(this.categories, item.categories) &&
+        Objects.equals(this.categoryHierarchies, item.categoryHierarchies);
   }
 
   @Override

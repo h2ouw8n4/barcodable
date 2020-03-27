@@ -1,6 +1,7 @@
 # NotFound
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | **string** |  | [optional] 

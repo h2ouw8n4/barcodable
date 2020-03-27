@@ -8,8 +8,8 @@
 import Foundation
 
 
+public struct Item: Codable { 
 
-public struct Item: Codable {
 
     public var upc: String?
     public var ean: String?
@@ -21,7 +21,7 @@ public struct Item: Codable {
     public var partNumber: String?
     /** A list of matching upc codes. */
     public var upcs: [String]?
-    public var _description: String?
+    public var description: String?
     public var brand: String?
     public var manufacturer: String?
     public var color: String?
@@ -48,7 +48,7 @@ public struct Item: Codable {
     /** A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. */
     public var categoryHierarchies: [String]?
 
-    public init(upc: String?, ean: String?, isbn: String?, asin: String?, title: String?, sku: String?, mpn: String?, partNumber: String?, upcs: [String]?, _description: String?, brand: String?, manufacturer: String?, color: String?, newPrice: Double?, usedPrice: Double?, currencyCode: String?, url: String?, features: [String]?, dimensions: [Any]?, images: [String]?, matchedItems: [Any]?, isoCountryCodes: [String]?, companyName: String?, companyAddress: String?, categories: [String]?, categoryHierarchies: [String]?) {
+    public init(upc: String?, ean: String?, isbn: String?, asin: String?, title: String?, sku: String?, mpn: String?, partNumber: String?, upcs: [String]?, description: String?, brand: String?, manufacturer: String?, color: String?, newPrice: Double?, usedPrice: Double?, currencyCode: String?, url: String?, features: [String]?, dimensions: [Any]?, images: [String]?, matchedItems: [Any]?, isoCountryCodes: [String]?, companyName: String?, companyAddress: String?, categories: [String]?, categoryHierarchies: [String]?) {
         self.upc = upc
         self.ean = ean
         self.isbn = isbn
@@ -58,7 +58,7 @@ public struct Item: Codable {
         self.mpn = mpn
         self.partNumber = partNumber
         self.upcs = upcs
-        self._description = _description
+        self.description = description
         self.brand = brand
         self.manufacturer = manufacturer
         self.color = color
@@ -87,7 +87,7 @@ public struct Item: Codable {
         case mpn
         case partNumber = "part_number"
         case upcs
-        case _description = "description"
+        case description
         case brand
         case manufacturer
         case color
@@ -106,6 +106,4 @@ public struct Item: Codable {
         case categoryHierarchies = "category_hierarchies"
     }
 
-
 }
-

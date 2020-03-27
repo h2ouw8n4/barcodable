@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-03-27T18:10:17.418-04:00[America/New_York]")
 public class InlineResponse200   {
   
   private @Valid List<String> upcs = new ArrayList<String>();
@@ -103,10 +104,10 @@ public class InlineResponse200   {
       return false;
     }
     InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(upcs, inlineResponse200.upcs) &&
-        Objects.equals(eans, inlineResponse200.eans) &&
-        Objects.equals(asins, inlineResponse200.asins) &&
-        Objects.equals(message, inlineResponse200.message);
+    return Objects.equals(this.upcs, inlineResponse200.upcs) &&
+        Objects.equals(this.eans, inlineResponse200.eans) &&
+        Objects.equals(this.asins, inlineResponse200.asins) &&
+        Objects.equals(this.message, inlineResponse200.message);
   }
 
   @Override

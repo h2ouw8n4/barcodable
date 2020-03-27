@@ -19,6 +19,7 @@ module Barcodable.com.API
   , Barcodable.comBackend(..)
   , createBarcodable.comClient
   , runBarcodable.comServer
+  , runBarcodable.comMiddlewareServer
   , runBarcodable.comClient
   , runBarcodable.comClientWithManager
   , callBarcodable.com
@@ -41,23 +42,27 @@ import           Data.Function                      ((&))
 import qualified Data.Map                           as Map
 import           Data.Monoid                        ((<>))
 import           Data.Proxy                         (Proxy (..))
+import           Data.Set                           (Set)
 import           Data.Text                          (Text)
 import qualified Data.Text                          as T
+import           Data.Time
 import           Data.UUID                          (UUID)
 import           GHC.Exts                           (IsString (..))
 import           GHC.Generics                       (Generic)
 import           Network.HTTP.Client                (Manager, newManager)
 import           Network.HTTP.Client.TLS            (tlsManagerSettings)
 import           Network.HTTP.Types.Method          (methodOptions)
+import           Network.Wai                        (Middleware)
 import qualified Network.Wai.Handler.Warp           as Warp
-import           Servant                            (ServantErr, serve)
+import           Servant                            (ServerError, serve)
 import           Servant.API
 import           Servant.API.Verbs                  (StdMethod (..), Verb)
-import           Servant.Client                     (ClientEnv, Scheme (Http), ServantError, client,
+import           Servant.Client                     (ClientEnv, Scheme (Http), ClientError, client,
                                                      mkClientEnv, parseBaseUrl)
 import           Servant.Client.Core                (baseUrlPort, baseUrlHost)
 import           Servant.Client.Internal.HttpClient (ClientM (..))
-import           Servant.Server                     (Handler (..))
+import           Servant.Server                     (Handler (..), Application)
+import           Servant.Server.StaticFiles         (serveDirectoryFileServer)
 import           Web.FormUrlEncoded
 import           Web.HttpApiData
 
@@ -120,6 +125,7 @@ type Barcodable.comAPI
     :<|> "api" :> "v1" :> "asin" :> Capture "asin" Text :> Verb 'GET 200 '[JSON] Item -- 'getItemByASIN' route
     :<|> "api" :> "v1" :> "ean" :> Capture "ean" Text :> Verb 'GET 200 '[JSON] Item -- 'getItemByEAN' route
     :<|> "api" :> "v1" :> "upc" :> Capture "upc" Text :> Verb 'GET 200 '[JSON] Item -- 'getItemByUPC' route
+    :<|> Raw 
 
 
 -- | Server or client configuration, specifying the host and port to query or serve on.
@@ -129,7 +135,7 @@ data Config = Config
 
 
 -- | Custom exception type for our errors.
-newtype Barcodable.comClientError = Barcodable.comClientError ServantError
+newtype Barcodable.comClientError = Barcodable.comClientError ClientError
   deriving (Show, Exception)
 -- | Configuration, specifying the full url of the service.
 
@@ -137,7 +143,7 @@ newtype Barcodable.comClientError = Barcodable.comClientError ServantError
 -- | Backend for Barcodable.com.
 -- The backend can be used both for the client and the server. The client generated from the Barcodable.com OpenAPI spec
 -- is a backend that executes actions by sending HTTP requests (see @createBarcodable.comClient@). Alternatively, provided
--- a backend, the API can be served using @runBarcodable.comServer@.
+-- a backend, the API can be served using @runBarcodable.comMiddlewareServer@.
 data Barcodable.comBackend m = Barcodable.comBackend
   { convertCode :: Text -> m InlineResponse200{- ^ Returns the converted UPC, EAN, and ASIN codes. -}
   , getItemByASIN :: Text -> m Item{- ^ Returns a single item -}
@@ -146,7 +152,7 @@ data Barcodable.comBackend m = Barcodable.comBackend
   }
 
 newtype Barcodable.comClient a = Barcodable.comClient
-  { runClient :: ClientEnv -> ExceptT ServantError IO a
+  { runClient :: ClientEnv -> ExceptT ClientError IO a
   } deriving Functor
 
 instance Applicative Barcodable.comClient where
@@ -169,16 +175,17 @@ createBarcodable.comClient = Barcodable.comBackend{..}
     ((coerce -> convertCode) :<|>
      (coerce -> getItemByASIN) :<|>
      (coerce -> getItemByEAN) :<|>
-     (coerce -> getItemByUPC)) = client (Proxy :: Proxy Barcodable.comAPI)
+     (coerce -> getItemByUPC) :<|>
+     _) = client (Proxy :: Proxy Barcodable.comAPI)
 
 -- | Run requests in the Barcodable.comClient monad.
-runBarcodable.comClient :: Config -> Barcodable.comClient a -> ExceptT ServantError IO a
+runBarcodable.comClient :: Config -> Barcodable.comClient a -> ExceptT ClientError IO a
 runBarcodable.comClient clientConfig cl = do
   manager <- liftIO $ newManager tlsManagerSettings
   runBarcodable.comClientWithManager manager clientConfig cl
 
 -- | Run requests in the Barcodable.comClient monad using a custom manager.
-runBarcodable.comClientWithManager :: Manager -> Config -> Barcodable.comClient a -> ExceptT ServantError IO a
+runBarcodable.comClientWithManager :: Manager -> Config -> Barcodable.comClient a -> ExceptT ClientError IO a
 runBarcodable.comClientWithManager manager Config{..} cl = do
   url <- parseBaseUrl configUrl
   runClient cl $ mkClientEnv manager url
@@ -194,19 +201,30 @@ callBarcodable.com env f = do
     Left err       -> throwM (Barcodable.comClientError err)
     Right response -> pure response
 
+
+requestMiddlewareId :: Application -> Application
+requestMiddlewareId a = a
+
 -- | Run the Barcodable.com server at the provided host and port.
 runBarcodable.comServer
   :: (MonadIO m, MonadThrow m)
-  => Config -> Barcodable.comBackend (ExceptT ServantErr IO) -> m ()
-runBarcodable.comServer Config{..} backend = do
+  => Config -> Barcodable.comBackend (ExceptT ServerError IO) -> m ()
+runBarcodable.comServer config backend = runBarcodable.comMiddlewareServer config requestMiddlewareId backend
+
+-- | Run the Barcodable.com server at the provided host and port.
+runBarcodable.comMiddlewareServer
+  :: (MonadIO m, MonadThrow m)
+  => Config -> Middleware -> Barcodable.comBackend (ExceptT ServerError IO) -> m ()
+runBarcodable.comMiddlewareServer Config{..} middleware backend = do
   url <- parseBaseUrl configUrl
   let warpSettings = Warp.defaultSettings
         & Warp.setPort (baseUrlPort url)
         & Warp.setHost (fromString $ baseUrlHost url)
-  liftIO $ Warp.runSettings warpSettings $ serve (Proxy :: Proxy Barcodable.comAPI) (serverFromBackend backend)
+  liftIO $ Warp.runSettings warpSettings $ middleware $ serve (Proxy :: Proxy Barcodable.comAPI) (serverFromBackend backend)
   where
     serverFromBackend Barcodable.comBackend{..} =
       (coerce convertCode :<|>
        coerce getItemByASIN :<|>
        coerce getItemByEAN :<|>
-       coerce getItemByUPC)
+       coerce getItemByUPC :<|>
+       serveDirectoryFileServer "static")

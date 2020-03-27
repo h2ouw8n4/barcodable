@@ -1,121 +1,119 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "title" : "Barcodable.com API",
-    "description" : "Barcodable.com API",
     "contact" : {
       "email" : "support@barcodable.com"
     },
+    "description" : "Barcodable.com API",
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
+    "title" : "Barcodable.com API",
     "version" : "1.5.0"
   },
   "servers" : [ {
-    "url" : "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0",
-    "description" : "SwaggerHub API Auto Mocking"
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0"
   }, {
-    "url" : "https://www.barcodable.com",
-    "description" : "Production Barcodable Server"
+    "description" : "Production Barcodable Server",
+    "url" : "https://www.barcodable.com"
   } ],
   "tags" : [ {
-    "name" : "Product Lookup",
-    "description" : "Product Lookup by UPC, EAN, ASIN"
+    "description" : "Product Lookup by UPC, EAN, ASIN",
+    "name" : "Product Lookup"
   }, {
-    "name" : "Product Conversion",
-    "description" : "Lookup by product ID's by UPC, EAN, ASIN"
+    "description" : "Lookup by product ID's by UPC, EAN, ASIN",
+    "name" : "Product Conversion"
   } ],
   "paths" : {
     "/api/v1/upc/{upc}" : {
       "get" : {
-        "tags" : [ "Product Lookup" ],
-        "summary" : "Find item by UPC code",
         "description" : "Returns a single item",
         "operationId" : "getItemByUPC",
         "parameters" : [ {
-          "name" : "upc",
-          "in" : "path",
           "description" : "UPC code of item to return",
-          "required" : true,
-          "style" : "simple",
           "explode" : false,
+          "in" : "path",
+          "name" : "upc",
+          "required" : true,
           "schema" : {
             "type" : "string"
-          }
+          },
+          "style" : "simple"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "headers" : {
-              "X-ValidAuthorization" : {
-                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "boolean"
-                }
-              },
-              "X-RateLimit-Limit" : {
-                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Remaining" : {
-                "description" : "An integer specifying the number of remaining requests per day.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Reset" : {
-                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string",
-                  "format" : "date-time"
-                }
-              }
-            },
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/item"
                 }
               }
+            },
+            "description" : "successful operation",
+            "headers" : {
+              "X-ValidAuthorization" : {
+                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "boolean"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Limit" : {
+                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Remaining" : {
+                "description" : "An integer specifying the number of remaining requests per day.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Reset" : {
+                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+                "explode" : false,
+                "schema" : {
+                  "format" : "date-time",
+                  "type" : "string"
+                },
+                "style" : "simple"
+              }
             }
           },
           "400" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/invalid_code"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           },
           "404" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/not_found"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           }
         },
         "security" : [ {
           "api_key" : [ ]
         } ],
+        "summary" : "Find item by UPC code",
+        "tags" : [ "Product Lookup" ],
         "x-accepts" : "application/json",
         "x-serviceid" : "getItemByUPC",
         "x-serviceid-varname" : "GETITEMBYUPC_SERVICE_ID"
@@ -123,93 +121,91 @@
     },
     "/api/v1/ean/{ean}" : {
       "get" : {
-        "tags" : [ "Product Lookup" ],
-        "summary" : "Find item by UPC code",
         "description" : "Returns a single item",
         "operationId" : "getItemByEAN",
         "parameters" : [ {
-          "name" : "ean",
-          "in" : "path",
           "description" : "EAN code of item to return",
-          "required" : true,
-          "style" : "simple",
           "explode" : false,
+          "in" : "path",
+          "name" : "ean",
+          "required" : true,
           "schema" : {
             "type" : "string"
-          }
+          },
+          "style" : "simple"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "headers" : {
-              "X-ValidAuthorization" : {
-                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "boolean"
-                }
-              },
-              "X-RateLimit-Limit" : {
-                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Remaining" : {
-                "description" : "An integer specifying the number of remaining requests per day.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Reset" : {
-                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string",
-                  "format" : "date-time"
-                }
-              }
-            },
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/item"
                 }
               }
+            },
+            "description" : "successful operation",
+            "headers" : {
+              "X-ValidAuthorization" : {
+                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "boolean"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Limit" : {
+                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Remaining" : {
+                "description" : "An integer specifying the number of remaining requests per day.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Reset" : {
+                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+                "explode" : false,
+                "schema" : {
+                  "format" : "date-time",
+                  "type" : "string"
+                },
+                "style" : "simple"
+              }
             }
           },
           "400" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/invalid_code"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           },
           "404" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/not_found"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           }
         },
         "security" : [ {
           "api_key" : [ ]
         } ],
+        "summary" : "Find item by UPC code",
+        "tags" : [ "Product Lookup" ],
         "x-accepts" : "application/json",
         "x-serviceid" : "getItemByEAN",
         "x-serviceid-varname" : "GETITEMBYEAN_SERVICE_ID"
@@ -217,93 +213,91 @@
     },
     "/api/v1/asin/{asin}" : {
       "get" : {
-        "tags" : [ "Product Lookup" ],
-        "summary" : "Find item by asin code",
         "description" : "Returns a single item",
         "operationId" : "getItemByASIN",
         "parameters" : [ {
-          "name" : "asin",
-          "in" : "path",
           "description" : "ASIN code of item to return",
-          "required" : true,
-          "style" : "simple",
           "explode" : false,
+          "in" : "path",
+          "name" : "asin",
+          "required" : true,
           "schema" : {
             "type" : "string"
-          }
+          },
+          "style" : "simple"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "headers" : {
-              "X-ValidAuthorization" : {
-                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "boolean"
-                }
-              },
-              "X-RateLimit-Limit" : {
-                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Remaining" : {
-                "description" : "An integer specifying the number of remaining requests per day.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Reset" : {
-                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string",
-                  "format" : "date-time"
-                }
-              }
-            },
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/item"
                 }
               }
+            },
+            "description" : "successful operation",
+            "headers" : {
+              "X-ValidAuthorization" : {
+                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "boolean"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Limit" : {
+                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Remaining" : {
+                "description" : "An integer specifying the number of remaining requests per day.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Reset" : {
+                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+                "explode" : false,
+                "schema" : {
+                  "format" : "date-time",
+                  "type" : "string"
+                },
+                "style" : "simple"
+              }
             }
           },
           "400" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/invalid_code"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           },
           "404" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/not_found"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           }
         },
         "security" : [ {
           "api_key" : [ ]
         } ],
+        "summary" : "Find item by asin code",
+        "tags" : [ "Product Lookup" ],
         "x-accepts" : "application/json",
         "x-serviceid" : "getItemByASIN",
         "x-serviceid-varname" : "GETITEMBYASIN_SERVICE_ID"
@@ -311,83 +305,81 @@
     },
     "/api/v1/convert/{upc | ean | asin}" : {
       "get" : {
-        "tags" : [ "Product Conversion" ],
-        "summary" : "Convert between UPC, EAN, and ASIN product codes.",
         "description" : "Returns the converted UPC, EAN, and ASIN codes.",
         "operationId" : "convertCode",
         "parameters" : [ {
-          "name" : "upc | ean | asin",
-          "in" : "path",
           "description" : "UPC, EAN, or ASIN",
-          "required" : true,
-          "style" : "simple",
           "explode" : false,
+          "in" : "path",
+          "name" : "upc | ean | asin",
+          "required" : true,
           "schema" : {
             "type" : "string"
-          }
+          },
+          "style" : "simple"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "headers" : {
-              "X-ValidAuthorization" : {
-                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "boolean"
-                }
-              },
-              "X-RateLimit-Limit" : {
-                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Remaining" : {
-                "description" : "An integer specifying the number of remaining requests per day.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                }
-              },
-              "X-RateLimit-Reset" : {
-                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string",
-                  "format" : "date-time"
-                }
-              }
-            },
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/inline_response_200"
                 }
               }
+            },
+            "description" : "successful operation",
+            "headers" : {
+              "X-ValidAuthorization" : {
+                "description" : "A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "boolean"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Limit" : {
+                "description" : "An integer specifying the number of requests available per day. This number is definied by your subscription plan.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Remaining" : {
+                "description" : "An integer specifying the number of remaining requests per day.",
+                "explode" : false,
+                "schema" : {
+                  "type" : "integer"
+                },
+                "style" : "simple"
+              },
+              "X-RateLimit-Reset" : {
+                "description" : "A timestamp specifying the time in which the daily rate limit is reset.",
+                "explode" : false,
+                "schema" : {
+                  "format" : "date-time",
+                  "type" : "string"
+                },
+                "style" : "simple"
+              }
             }
           },
           "400" : {
-            "description" : "search results matching criteria",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/inline_response_400"
                 }
               }
-            }
+            },
+            "description" : "search results matching criteria"
           }
         },
         "security" : [ {
           "api_key" : [ ]
         } ],
+        "summary" : "Convert between UPC, EAN, and ASIN product codes.",
+        "tags" : [ "Product Conversion" ],
         "x-accepts" : "application/json",
         "x-serviceid" : "convertCode",
         "x-serviceid-varname" : "CONVERTCODE_SERVICE_ID"
@@ -397,145 +389,6 @@
   "components" : {
     "schemas" : {
       "item" : {
-        "type" : "object",
-        "properties" : {
-          "upc" : {
-            "type" : "string",
-            "example" : "190198155795"
-          },
-          "ean" : {
-            "type" : "string",
-            "example" : "190198155795"
-          },
-          "isbn" : {
-            "type" : "string",
-            "example" : "9780198155795"
-          },
-          "asin" : {
-            "type" : "string",
-            "example" : "B01M1EXQY4"
-          },
-          "title" : {
-            "type" : "string",
-            "example" : "Apple iPhone 7 Unlocked Phone 128 GB - US Version (Black)"
-          },
-          "sku" : {
-            "type" : "string",
-            "example" : "903061477"
-          },
-          "mpn" : {
-            "type" : "string",
-            "example" : "A1660"
-          },
-          "part_number" : {
-            "type" : "string",
-            "example" : "14"
-          },
-          "upcs" : {
-            "type" : "array",
-            "description" : "A list of matching upc codes.",
-            "example" : [ "190198071835, 647627503790, 759776410383, 190198068507" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "description" : {
-            "type" : "string",
-            "example" : "The latest iPhone with advanced camera, better battery life, immersive speakers and water resistance!"
-          },
-          "brand" : {
-            "type" : "string",
-            "example" : "Apple"
-          },
-          "manufacturer" : {
-            "type" : "string",
-            "example" : "Apple"
-          },
-          "color" : {
-            "type" : "string",
-            "example" : "Black"
-          },
-          "new_price" : {
-            "type" : "number",
-            "example" : 799.95
-          },
-          "used_price" : {
-            "type" : "number",
-            "example" : 659.95
-          },
-          "currency_code" : {
-            "type" : "string",
-            "example" : "USD"
-          },
-          "url" : {
-            "type" : "string",
-            "example" : "https://www.amazon.com/Apple-iPhone-Unlocked-Phone-128/dp/B01M1EXQY4"
-          },
-          "features" : {
-            "type" : "array",
-            "description" : "A list of product feature descriptions.",
-            "example" : [ "Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip, advanced cameras, and a 4.7-inch Retina HD display. And so much more.", "The most advanced chip ever in a smartphone is even faster and now features an integrated M9 motion coprocessor." ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "dimensions" : {
-            "type" : "object",
-            "description" : "Product dimensions and weight.\n ('meters', 'centimeters', 'millimeters', 'inches', 'feet', 'yards', 'ounces', 'pounds', 'grams', 'milligrams', 'kilograms')",
-            "items" : {
-              "type" : "object"
-            }
-          },
-          "images" : {
-            "type" : "array",
-            "description" : "A list product images.",
-            "example" : [ "https://images-na.ssl-images-amazon.com/images/I/317AuSoRaHL.jpg", "https://images-na.ssl-images-amazon.com/images/I/41Whf3N9i2L.jpg" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "matched_items" : {
-            "type" : "array",
-            "description" : "Matched items for this product.",
-            "items" : {
-              "type" : "object"
-            }
-          },
-          "iso_country_codes" : {
-            "type" : "array",
-            "description" : "A list of country codes from which this item belongs.",
-            "example" : [ "US", "GB" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "company_name" : {
-            "type" : "string",
-            "description" : "The company name registered to the product's UPC or EAN.",
-            "example" : "Apple Inc."
-          },
-          "company_address" : {
-            "type" : "string",
-            "description" : "The company address registered to the product's UPC or EAN.",
-            "example" : "101 Infinite Loop, Cupertino, CA 95014"
-          },
-          "categories" : {
-            "type" : "array",
-            "description" : "A list of categories for this product.",
-            "example" : [ "Unlocked Cell Phones", "Electronics" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "category_hierarchies" : {
-            "type" : "array",
-            "description" : "A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category.",
-            "example" : [ [ "Cell Phones & Accessories", "Cell Phones", "Unlocked Cell Phones" ] ],
-            "items" : {
-              "type" : "string"
-            }
-          }
-        },
         "example" : {
           "color" : "Black",
           "iso_country_codes" : [ "US", "GB" ],
@@ -563,91 +416,227 @@
           "upcs" : [ "190198071835, 647627503790, 759776410383, 190198068507" ],
           "category_hierarchies" : [ [ "Cell Phones & Accessories", "Cell Phones", "Unlocked Cell Phones" ] ],
           "dimensions" : [ "{}", "{}" ]
-        }
+        },
+        "properties" : {
+          "upc" : {
+            "example" : "190198155795",
+            "type" : "string"
+          },
+          "ean" : {
+            "example" : "190198155795",
+            "type" : "string"
+          },
+          "isbn" : {
+            "example" : "9780198155795",
+            "type" : "string"
+          },
+          "asin" : {
+            "example" : "B01M1EXQY4",
+            "type" : "string"
+          },
+          "title" : {
+            "example" : "Apple iPhone 7 Unlocked Phone 128 GB - US Version (Black)",
+            "type" : "string"
+          },
+          "sku" : {
+            "example" : "903061477",
+            "type" : "string"
+          },
+          "mpn" : {
+            "example" : "A1660",
+            "type" : "string"
+          },
+          "part_number" : {
+            "example" : "14",
+            "type" : "string"
+          },
+          "upcs" : {
+            "description" : "A list of matching upc codes.",
+            "example" : [ "190198071835, 647627503790, 759776410383, 190198068507" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "description" : {
+            "example" : "The latest iPhone with advanced camera, better battery life, immersive speakers and water resistance!",
+            "type" : "string"
+          },
+          "brand" : {
+            "example" : "Apple",
+            "type" : "string"
+          },
+          "manufacturer" : {
+            "example" : "Apple",
+            "type" : "string"
+          },
+          "color" : {
+            "example" : "Black",
+            "type" : "string"
+          },
+          "new_price" : {
+            "example" : 799.95,
+            "type" : "number"
+          },
+          "used_price" : {
+            "example" : 659.95,
+            "type" : "number"
+          },
+          "currency_code" : {
+            "example" : "USD",
+            "type" : "string"
+          },
+          "url" : {
+            "example" : "https://www.amazon.com/Apple-iPhone-Unlocked-Phone-128/dp/B01M1EXQY4",
+            "type" : "string"
+          },
+          "features" : {
+            "description" : "A list of product feature descriptions.",
+            "example" : [ "Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip, advanced cameras, and a 4.7-inch Retina HD display. And so much more.", "The most advanced chip ever in a smartphone is even faster and now features an integrated M9 motion coprocessor." ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "dimensions" : {
+            "description" : "Product dimensions and weight.\n ('meters', 'centimeters', 'millimeters', 'inches', 'feet', 'yards', 'ounces', 'pounds', 'grams', 'milligrams', 'kilograms')",
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
+          "images" : {
+            "description" : "A list product images.",
+            "example" : [ "https://images-na.ssl-images-amazon.com/images/I/317AuSoRaHL.jpg", "https://images-na.ssl-images-amazon.com/images/I/41Whf3N9i2L.jpg" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "matched_items" : {
+            "description" : "Matched items for this product.",
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
+          "iso_country_codes" : {
+            "description" : "A list of country codes from which this item belongs.",
+            "example" : [ "US", "GB" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "company_name" : {
+            "description" : "The company name registered to the product's UPC or EAN.",
+            "example" : "Apple Inc.",
+            "type" : "string"
+          },
+          "company_address" : {
+            "description" : "The company address registered to the product's UPC or EAN.",
+            "example" : "101 Infinite Loop, Cupertino, CA 95014",
+            "type" : "string"
+          },
+          "categories" : {
+            "description" : "A list of categories for this product.",
+            "example" : [ "Unlocked Cell Phones", "Electronics" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "category_hierarchies" : {
+            "description" : "A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category.",
+            "example" : [ [ "Cell Phones & Accessories", "Cell Phones", "Unlocked Cell Phones" ] ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
       },
       "not_found" : {
         "properties" : {
           "message" : {
-            "type" : "string",
-            "example" : "Item not found."
+            "example" : "Item not found.",
+            "type" : "string"
           },
           "status" : {
-            "type" : "integer",
-            "format" : "int32",
-            "example" : 404
+            "example" : 404,
+            "type" : "integer"
           }
         }
       },
       "invalid_code" : {
         "properties" : {
           "message" : {
-            "type" : "string",
-            "example" : "Invalid code."
+            "example" : "Invalid code.",
+            "type" : "string"
           },
           "status" : {
-            "type" : "integer",
-            "format" : "int32",
-            "example" : 400
+            "example" : 400,
+            "type" : "integer"
           }
         }
       },
       "inline_response_200" : {
-        "properties" : {
-          "upcs" : {
-            "type" : "array",
-            "description" : "A list of UPCs",
-            "example" : [ "190198155795" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "eans" : {
-            "type" : "array",
-            "description" : "A list of EANs",
-            "example" : [ 1.90198155795E11 ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "asins" : {
-            "type" : "array",
-            "description" : "A list of ASINs",
-            "example" : [ "B01M1EXQY4" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "message" : {
-            "type" : "string",
-            "example" : "OK"
-          }
-        },
         "example" : {
           "asins" : [ "B01M1EXQY4" ],
           "message" : "OK",
           "upcs" : [ "190198155795" ],
           "eans" : [ 1.90198155795E11 ]
+        },
+        "properties" : {
+          "upcs" : {
+            "description" : "A list of UPCs",
+            "example" : [ "190198155795" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "eans" : {
+            "description" : "A list of EANs",
+            "example" : [ 1.90198155795E11 ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "asins" : {
+            "description" : "A list of ASINs",
+            "example" : [ "B01M1EXQY4" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "message" : {
+            "example" : "OK",
+            "type" : "string"
+          }
         }
       },
       "inline_response_400" : {
         "properties" : {
           "message" : {
-            "type" : "string",
-            "example" : "Must specify a valid UPC, EAN, or ASIN code."
+            "example" : "Must specify a valid UPC, EAN, or ASIN code.",
+            "type" : "string"
           },
           "status" : {
-            "type" : "integer",
-            "format" : "int32",
-            "example" : 400
+            "example" : 400,
+            "type" : "integer"
           }
         }
       }
     },
     "securitySchemes" : {
       "ApiKeyAuth" : {
-        "type" : "apiKey",
+        "in" : "header",
         "name" : "Authorization",
-        "in" : "header"
+        "type" : "apiKey"
       }
     }
   }

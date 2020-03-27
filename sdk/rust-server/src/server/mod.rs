@@ -5,11 +5,9 @@ extern crate native_tls;
 extern crate hyper_tls;
 extern crate openssl;
 extern crate mime;
-extern crate uuid;
 extern crate chrono;
 extern crate percent_encoding;
 extern crate url;
-
 
 use std::sync::Arc;
 use std::marker::PhantomData;
@@ -19,9 +17,7 @@ use hyper::{Request, Response, Error, StatusCode};
 use hyper::header::{Headers, ContentType};
 use self::url::form_urlencoded;
 use mimetypes;
-
 use serde_json;
-
 
 #[allow(unused_imports)]
 use std::collections::{HashMap, BTreeMap};
@@ -35,6 +31,7 @@ use std::collections::BTreeSet;
 pub use swagger::auth::Authorization;
 use swagger::{ApiError, XSpanId, XSpanIdString, Has, RequestParser};
 use swagger::auth::Scopes;
+use swagger::headers::SafeHeaders;
 
 use {Api,
      ConvertCodeResponse,
@@ -53,9 +50,9 @@ mod paths {
     extern crate regex;
 
     lazy_static! {
-        pub static ref GLOBAL_REGEX_SET: regex::RegexSet = regex::RegexSet::new(&[
+        pub static ref GLOBAL_REGEX_SET: regex::RegexSet = regex::RegexSet::new(vec![
             r"^/magicCashew/barcodable/1.0.0/api/v1/asin/(?P<asin>[^/?#]*)$",
-            r"^/magicCashew/barcodable/1.0.0/api/v1/convert/(?P<upc | ean | asin>[^/?#]*)$",
+            r"^/magicCashew/barcodable/1.0.0/api/v1/convert/(?P<upc___ean___asin>[^/?#]*)$",
             r"^/magicCashew/barcodable/1.0.0/api/v1/ean/(?P<ean>[^/?#]*)$",
             r"^/magicCashew/barcodable/1.0.0/api/v1/upc/(?P<upc>[^/?#]*)$"
         ]).unwrap();
@@ -66,7 +63,7 @@ mod paths {
     }
     pub static ID_API_V1_CONVERT_UPC___EAN___ASIN: usize = 1;
     lazy_static! {
-        pub static ref REGEX_API_V1_CONVERT_UPC___EAN___ASIN: regex::Regex = regex::Regex::new(r"^/magicCashew/barcodable/1.0.0/api/v1/convert/(?P<upc | ean | asin>[^/?#]*)$").unwrap();
+        pub static ref REGEX_API_V1_CONVERT_UPC___EAN___ASIN: regex::Regex = regex::Regex::new(r"^/magicCashew/barcodable/1.0.0/api/v1/convert/(?P<upc___ean___asin>[^/?#]*)$").unwrap();
     }
     pub static ID_API_V1_EAN_EAN: usize = 2;
     lazy_static! {
@@ -130,7 +127,7 @@ where
     type Request = (Request, C);
     type Response = Response;
     type Error = Error;
-    type Future = Box<Future<Item=Response, Error=Error>>;
+    type Future = Box<dyn Future<Item=Response, Error=Error>>;
 
     fn call(&self, (req, mut context): Self::Request) -> Self::Future {
         let api_impl = self.api_impl.clone();
@@ -143,8 +140,6 @@ where
 
             // ConvertCode - GET /api/v1/convert/{upc | ean | asin}
             &hyper::Method::Get if path.matched(paths::ID_API_V1_CONVERT_UPC___EAN___ASIN) => {
-
-
                 // Path parameters
                 let path = uri.path().to_string();
                 let path_params =
@@ -153,26 +148,19 @@ where
                     .unwrap_or_else(||
                         panic!("Path {} matched RE API_V1_CONVERT_UPC___EAN___ASIN in set but failed match against \"{}\"", path, paths::REGEX_API_V1_CONVERT_UPC___EAN___ASIN.as_str())
                     );
-
-                let param_upc___ean___asin = match percent_encoding::percent_decode(path_params["upc | ean | asin"].as_bytes()).decode_utf8() {
+                let param_upc___ean___asin = match percent_encoding::percent_decode(path_params["upc___ean___asin"].as_bytes()).decode_utf8() {
                     Ok(param_upc___ean___asin) => match param_upc___ean___asin.parse::<String>() {
                         Ok(param_upc___ean___asin) => param_upc___ean___asin,
-                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter upc | ean | asin: {}", e)))),
+                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter upc | ean | asin: {:?}", e)))),
                     },
-                    Err(_) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't percent-decode path parameter as UTF-8: {}", &path_params["upc | ean | asin"]))))
+                    Err(_) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't percent-decode path parameter as UTF-8: {}", &path_params["upc___ean___asin"]))))
                 };
-
-
-
-
-
                 Box::new({
                         {{
-
                                 Box::new(api_impl.convert_code(param_upc___ean___asin, &context)
                                     .then(move |result| {
                                         let mut response = Response::new();
-                                        response.headers_mut().set(XSpanId((&context as &Has<XSpanIdString>).get().0.to_string()));
+                                        response.headers_mut().set(XSpanId((&context as &dyn Has<XSpanIdString>).get().0.to_string()));
 
                                         match result {
                                             Ok(rsp) => match rsp {
@@ -203,9 +191,7 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::CONVERT_CODE_SUCCESSFUL_OPERATION.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                                 ConvertCodeResponse::SearchResultsMatchingCriteria
@@ -218,9 +204,7 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::CONVERT_CODE_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                             },
@@ -235,18 +219,12 @@ where
                                         future::ok(response)
                                     }
                                 ))
-
                         }}
-                }) as Box<Future<Item=Response, Error=Error>>
-
-
+                }) as Box<dyn Future<Item=Response, Error=Error>>
             },
-
 
             // GetItemByASIN - GET /api/v1/asin/{asin}
             &hyper::Method::Get if path.matched(paths::ID_API_V1_ASIN_ASIN) => {
-
-
                 // Path parameters
                 let path = uri.path().to_string();
                 let path_params =
@@ -255,26 +233,19 @@ where
                     .unwrap_or_else(||
                         panic!("Path {} matched RE API_V1_ASIN_ASIN in set but failed match against \"{}\"", path, paths::REGEX_API_V1_ASIN_ASIN.as_str())
                     );
-
                 let param_asin = match percent_encoding::percent_decode(path_params["asin"].as_bytes()).decode_utf8() {
                     Ok(param_asin) => match param_asin.parse::<String>() {
                         Ok(param_asin) => param_asin,
-                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter asin: {}", e)))),
+                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter asin: {:?}", e)))),
                     },
                     Err(_) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't percent-decode path parameter as UTF-8: {}", &path_params["asin"]))))
                 };
-
-
-
-
-
                 Box::new({
                         {{
-
                                 Box::new(api_impl.get_item_by_asin(param_asin, &context)
                                     .then(move |result| {
                                         let mut response = Response::new();
-                                        response.headers_mut().set(XSpanId((&context as &Has<XSpanIdString>).get().0.to_string()));
+                                        response.headers_mut().set(XSpanId((&context as &dyn Has<XSpanIdString>).get().0.to_string()));
 
                                         match result {
                                             Ok(rsp) => match rsp {
@@ -305,9 +276,7 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_ASIN_SUCCESSFUL_OPERATION.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                                 GetItemByASINResponse::SearchResultsMatchingCriteria
@@ -320,12 +289,10 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_ASIN_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
-                                                GetItemByASINResponse::SearchResultsMatchingCriteria
+                                                GetItemByASINResponse::SearchResultsMatchingCriteria_2
 
                                                     (body)
 
@@ -333,11 +300,9 @@ where
                                                 => {
                                                     response.set_status(StatusCode::try_from(404).unwrap());
 
-                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_ASIN_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
-
+                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_ASIN_SEARCH_RESULTS_MATCHING_CRITERIA_2.clone()));
 
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                             },
@@ -352,18 +317,12 @@ where
                                         future::ok(response)
                                     }
                                 ))
-
                         }}
-                }) as Box<Future<Item=Response, Error=Error>>
-
-
+                }) as Box<dyn Future<Item=Response, Error=Error>>
             },
-
 
             // GetItemByEAN - GET /api/v1/ean/{ean}
             &hyper::Method::Get if path.matched(paths::ID_API_V1_EAN_EAN) => {
-
-
                 // Path parameters
                 let path = uri.path().to_string();
                 let path_params =
@@ -372,26 +331,19 @@ where
                     .unwrap_or_else(||
                         panic!("Path {} matched RE API_V1_EAN_EAN in set but failed match against \"{}\"", path, paths::REGEX_API_V1_EAN_EAN.as_str())
                     );
-
                 let param_ean = match percent_encoding::percent_decode(path_params["ean"].as_bytes()).decode_utf8() {
                     Ok(param_ean) => match param_ean.parse::<String>() {
                         Ok(param_ean) => param_ean,
-                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter ean: {}", e)))),
+                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter ean: {:?}", e)))),
                     },
                     Err(_) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't percent-decode path parameter as UTF-8: {}", &path_params["ean"]))))
                 };
-
-
-
-
-
                 Box::new({
                         {{
-
                                 Box::new(api_impl.get_item_by_ean(param_ean, &context)
                                     .then(move |result| {
                                         let mut response = Response::new();
-                                        response.headers_mut().set(XSpanId((&context as &Has<XSpanIdString>).get().0.to_string()));
+                                        response.headers_mut().set(XSpanId((&context as &dyn Has<XSpanIdString>).get().0.to_string()));
 
                                         match result {
                                             Ok(rsp) => match rsp {
@@ -422,9 +374,7 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_EAN_SUCCESSFUL_OPERATION.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                                 GetItemByEANResponse::SearchResultsMatchingCriteria
@@ -437,12 +387,10 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_EAN_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
-                                                GetItemByEANResponse::SearchResultsMatchingCriteria
+                                                GetItemByEANResponse::SearchResultsMatchingCriteria_2
 
                                                     (body)
 
@@ -450,11 +398,9 @@ where
                                                 => {
                                                     response.set_status(StatusCode::try_from(404).unwrap());
 
-                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_EAN_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
-
+                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_EAN_SEARCH_RESULTS_MATCHING_CRITERIA_2.clone()));
 
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                             },
@@ -469,18 +415,12 @@ where
                                         future::ok(response)
                                     }
                                 ))
-
                         }}
-                }) as Box<Future<Item=Response, Error=Error>>
-
-
+                }) as Box<dyn Future<Item=Response, Error=Error>>
             },
-
 
             // GetItemByUPC - GET /api/v1/upc/{upc}
             &hyper::Method::Get if path.matched(paths::ID_API_V1_UPC_UPC) => {
-
-
                 // Path parameters
                 let path = uri.path().to_string();
                 let path_params =
@@ -489,26 +429,19 @@ where
                     .unwrap_or_else(||
                         panic!("Path {} matched RE API_V1_UPC_UPC in set but failed match against \"{}\"", path, paths::REGEX_API_V1_UPC_UPC.as_str())
                     );
-
                 let param_upc = match percent_encoding::percent_decode(path_params["upc"].as_bytes()).decode_utf8() {
                     Ok(param_upc) => match param_upc.parse::<String>() {
                         Ok(param_upc) => param_upc,
-                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter upc: {}", e)))),
+                        Err(e) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't parse path parameter upc: {:?}", e)))),
                     },
                     Err(_) => return Box::new(future::ok(Response::new().with_status(StatusCode::BadRequest).with_body(format!("Couldn't percent-decode path parameter as UTF-8: {}", &path_params["upc"]))))
                 };
-
-
-
-
-
                 Box::new({
                         {{
-
                                 Box::new(api_impl.get_item_by_upc(param_upc, &context)
                                     .then(move |result| {
                                         let mut response = Response::new();
-                                        response.headers_mut().set(XSpanId((&context as &Has<XSpanIdString>).get().0.to_string()));
+                                        response.headers_mut().set(XSpanId((&context as &dyn Has<XSpanIdString>).get().0.to_string()));
 
                                         match result {
                                             Ok(rsp) => match rsp {
@@ -539,9 +472,7 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_UPC_SUCCESSFUL_OPERATION.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                                 GetItemByUPCResponse::SearchResultsMatchingCriteria
@@ -554,12 +485,10 @@ where
 
                                                     response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_UPC_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
 
-
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
-                                                GetItemByUPCResponse::SearchResultsMatchingCriteria
+                                                GetItemByUPCResponse::SearchResultsMatchingCriteria_2
 
                                                     (body)
 
@@ -567,11 +496,9 @@ where
                                                 => {
                                                     response.set_status(StatusCode::try_from(404).unwrap());
 
-                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_UPC_SEARCH_RESULTS_MATCHING_CRITERIA.clone()));
-
+                                                    response.headers_mut().set(ContentType(mimetypes::responses::GET_ITEM_BY_UPC_SEARCH_RESULTS_MATCHING_CRITERIA_2.clone()));
 
                                                     let body = serde_json::to_string(&body).expect("impossible to fail to serialize");
-
                                                     response.set_body(body);
                                                 },
                                             },
@@ -586,15 +513,11 @@ where
                                         future::ok(response)
                                     }
                                 ))
-
                         }}
-                }) as Box<Future<Item=Response, Error=Error>>
-
-
+                }) as Box<dyn Future<Item=Response, Error=Error>>
             },
 
-
-            _ => Box::new(future::ok(Response::new().with_status(StatusCode::NotFound))) as Box<Future<Item=Response, Error=Error>>,
+            _ => Box::new(future::ok(Response::new().with_status(StatusCode::NotFound))) as Box<dyn Future<Item=Response, Error=Error>>,
         }
     }
 }
@@ -608,6 +531,7 @@ impl<T, C> Clone for Service<T, C>
         }
     }
 }
+
 
 /// Request parser for `Api`.
 pub struct ApiRequestParser;

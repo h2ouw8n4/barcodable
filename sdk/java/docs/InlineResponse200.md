@@ -1,7 +1,9 @@
 
+
 # InlineResponse200
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **upcs** | **List&lt;String&gt;** | A list of UPCs |  [optional]

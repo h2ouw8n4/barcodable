@@ -5,7 +5,7 @@ using System.Text;
 using Sharpility.Extensions;
 using NodaTime;
 
-namespace Org.OpenAPITools.magicCashewbarcodable1_0_0.Models
+namespace Org.OpenAPITools._magicCashew_barcodable_1_0_0.Models
 {
     /// <summary>
     /// InlineResponse200

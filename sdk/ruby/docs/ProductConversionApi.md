@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**convert_code**](ProductConversionApi.md#convert_code) | **GET** /api/v1/convert/{upc | ean | asin} | Convert between UPC, EAN, and ASIN product codes.
 
 
-# **convert_code**
+
+## convert_code
+
 > InlineResponse200 convert_code(upc___ean___asin)
 
 Convert between UPC, EAN, and ASIN product codes.
@@ -15,6 +17,7 @@ Convert between UPC, EAN, and ASIN product codes.
 Returns the converted UPC, EAN, and ASIN codes.
 
 ### Example
+
 ```ruby
 # load the gem
 require 'openapi_client'
@@ -33,6 +36,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **upc___ean___asin** | **String**| UPC, EAN, or ASIN | 
@@ -47,8 +51,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
+- **Content-Type**: Not defined
+- **Accept**: application/json
 

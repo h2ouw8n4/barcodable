@@ -1,19 +1,20 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
+
 part 'inline_response200.jser.dart';
 
 class InlineResponse200 {
    /* A list of UPCs */
-  @Alias('upcs')
+  @Alias('upcs', isNullable: false,  )
   final List<String> upcs;
    /* A list of EANs */
-  @Alias('eans')
+  @Alias('eans', isNullable: false,  )
   final List<String> eans;
    /* A list of ASINs */
-  @Alias('asins')
+  @Alias('asins', isNullable: false,  )
   final List<String> asins;
   
-  @Alias('message')
+  @Alias('message', isNullable: false,  )
   final String message;
   
 
@@ -39,3 +40,4 @@ class InlineResponse200 {
 class InlineResponse200Serializer extends Serializer<InlineResponse200> with _$InlineResponse200Serializer {
 
 }
+
