@@ -1,0 +1,40 @@
+"$schema"   = "http://cyaninc.com/json-schemas/tosca-lite-v1/definition-module#"
+title       = "openapi_server InvalidCode"
+package     = openapi_server
+version     = "1.0"
+description = "Defines a InvalidCode"
+authors     = ["F. Bar (foo@bar.baz)"]
+
+imports {
+  Root = tosca.resourceTypes.Root
+}
+resourceTypes {
+
+  InvalidCode {
+    title = InvalidCode
+    description = InvalidCode
+    derivedFrom = Root
+    properties {
+        message {
+          type =  string
+          description = ""
+          optional = false
+        }
+        status {
+          type =  integer
+          description = ""
+          optional = false
+        }
+    }
+  }
+}
+
+serviceTemplates {
+
+  InvalidCode {
+    title = InvalidCode
+    description = InvalidCode
+    implements = openapi_server.resourceTypes.InvalidCode
+
+  }
+}

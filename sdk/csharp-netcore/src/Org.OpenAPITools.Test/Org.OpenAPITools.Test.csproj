@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Barcodable.com API
+
+Barcodable.com API
+
+The version of the OpenAPI document: 1.5.0
+Contact: support@barcodable.com
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Org.OpenAPITools.Test</RootNamespace>
+    <AssemblyName>Org.OpenAPITools.Test</AssemblyName>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Org.OpenAPITools\Org.OpenAPITools.csproj">
+      <Project>{37CAA617-FB03-4908-9D64-985E7B730FA5}</Project>
+      <Name>Org.OpenAPITools</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
+

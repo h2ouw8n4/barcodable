@@ -1,0 +1,18 @@
+{
+  "namespace": "model",
+  "type": "record",
+  "doc": "",
+  "name": "InvalidCode",
+  "fields": [
+    {
+      "name": "message",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "status",
+      "type": ["null", "int"],
+      "doc": ""
+    }
+  ]
+}

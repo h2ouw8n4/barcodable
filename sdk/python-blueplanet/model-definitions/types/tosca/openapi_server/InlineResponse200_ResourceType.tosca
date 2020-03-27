@@ -1,0 +1,53 @@
+"$schema"   = "http://cyaninc.com/json-schemas/tosca-lite-v1/definition-module#"
+title       = "openapi_server InlineResponse200"
+package     = openapi_server
+version     = "1.0"
+description = "Defines a InlineResponse200"
+authors     = ["F. Bar (foo@bar.baz)"]
+
+imports {
+  Root = tosca.resourceTypes.Root
+}
+resourceTypes {
+
+  InlineResponse200 {
+    title = InlineResponse200
+    description = InlineResponse200
+    derivedFrom = Root
+    properties {
+        upcs {
+          type = array
+          items.type =  string
+          description = "A list of UPCs"
+          optional = false
+        }
+        eans {
+          type = array
+          items.type =  string
+          description = "A list of EANs"
+          optional = false
+        }
+        asins {
+          type = array
+          items.type =  string
+          description = "A list of ASINs"
+          optional = false
+        }
+        message {
+          type =  string
+          description = ""
+          optional = false
+        }
+    }
+  }
+}
+
+serviceTemplates {
+
+  InlineResponse200 {
+    title = InlineResponse200
+    description = InlineResponse200
+    implements = openapi_server.resourceTypes.InlineResponse200
+
+  }
+}

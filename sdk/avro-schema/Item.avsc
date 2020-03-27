@@ -1,0 +1,162 @@
+{
+  "namespace": "model",
+  "type": "record",
+  "doc": "",
+  "name": "Item",
+  "fields": [
+    {
+      "name": "upc",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "ean",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "isbn",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "asin",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "title",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "sku",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "mpn",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "part_number",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "upcs",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of matching upc codes."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "brand",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "manufacturer",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "color",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "new_price",
+      "type": ["null", "double"],
+      "doc": ""
+    },
+    {
+      "name": "used_price",
+      "type": ["null", "double"],
+      "doc": ""
+    },
+    {
+      "name": "currency_code",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "url",
+      "type": ["null", "string"],
+      "doc": ""
+    },
+    {
+      "name": "features",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of product feature descriptions."
+    },
+    {
+      "name": "dimensions",
+      "type": ["null", {
+        "type": "array",
+        "items": "object"
+      }],
+      "doc": "Product dimensions and weight.  ('meters', 'centimeters', 'millimeters', 'inches', 'feet', 'yards', 'ounces', 'pounds', 'grams', 'milligrams', 'kilograms')"
+    },
+    {
+      "name": "images",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list product images."
+    },
+    {
+      "name": "matched_items",
+      "type": ["null", {
+        "type": "array",
+        "items": "object"
+      }],
+      "doc": "Matched items for this product."
+    },
+    {
+      "name": "iso_country_codes",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of country codes from which this item belongs."
+    },
+    {
+      "name": "company_name",
+      "type": ["null", "string"],
+      "doc": "The company name registered to the product's UPC or EAN."
+    },
+    {
+      "name": "company_address",
+      "type": ["null", "string"],
+      "doc": "The company address registered to the product's UPC or EAN."
+    },
+    {
+      "name": "categories",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of categories for this product."
+    },
+    {
+      "name": "category_hierarchies",
+      "type": ["null", {
+        "type": "array",
+        "items": "string"
+      }],
+      "doc": "A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category."
+    }
+  ]
+}

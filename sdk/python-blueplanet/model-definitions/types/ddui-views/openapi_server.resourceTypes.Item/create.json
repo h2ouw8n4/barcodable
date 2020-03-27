@@ -1,0 +1,42 @@
+{
+  "type": "form",
+  "version": "2.0",
+  "cells": [{
+    "label": "General",
+    "children": [
+      {"model": "label"},
+      {"model": "description"}
+    ]
+  },{
+    "label": "Details",
+    "model": "properties",
+    "children": [
+      {"model": "upc" },
+      {"model": "ean" },
+      {"model": "isbn" },
+      {"model": "asin" },
+      {"model": "title" },
+      {"model": "sku" },
+      {"model": "mpn" },
+      {"model": "part_number" },
+      {"model": "upcs" },
+      {"model": "description" },
+      {"model": "brand" },
+      {"model": "manufacturer" },
+      {"model": "color" },
+      {"model": "new_price" },
+      {"model": "used_price" },
+      {"model": "currency_code" },
+      {"model": "url" },
+      {"model": "features" },
+      {"model": "dimensions" },
+      {"model": "images" },
+      {"model": "matched_items" },
+      {"model": "iso_country_codes" },
+      {"model": "company_name" },
+      {"model": "company_address" },
+      {"model": "categories" },
+      {"model": "category_hierarchies" },
+    ]
+  }]
+}
