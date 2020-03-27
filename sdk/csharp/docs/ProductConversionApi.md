@@ -7,8 +7,9 @@ Method | HTTP request | Description
 [**ConvertCode**](ProductConversionApi.md#convertcode) | **GET** /api/v1/convert/{upc | ean | asin} | Convert between UPC, EAN, and ASIN product codes.
 
 
-<a name="convertcode"></a>
-# **ConvertCode**
+
+## ConvertCode
+
 > InlineResponse200 ConvertCode (string upcEanAsin)
 
 Convert between UPC, EAN, and ASIN product codes.
@@ -16,8 +17,9 @@ Convert between UPC, EAN, and ASIN product codes.
 Returns the converted UPC, EAN, and ASIN codes.
 
 ### Example
+
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
@@ -27,9 +29,10 @@ namespace Example
 {
     public class ConvertCodeExample
     {
-        public void main()
+        public static void Main()
         {
-            var apiInstance = new ProductConversionApi();
+            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0";
+            var apiInstance = new ProductConversionApi(Configuration.Default);
             var upcEanAsin = upcEanAsin_example;  // string | UPC, EAN, or ASIN
 
             try
@@ -38,9 +41,11 @@ namespace Example
                 InlineResponse200 result = apiInstance.ConvertCode(upcEanAsin);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling ProductConversionApi.ConvertCode: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
@@ -48,6 +53,7 @@ namespace Example
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -63,8 +69,17 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+| **400** | search results matching criteria |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

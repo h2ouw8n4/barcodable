@@ -8,8 +8,8 @@
 import Foundation
 
 
+public struct NotFound: Codable { 
 
-public struct NotFound: Codable {
 
     public var message: String?
     public var status: Int?
@@ -19,6 +19,4 @@ public struct NotFound: Codable {
         self.status = status
     }
 
-
 }
-

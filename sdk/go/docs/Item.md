@@ -1,6 +1,7 @@
 # Item
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Upc** | **string** |  | [optional] 
@@ -21,9 +22,9 @@ Name | Type | Description | Notes
 **CurrencyCode** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 **Features** | **[]string** | A list of product feature descriptions. | [optional] 
-**Dimensions** | [**[]map[string]interface{}**](map[string]interface{}.md) | Product dimensions and weight.  (&#39;meters&#39;, &#39;centimeters&#39;, &#39;millimeters&#39;, &#39;inches&#39;, &#39;feet&#39;, &#39;yards&#39;, &#39;ounces&#39;, &#39;pounds&#39;, &#39;grams&#39;, &#39;milligrams&#39;, &#39;kilograms&#39;) | [optional] 
+**Dimensions** | **[]map[string]interface{}** | Product dimensions and weight.  (&#39;meters&#39;, &#39;centimeters&#39;, &#39;millimeters&#39;, &#39;inches&#39;, &#39;feet&#39;, &#39;yards&#39;, &#39;ounces&#39;, &#39;pounds&#39;, &#39;grams&#39;, &#39;milligrams&#39;, &#39;kilograms&#39;) | [optional] 
 **Images** | **[]string** | A list product images. | [optional] 
-**MatchedItems** | [**[]map[string]interface{}**](map[string]interface{}.md) | Matched items for this product. | [optional] 
+**MatchedItems** | **[]map[string]interface{}** | Matched items for this product. | [optional] 
 **IsoCountryCodes** | **[]string** | A list of country codes from which this item belongs. | [optional] 
 **CompanyName** | **string** | The company name registered to the product&#39;s UPC or EAN. | [optional] 
 **CompanyAddress** | **string** | The company address registered to the product&#39;s UPC or EAN. | [optional] 

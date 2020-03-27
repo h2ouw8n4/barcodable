@@ -8,8 +8,8 @@
 import Foundation
 
 
+public struct InlineResponse200: Codable { 
 
-public struct InlineResponse200: Codable {
 
     /** A list of UPCs */
     public var upcs: [String]?
@@ -26,6 +26,4 @@ public struct InlineResponse200: Codable {
         self.message = message
     }
 
-
 }
-

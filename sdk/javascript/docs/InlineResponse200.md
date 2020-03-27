@@ -1,6 +1,7 @@
-# BarcodablecomApi.InlineResponse200
+# BarcodableComApi.InlineResponse200
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **upcs** | **[String]** | A list of UPCs | [optional] 

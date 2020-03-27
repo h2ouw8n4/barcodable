@@ -14,13 +14,14 @@ the [Swagger Ada library](https://github.com/stcarrez/swagger-ada).
 When the GNAT Ada compiler and Swagger Ada libraries are installed,
 run the following command:
 
-```
+```shell
   gprbuild -p -PdefaultPackage
 ```
 
 After the build is successful, you will get the server binary
 in bin/-server and you can start it as follows:
-```
+
+```shell
   ./bin/-server
 ```
 
@@ -51,8 +52,8 @@ The server instance is represented by the **.Servers.Server_Type** Ada type.
 The REST API will need an instance of it to make the operation call.  Two server model
 exists:
 
-* The instance per request model creates an instance of the server type for each request.
-* The shared instance model shares the same instance across all concurrent REST requests.  This instance is protected using an Ada protected object which holds the server instance.
+- The instance per request model creates an instance of the server type for each request.
+- The shared instance model shares the same instance across all concurrent REST requests.  This instance is protected using an Ada protected object which holds the server instance.
 
 The choice of the server model is made at the compilation time by instantiating either
 the **.Skeletons.Skeleton** package or the **.Skeletons.Shared_Instance**
@@ -65,9 +66,9 @@ All you have to do is implement the server operation in the **src/-servers.adb**
 The package already contains the operation with its parameters and you only have to replace
 the **null** instruction by real code.
 
-# Documentation
+## Documentation
 
-## API Documentation
+### API Documentation
 
 All URIs are relative to *https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0*
 
@@ -79,17 +80,20 @@ Method | HTTP request | Description
 [**Get_Item_By_U_P_C**](ProductLookupApi.md#Get_Item_By_U_P_C) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-## Models
- - [.Models.InlineResponse200Type](InlineResponse200Type.md)
- - [.Models.InlineResponse400Type](InlineResponse400Type.md)
- - [.Models.InvalidCodeType](InvalidCodeType.md)
- - [.Models.ItemType](ItemType.md)
- - [.Models.NotFoundType](NotFoundType.md)
+### Models
+
+ - [.Models.InlineResponse200_Type](InlineResponse200_Type.md)
+ - [.Models.InlineResponse400_Type](InlineResponse400_Type.md)
+ - [.Models.InvalidCode_Type](InvalidCode_Type.md)
+ - [.Models.Item_Type](Item_Type.md)
+ - [.Models.NotFound_Type](NotFound_Type.md)
 
 
-## Authorization
+### Authorization
+
 
 ## apiKeyAuth
+
 
 - **Type**: API key
 - **API key parameter name**: Authorization

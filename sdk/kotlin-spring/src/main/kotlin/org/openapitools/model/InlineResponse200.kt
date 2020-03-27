@@ -2,8 +2,13 @@ package org.openapitools.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import javax.validation.Valid
-import javax.validation.constraints.*
+import javax.validation.constraints.DecimalMax
+import javax.validation.constraints.DecimalMin
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
+import javax.validation.constraints.Size
 
 /**
  * 
@@ -12,15 +17,15 @@ import javax.validation.constraints.*
  * @param asins A list of ASINs
  * @param message 
  */
-data class InlineResponse200 (
+data class InlineResponse200(
 
-        @JsonProperty("upcs") val upcs: List<String>? = null,
+    @JsonProperty("upcs") val upcs: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("eans") val eans: List<String>? = null,
+    @JsonProperty("eans") val eans: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("asins") val asins: List<String>? = null,
+    @JsonProperty("asins") val asins: kotlin.collections.List<kotlin.String>? = null,
 
-        @JsonProperty("message") val message: String? = null
+    @JsonProperty("message") val message: kotlin.String? = null
 ) {
 
 }

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-03-27T18:10:17.418-04:00[America/New_York]")
 public class InvalidCode   {
   
   private @Valid String message;
@@ -62,8 +63,8 @@ public class InvalidCode   {
       return false;
     }
     InvalidCode invalidCode = (InvalidCode) o;
-    return Objects.equals(message, invalidCode.message) &&
-        Objects.equals(status, invalidCode.status);
+    return Objects.equals(this.message, invalidCode.message) &&
+        Objects.equals(this.status, invalidCode.status);
   }
 
   @Override

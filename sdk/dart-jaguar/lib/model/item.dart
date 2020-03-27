@@ -1,86 +1,86 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
-import 'package:openapi/model/object.dart';
+
 part 'item.jser.dart';
 
 class Item {
   
-  @Alias('upc')
+  @Alias('upc', isNullable: false,  )
   final String upc;
   
-  @Alias('ean')
+  @Alias('ean', isNullable: false,  )
   final String ean;
   
-  @Alias('isbn')
+  @Alias('isbn', isNullable: false,  )
   final String isbn;
   
-  @Alias('asin')
+  @Alias('asin', isNullable: false,  )
   final String asin;
   
-  @Alias('title')
+  @Alias('title', isNullable: false,  )
   final String title;
   
-  @Alias('sku')
+  @Alias('sku', isNullable: false,  )
   final String sku;
   
-  @Alias('mpn')
+  @Alias('mpn', isNullable: false,  )
   final String mpn;
   
-  @Alias('part_number')
+  @Alias('part_number', isNullable: false,  )
   final String partNumber;
    /* A list of matching upc codes. */
-  @Alias('upcs')
+  @Alias('upcs', isNullable: false,  )
   final List<String> upcs;
   
-  @Alias('description')
+  @Alias('description', isNullable: false,  )
   final String description;
   
-  @Alias('brand')
+  @Alias('brand', isNullable: false,  )
   final String brand;
   
-  @Alias('manufacturer')
+  @Alias('manufacturer', isNullable: false,  )
   final String manufacturer;
   
-  @Alias('color')
+  @Alias('color', isNullable: false,  )
   final String color;
   
-  @Alias('new_price')
+  @Alias('new_price', isNullable: false,  )
   final num newPrice;
   
-  @Alias('used_price')
+  @Alias('used_price', isNullable: false,  )
   final num usedPrice;
   
-  @Alias('currency_code')
+  @Alias('currency_code', isNullable: false,  )
   final String currencyCode;
   
-  @Alias('url')
+  @Alias('url', isNullable: false,  )
   final String url;
    /* A list of product feature descriptions. */
-  @Alias('features')
+  @Alias('features', isNullable: false,  )
   final List<String> features;
    /* Product dimensions and weight.  ('meters', 'centimeters', 'millimeters', 'inches', 'feet', 'yards', 'ounces', 'pounds', 'grams', 'milligrams', 'kilograms') */
-  @Alias('dimensions')
+  @Alias('dimensions', isNullable: false,  )
   final List<Object> dimensions;
    /* A list product images. */
-  @Alias('images')
+  @Alias('images', isNullable: false,  )
   final List<String> images;
    /* Matched items for this product. */
-  @Alias('matched_items')
+  @Alias('matched_items', isNullable: false,  )
   final List<Object> matchedItems;
    /* A list of country codes from which this item belongs. */
-  @Alias('iso_country_codes')
+  @Alias('iso_country_codes', isNullable: false,  )
   final List<String> isoCountryCodes;
    /* The company name registered to the product's UPC or EAN. */
-  @Alias('company_name')
+  @Alias('company_name', isNullable: false,  )
   final String companyName;
    /* The company address registered to the product's UPC or EAN. */
-  @Alias('company_address')
+  @Alias('company_address', isNullable: false,  )
   final String companyAddress;
    /* A list of categories for this product. */
-  @Alias('categories')
+  @Alias('categories', isNullable: false,  )
   final List<String> categories;
    /* A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. */
-  @Alias('category_hierarchies')
+  @Alias('category_hierarchies', isNullable: false,  )
   final List<String> categoryHierarchies;
   
 
@@ -128,3 +128,4 @@ class Item {
 class ItemSerializer extends Serializer<Item> with _$ItemSerializer {
 
 }
+

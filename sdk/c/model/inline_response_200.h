@@ -14,25 +14,24 @@
 
 
 
-
 typedef struct inline_response_200_t {
-        list_t *upcs; //primitive container
-        list_t *eans; //primitive container
-        list_t *asins; //primitive container
-        char *message; //no enum string
+    list_t *upcs; //primitive container
+    list_t *eans; //primitive container
+    list_t *asins; //primitive container
+    char *message; // string
 
 } inline_response_200_t;
 
 inline_response_200_t *inline_response_200_create(
-        list_t *upcs,
-        list_t *eans,
-        list_t *asins,
-        char *message
+    list_t *upcs,
+    list_t *eans,
+    list_t *asins,
+    char *message
 );
 
 void inline_response_200_free(inline_response_200_t *inline_response_200);
 
-inline_response_200_t *inline_response_200_parseFromJSON(char *jsonString);
+inline_response_200_t *inline_response_200_parseFromJSON(cJSON *inline_response_200JSON);
 
 cJSON *inline_response_200_convertToJSON(inline_response_200_t *inline_response_200);
 

@@ -1,7 +1,9 @@
 
+
 # Item
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **upc** | **String** |  |  [optional]

@@ -9,7 +9,9 @@ Method | HTTP request | Description
 [**get_item_by_upc**](ProductLookupApi.md#get_item_by_upc) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-# **get_item_by_asin**
+
+## get_item_by_asin
+
 > Item get_item_by_asin(asin)
 
 Find item by asin code
@@ -17,6 +19,7 @@ Find item by asin code
 Returns a single item
 
 ### Example
+
 ```ruby
 # load the gem
 require 'openapi_client'
@@ -35,6 +38,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **asin** | **String**| ASIN code of item to return | 
@@ -49,12 +53,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## get_item_by_ean
 
-# **get_item_by_ean**
 > Item get_item_by_ean(ean)
 
 Find item by UPC code
@@ -62,6 +66,7 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```ruby
 # load the gem
 require 'openapi_client'
@@ -80,6 +85,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ean** | **String**| EAN code of item to return | 
@@ -94,12 +100,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## get_item_by_upc
 
-# **get_item_by_upc**
 > Item get_item_by_upc(upc)
 
 Find item by UPC code
@@ -107,6 +113,7 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```ruby
 # load the gem
 require 'openapi_client'
@@ -125,6 +132,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **upc** | **String**| UPC code of item to return | 
@@ -139,8 +147,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
+- **Content-Type**: Not defined
+- **Accept**: application/json
 

@@ -1,4 +1,4 @@
-## barcodablecom_api@1.0.0
+## barcodable_com_api@1.0.0
 
 This generator creates Flow typed JavaScript client that utilizes [Fetch API](https://fetch.spec.whatwg.org/). The generated Node module can be used in the following environments:
 
@@ -18,7 +18,8 @@ Module system
 To build an compile the flow typed sources to javascript use:
 ```
 npm install
-npm run build
+# The dependency `babel-preset-react-app` requires that you specify `NODE_ENV` or `BABEL_ENV` environment variables
+env BABEL_ENV={YOUR_ENV} npm run build
 ```
 
 ### Publishing
@@ -32,7 +33,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install barcodablecom_api@1.0.0 --save
+npm install barcodable_com_api@1.0.0 --save
 ```
 
 _unPublished (not recommended):_

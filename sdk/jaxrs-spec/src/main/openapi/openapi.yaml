@@ -33,7 +33,7 @@ paths:
           type: string
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
@@ -41,39 +41,42 @@ paths:
           description: successful operation
           headers:
             X-ValidAuthorization:
-              description: A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.
+              description: A boolean indicating whether the API key in use is valid.
+                Requests with an invalid subscription, incorrect key, or no key will
+                return 'false'.
               explode: false
               schema:
                 type: boolean
               style: simple
             X-RateLimit-Limit:
-              description: An integer specifying the number of requests available per day. This number is definied by your subscription plan.
+              description: An integer specifying the number of requests available
+                per day. This number is definied by your subscription plan.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Remaining:
-              description: An integer specifying the number of remaining requests per day.
+              description: An integer specifying the number of remaining requests
+                per day.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Reset:
-              description: A timestamp specifying the time in which the daily rate limit is reset.
+              description: A timestamp specifying the time in which the daily rate
+                limit is reset.
               explode: false
               schema:
                 format: date-time
                 type: string
               style: simple
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/invalid_code'
           description: search results matching criteria
-        404:
+        "404":
           content:
             application/json:
               schema:
@@ -84,6 +87,7 @@ paths:
       summary: Find item by UPC code
       tags:
       - Product Lookup
+      x-accepts: application/json
       x-tags:
       - tag: Product Lookup
   /api/v1/ean/{ean}:
@@ -100,7 +104,7 @@ paths:
           type: string
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
@@ -108,39 +112,42 @@ paths:
           description: successful operation
           headers:
             X-ValidAuthorization:
-              description: A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.
+              description: A boolean indicating whether the API key in use is valid.
+                Requests with an invalid subscription, incorrect key, or no key will
+                return 'false'.
               explode: false
               schema:
                 type: boolean
               style: simple
             X-RateLimit-Limit:
-              description: An integer specifying the number of requests available per day. This number is definied by your subscription plan.
+              description: An integer specifying the number of requests available
+                per day. This number is definied by your subscription plan.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Remaining:
-              description: An integer specifying the number of remaining requests per day.
+              description: An integer specifying the number of remaining requests
+                per day.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Reset:
-              description: A timestamp specifying the time in which the daily rate limit is reset.
+              description: A timestamp specifying the time in which the daily rate
+                limit is reset.
               explode: false
               schema:
                 format: date-time
                 type: string
               style: simple
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/invalid_code'
           description: search results matching criteria
-        404:
+        "404":
           content:
             application/json:
               schema:
@@ -151,6 +158,7 @@ paths:
       summary: Find item by UPC code
       tags:
       - Product Lookup
+      x-accepts: application/json
       x-tags:
       - tag: Product Lookup
   /api/v1/asin/{asin}:
@@ -167,7 +175,7 @@ paths:
           type: string
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
@@ -175,39 +183,42 @@ paths:
           description: successful operation
           headers:
             X-ValidAuthorization:
-              description: A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.
+              description: A boolean indicating whether the API key in use is valid.
+                Requests with an invalid subscription, incorrect key, or no key will
+                return 'false'.
               explode: false
               schema:
                 type: boolean
               style: simple
             X-RateLimit-Limit:
-              description: An integer specifying the number of requests available per day. This number is definied by your subscription plan.
+              description: An integer specifying the number of requests available
+                per day. This number is definied by your subscription plan.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Remaining:
-              description: An integer specifying the number of remaining requests per day.
+              description: An integer specifying the number of remaining requests
+                per day.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Reset:
-              description: A timestamp specifying the time in which the daily rate limit is reset.
+              description: A timestamp specifying the time in which the daily rate
+                limit is reset.
               explode: false
               schema:
                 format: date-time
                 type: string
               style: simple
-        400:
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/invalid_code'
           description: search results matching criteria
-        404:
+        "404":
           content:
             application/json:
               schema:
@@ -218,6 +229,7 @@ paths:
       summary: Find item by asin code
       tags:
       - Product Lookup
+      x-accepts: application/json
       x-tags:
       - tag: Product Lookup
   /api/v1/convert/{upc | ean | asin}:
@@ -234,7 +246,7 @@ paths:
           type: string
         style: simple
       responses:
-        200:
+        "200":
           content:
             application/json:
               schema:
@@ -242,33 +254,36 @@ paths:
           description: successful operation
           headers:
             X-ValidAuthorization:
-              description: A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return 'false'.
+              description: A boolean indicating whether the API key in use is valid.
+                Requests with an invalid subscription, incorrect key, or no key will
+                return 'false'.
               explode: false
               schema:
                 type: boolean
               style: simple
             X-RateLimit-Limit:
-              description: An integer specifying the number of requests available per day. This number is definied by your subscription plan.
+              description: An integer specifying the number of requests available
+                per day. This number is definied by your subscription plan.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Remaining:
-              description: An integer specifying the number of remaining requests per day.
+              description: An integer specifying the number of remaining requests
+                per day.
               explode: false
               schema:
-                format: int32
                 type: integer
               style: simple
             X-RateLimit-Reset:
-              description: A timestamp specifying the time in which the daily rate limit is reset.
+              description: A timestamp specifying the time in which the daily rate
+                limit is reset.
               explode: false
               schema:
                 format: date-time
                 type: string
               style: simple
-        400:
+        "400":
           content:
             application/json:
               schema:
@@ -279,6 +294,7 @@ paths:
       summary: Convert between UPC, EAN, and ASIN product codes.
       tags:
       - Product Conversion
+      x-accepts: application/json
       x-tags:
       - tag: Product Conversion
 components:
@@ -290,14 +306,17 @@ components:
         - US
         - GB
         isbn: "9780198155795"
-        description: The latest iPhone with advanced camera, better battery life, immersive speakers and water resistance!
+        description: The latest iPhone with advanced camera, better battery life,
+          immersive speakers and water resistance!
         title: Apple iPhone 7 Unlocked Phone 128 GB - US Version (Black)
         currency_code: USD
         company_address: 101 Infinite Loop, Cupertino, CA 95014
         manufacturer: Apple
         features:
-        - Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip, advanced cameras, and a 4.7-inch Retina HD display. And so much more.
-        - The most advanced chip ever in a smartphone is even faster and now features an integrated M9 motion coprocessor.
+        - Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip, advanced
+          cameras, and a 4.7-inch Retina HD display. And so much more.
+        - The most advanced chip ever in a smartphone is even faster and now features
+          an integrated M9 motion coprocessor.
         ean: "190198155795"
         used_price: 659.95
         categories:
@@ -360,7 +379,8 @@ components:
             type: string
           type: array
         description:
-          example: The latest iPhone with advanced camera, better battery life, immersive speakers and water resistance!
+          example: The latest iPhone with advanced camera, better battery life, immersive
+            speakers and water resistance!
           type: string
         brand:
           example: Apple
@@ -386,8 +406,10 @@ components:
         features:
           description: A list of product feature descriptions.
           example:
-          - Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip, advanced cameras, and a 4.7-inch Retina HD display. And so much more.
-          - The most advanced chip ever in a smartphone is even faster and now features an integrated M9 motion coprocessor.
+          - Smooth, continuous unibody design. 3D Touch, Live Photos, an A9 chip,
+            advanced cameras, and a 4.7-inch Retina HD display. And so much more.
+          - The most advanced chip ever in a smartphone is even faster and now features
+            an integrated M9 motion coprocessor.
           items:
             type: string
           type: array
@@ -397,7 +419,7 @@ components:
              ('meters', 'centimeters', 'millimeters', 'inches', 'feet', 'yards', 'ounces', 'pounds', 'grams', 'milligrams', 'kilograms')
           items:
             type: object
-          type: object
+          type: array
         images:
           description: A list product images.
           example:
@@ -436,7 +458,8 @@ components:
             type: string
           type: array
         category_hierarchies:
-          description: A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category.
+          description: A list of category hierarchies for this product. Categories
+            are listed in order of generic category to most specific category.
           example:
           - - Cell Phones & Accessories
             - Cell Phones
@@ -452,7 +475,6 @@ components:
           type: string
         status:
           example: 404
-          format: int32
           type: integer
     invalid_code:
       properties:
@@ -461,7 +483,6 @@ components:
           type: string
         status:
           example: 400
-          format: int32
           type: integer
     inline_response_200:
       example:
@@ -504,7 +525,6 @@ components:
           type: string
         status:
           example: 400
-          format: int32
           type: integer
   securitySchemes:
     ApiKeyAuth:

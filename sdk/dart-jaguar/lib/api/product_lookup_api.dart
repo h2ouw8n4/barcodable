@@ -1,23 +1,22 @@
 import 'package:jaguar_retrofit/annotations/annotations.dart';
 import 'package:jaguar_retrofit/jaguar_retrofit.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-import 'package:jaguar_serializer/src/repo/repo.dart';
+import 'package:jaguar_mimetype/jaguar_mimetype.dart';
 import 'dart:async';
 
 import 'package:openapi/model/invalid_code.dart';
 import 'package:openapi/model/item.dart';
 import 'package:openapi/model/not_found.dart';
 
-
 part 'product_lookup_api.jretro.dart';
 
 @GenApiClient()
-class ProductLookupApi extends _$ProductLookupApiClient implements ApiClient {
+class ProductLookupApi extends ApiClient with _$ProductLookupApiClient {
     final Route base;
-    final SerializerRepo serializers;
+    final Map<String, CodecRepo> converters;
     final Duration timeout;
 
-    ProductLookupApi({this.base, this.serializers, this.timeout = const Duration(minutes: 2)});
+    ProductLookupApi({this.base, this.converters, this.timeout = const Duration(minutes: 2)});
 
     /// Find item by asin code
     ///

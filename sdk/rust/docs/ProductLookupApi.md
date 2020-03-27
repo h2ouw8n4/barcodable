@@ -9,21 +9,24 @@ Method | HTTP request | Description
 [**get_item_by_upc**](ProductLookupApi.md#get_item_by_upc) | **Get** /api/v1/upc/{upc} | Find item by UPC code
 
 
-# **get_item_by_asin**
-> ::models::Item get_item_by_asin(asin)
+
+## get_item_by_asin
+
+> crate::models::Item get_item_by_asin(asin)
 Find item by asin code
 
 Returns a single item
 
-### Required Parameters
+### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-  **asin** | **String**| ASIN code of item to return | 
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**asin** | **String** | ASIN code of item to return | [required] |
 
 ### Return type
 
-[**::models::Item**](item.md)
+[**crate::models::Item**](item.md)
 
 ### Authorization
 
@@ -31,26 +34,29 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_item_by_ean**
-> ::models::Item get_item_by_ean(ean)
+
+## get_item_by_ean
+
+> crate::models::Item get_item_by_ean(ean)
 Find item by UPC code
 
 Returns a single item
 
-### Required Parameters
+### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-  **ean** | **String**| EAN code of item to return | 
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ean** | **String** | EAN code of item to return | [required] |
 
 ### Return type
 
-[**::models::Item**](item.md)
+[**crate::models::Item**](item.md)
 
 ### Authorization
 
@@ -58,26 +64,29 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_item_by_upc**
-> ::models::Item get_item_by_upc(upc)
+
+## get_item_by_upc
+
+> crate::models::Item get_item_by_upc(upc)
 Find item by UPC code
 
 Returns a single item
 
-### Required Parameters
+### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-  **upc** | **String**| UPC code of item to return | 
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**upc** | **String** | UPC code of item to return | [required] |
 
 ### Return type
 
-[**::models::Item**](item.md)
+[**crate::models::Item**](item.md)
 
 ### Authorization
 
@@ -85,8 +94,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,4 +1,4 @@
-{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches #-}
 
 module Instances where
 
@@ -86,64 +86,95 @@ hasNoDups = go Set.empty
 
 instance ApproxEq TI.Day where
   (=~) = (==)
+    
+arbitraryReduced :: Arbitrary a => Int -> Gen a
+arbitraryReduced n = resize (n `div` 2) arbitrary
+
+arbitraryReducedMaybe :: Arbitrary a => Int -> Gen (Maybe a)
+arbitraryReducedMaybe 0 = elements [Nothing]
+arbitraryReducedMaybe n = arbitraryReduced n
+
+arbitraryReducedMaybeValue :: Int -> Gen (Maybe A.Value)
+arbitraryReducedMaybeValue 0 = elements [Nothing]
+arbitraryReducedMaybeValue n = do
+  generated <- arbitraryReduced n
+  if generated == Just A.Null
+    then return Nothing
+    else return generated
 
 -- * Models
  
 instance Arbitrary InlineResponse200 where
-  arbitrary =
-    InlineResponse200
-      <$> arbitrary -- inlineResponse200Upcs :: Maybe [Text]
-      <*> arbitrary -- inlineResponse200Eans :: Maybe [Text]
-      <*> arbitrary -- inlineResponse200Asins :: Maybe [Text]
-      <*> arbitrary -- inlineResponse200Message :: Maybe Text
-    
+  arbitrary = sized genInlineResponse200
+
+genInlineResponse200 :: Int -> Gen InlineResponse200
+genInlineResponse200 n =
+  InlineResponse200
+    <$> arbitraryReducedMaybe n -- inlineResponse200Upcs :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- inlineResponse200Eans :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- inlineResponse200Asins :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- inlineResponse200Message :: Maybe Text
+  
 instance Arbitrary InlineResponse400 where
-  arbitrary =
-    InlineResponse400
-      <$> arbitrary -- inlineResponse400Message :: Maybe Text
-      <*> arbitrary -- inlineResponse400Status :: Maybe Int
-    
+  arbitrary = sized genInlineResponse400
+
+genInlineResponse400 :: Int -> Gen InlineResponse400
+genInlineResponse400 n =
+  InlineResponse400
+    <$> arbitraryReducedMaybe n -- inlineResponse400Message :: Maybe Text
+    <*> arbitraryReducedMaybe n -- inlineResponse400Status :: Maybe Int
+  
 instance Arbitrary InvalidCode where
-  arbitrary =
-    InvalidCode
-      <$> arbitrary -- invalidCodeMessage :: Maybe Text
-      <*> arbitrary -- invalidCodeStatus :: Maybe Int
-    
+  arbitrary = sized genInvalidCode
+
+genInvalidCode :: Int -> Gen InvalidCode
+genInvalidCode n =
+  InvalidCode
+    <$> arbitraryReducedMaybe n -- invalidCodeMessage :: Maybe Text
+    <*> arbitraryReducedMaybe n -- invalidCodeStatus :: Maybe Int
+  
 instance Arbitrary Item where
-  arbitrary =
-    Item
-      <$> arbitrary -- itemUpc :: Maybe Text
-      <*> arbitrary -- itemEan :: Maybe Text
-      <*> arbitrary -- itemIsbn :: Maybe Text
-      <*> arbitrary -- itemAsin :: Maybe Text
-      <*> arbitrary -- itemTitle :: Maybe Text
-      <*> arbitrary -- itemSku :: Maybe Text
-      <*> arbitrary -- itemMpn :: Maybe Text
-      <*> arbitrary -- itemPartNumber :: Maybe Text
-      <*> arbitrary -- itemUpcs :: Maybe [Text]
-      <*> arbitrary -- itemDescription :: Maybe Text
-      <*> arbitrary -- itemBrand :: Maybe Text
-      <*> arbitrary -- itemManufacturer :: Maybe Text
-      <*> arbitrary -- itemColor :: Maybe Text
-      <*> arbitrary -- itemNewPrice :: Maybe Double
-      <*> arbitrary -- itemUsedPrice :: Maybe Double
-      <*> arbitrary -- itemCurrencyCode :: Maybe Text
-      <*> arbitrary -- itemUrl :: Maybe Text
-      <*> arbitrary -- itemFeatures :: Maybe [Text]
-      <*> arbitrary -- itemDimensions :: Maybe [A.Value]
-      <*> arbitrary -- itemImages :: Maybe [Text]
-      <*> arbitrary -- itemMatchedItems :: Maybe [A.Value]
-      <*> arbitrary -- itemIsoCountryCodes :: Maybe [Text]
-      <*> arbitrary -- itemCompanyName :: Maybe Text
-      <*> arbitrary -- itemCompanyAddress :: Maybe Text
-      <*> arbitrary -- itemCategories :: Maybe [Text]
-      <*> arbitrary -- itemCategoryHierarchies :: Maybe [Text]
-    
+  arbitrary = sized genItem
+
+genItem :: Int -> Gen Item
+genItem n =
+  Item
+    <$> arbitraryReducedMaybe n -- itemUpc :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemEan :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemIsbn :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemAsin :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemTitle :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemSku :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemMpn :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemPartNumber :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemUpcs :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- itemDescription :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemBrand :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemManufacturer :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemColor :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemNewPrice :: Maybe Double
+    <*> arbitraryReducedMaybe n -- itemUsedPrice :: Maybe Double
+    <*> arbitraryReducedMaybe n -- itemCurrencyCode :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemUrl :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemFeatures :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- itemDimensions :: Maybe [A.Value]
+    <*> arbitraryReducedMaybe n -- itemImages :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- itemMatchedItems :: Maybe [A.Value]
+    <*> arbitraryReducedMaybe n -- itemIsoCountryCodes :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- itemCompanyName :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemCompanyAddress :: Maybe Text
+    <*> arbitraryReducedMaybe n -- itemCategories :: Maybe [Text]
+    <*> arbitraryReducedMaybe n -- itemCategoryHierarchies :: Maybe [Text]
+  
 instance Arbitrary NotFound where
-  arbitrary =
-    NotFound
-      <$> arbitrary -- notFoundMessage :: Maybe Text
-      <*> arbitrary -- notFoundStatus :: Maybe Int
-    
+  arbitrary = sized genNotFound
+
+genNotFound :: Int -> Gen NotFound
+genNotFound n =
+  NotFound
+    <$> arbitraryReducedMaybe n -- notFoundMessage :: Maybe Text
+    <*> arbitraryReducedMaybe n -- notFoundStatus :: Maybe Int
+  
+
 
 

@@ -18,18 +18,30 @@ Returns the converted UPC, EAN, and ASIN codes.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.ProductConversionApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.ProductConversionApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0");
 
-ProductConversionApi apiInstance = new ProductConversionApi();
-String upcEanAsin = "upcEanAsin_example"; // String | UPC, EAN, or ASIN
-try {
-    InlineResponse200 result = apiInstance.convertCode(upcEanAsin);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProductConversionApi#convertCode");
-    e.printStackTrace();
+    ProductConversionApi apiInstance = new ProductConversionApi(defaultClient);
+    String upcEanAsin = "upcEanAsin_example"; // String | UPC, EAN, or ASIN
+    try {
+      InlineResponse200 result = apiInstance.convertCode(upcEanAsin);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ProductConversionApi#convertCode");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -51,4 +63,10 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+**400** | search results matching criteria |  -  |
 

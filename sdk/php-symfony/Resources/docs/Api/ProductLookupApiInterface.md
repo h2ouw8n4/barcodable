@@ -17,7 +17,7 @@ services:
     acme.my_bundle.api.productLookup:
         class: Acme\MyBundle\Api\ProductLookupApi
         tags:
-            - { name: "open_apiserver.api", api: "productLookup" }
+            - { name: "open_api_server.api", api: "productLookup" }
     # ...
 ```
 

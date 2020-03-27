@@ -13,7 +13,6 @@
 // Returns the converted UPC, EAN, and ASIN codes.
 //
 inline_response_200_t*
-ProductConversionAPI_convertCode(apiClient_t *apiClient,char* upc | ean | asin );
-
+ProductConversionAPI_convertCode(apiClient_t *apiClient, char * upc | ean | asin );
 
 

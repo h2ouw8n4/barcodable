@@ -8,8 +8,8 @@
 import Foundation
 
 
+public struct InlineResponse400: Codable { 
 
-public struct InlineResponse400: Codable {
 
     public var message: String?
     public var status: Int?
@@ -19,6 +19,4 @@ public struct InlineResponse400: Codable {
         self.status = status
     }
 
-
 }
-

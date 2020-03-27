@@ -26,7 +26,7 @@ function New-Item {
         [String]
         ${partUnderscorenumber},
         [Parameter(Position = 8, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${upcs},
         [Parameter(Position = 9, ValueFromPipelineByPropertyName = $true)]
         [String]
@@ -53,19 +53,19 @@ function New-Item {
         [String]
         ${url},
         [Parameter(Position = 17, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${features},
         [Parameter(Position = 18, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${dimensions},
         [Parameter(Position = 19, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${images},
         [Parameter(Position = 20, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${matchedUnderscoreitems},
         [Parameter(Position = 21, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${isoUnderscorecountryUnderscorecodes},
         [Parameter(Position = 22, ValueFromPipelineByPropertyName = $true)]
         [String]
@@ -74,10 +74,10 @@ function New-Item {
         [String]
         ${companyUnderscoreaddress},
         [Parameter(Position = 24, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${categories},
         [Parameter(Position = 25, ValueFromPipelineByPropertyName = $true)]
-        [System.Nullable[String[]]]
+        [String[]]
         ${categoryUnderscorehierarchies}
     )
 

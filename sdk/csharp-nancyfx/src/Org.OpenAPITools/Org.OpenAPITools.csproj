@@ -3,10 +3,10 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{5EFD3E9F-60FD-4D7E-9C55-EBE193BAFFF5}</ProjectGuid>
+        <ProjectGuid>{892675AA-B435-4E1B-BE77-CABA1217D762}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>Org.OpenAPITools.magicCashewbarcodable1_0_0</RootNamespace>
+        <RootNamespace>Org.OpenAPITools._magicCashew_barcodable_1_0_0</RootNamespace>
         <AssemblyName>Org.OpenAPITools</AssemblyName>
             <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>

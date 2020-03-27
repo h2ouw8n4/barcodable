@@ -1,6 +1,7 @@
-# Item
+# # Item
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **upc** | **string** |  | [optional] 
@@ -30,6 +31,6 @@ Name | Type | Description | Notes
 **categories** | **string[]** | A list of categories for this product. | [optional] 
 **category_hierarchies** | **string[]** | A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
 

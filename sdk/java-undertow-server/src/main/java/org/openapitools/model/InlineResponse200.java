@@ -12,7 +12,7 @@ import java.util.List;
 
 
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaUndertowServerCodegen", date = "2019-03-04T22:38:58.048Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaUndertowServerCodegen", date = "2020-03-27T18:10:05.330-04:00[America/New_York]")
 public class InlineResponse200   {
   
   private List<String> upcs = new ArrayList<String>();

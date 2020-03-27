@@ -1,4 +1,4 @@
-# BarcodablecomApi.ProductLookupApi
+# BarcodableComApi.ProductLookupApi
 
 All URIs are relative to *https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0*
 
@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**getItemByUPC**](ProductLookupApi.md#getItemByUPC) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-<a name="getItemByASIN"></a>
-# **getItemByASIN**
+
+## getItemByASIN
+
 > Item getItemByASIN(asin)
 
 Find item by asin code
@@ -18,22 +19,23 @@ Find item by asin code
 Returns a single item
 
 ### Example
-```javascript
-var BarcodablecomApi = require('barcodablecom_api');
 
-var apiInstance = new BarcodablecomApi.ProductLookupApi();
-var asin = "asin_example"; // String | ASIN code of item to return
-var callback = function(error, data, response) {
+```javascript
+import BarcodableComApi from 'barcodable_com_api';
+
+let apiInstance = new BarcodableComApi.ProductLookupApi();
+let asin = "asin_example"; // String | ASIN code of item to return
+apiInstance.getItemByASIN(asin, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
     console.log('API called successfully. Returned data: ' + data);
   }
-};
-apiInstance.getItemByASIN(asin, callback);
+});
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -49,11 +51,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-<a name="getItemByEAN"></a>
-# **getItemByEAN**
+
+## getItemByEAN
+
 > Item getItemByEAN(ean)
 
 Find item by UPC code
@@ -61,22 +64,23 @@ Find item by UPC code
 Returns a single item
 
 ### Example
-```javascript
-var BarcodablecomApi = require('barcodablecom_api');
 
-var apiInstance = new BarcodablecomApi.ProductLookupApi();
-var ean = "ean_example"; // String | EAN code of item to return
-var callback = function(error, data, response) {
+```javascript
+import BarcodableComApi from 'barcodable_com_api';
+
+let apiInstance = new BarcodableComApi.ProductLookupApi();
+let ean = "ean_example"; // String | EAN code of item to return
+apiInstance.getItemByEAN(ean, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
     console.log('API called successfully. Returned data: ' + data);
   }
-};
-apiInstance.getItemByEAN(ean, callback);
+});
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -92,11 +96,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-<a name="getItemByUPC"></a>
-# **getItemByUPC**
+
+## getItemByUPC
+
 > Item getItemByUPC(upc)
 
 Find item by UPC code
@@ -104,22 +109,23 @@ Find item by UPC code
 Returns a single item
 
 ### Example
-```javascript
-var BarcodablecomApi = require('barcodablecom_api');
 
-var apiInstance = new BarcodablecomApi.ProductLookupApi();
-var upc = "upc_example"; // String | UPC code of item to return
-var callback = function(error, data, response) {
+```javascript
+import BarcodableComApi from 'barcodable_com_api';
+
+let apiInstance = new BarcodableComApi.ProductLookupApi();
+let upc = "upc_example"; // String | UPC code of item to return
+apiInstance.getItemByUPC(upc, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
     console.log('API called successfully. Returned data: ' + data);
   }
-};
-apiInstance.getItemByUPC(upc, callback);
+});
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -135,6 +141,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 

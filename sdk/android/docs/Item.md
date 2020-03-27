@@ -1,7 +1,9 @@
 
+
 # Item
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **upc** | **String** |  |  [optional]
@@ -30,6 +32,7 @@ Name | Type | Description | Notes
 **companyAddress** | **String** | The company address registered to the product&#39;s UPC or EAN. |  [optional]
 **categories** | **List&lt;String&gt;** | A list of categories for this product. |  [optional]
 **categoryHierarchies** | **List&lt;String&gt;** | A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. |  [optional]
+
 
 
 

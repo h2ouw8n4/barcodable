@@ -1,16 +1,16 @@
 #![allow(unused_imports, unused_qualifications, unused_extern_crates)]
 extern crate chrono;
-extern crate uuid;
-
 
 use serde::ser::Serializer;
 
 use std::collections::HashMap;
 use models;
 use swagger;
+use std::string::ParseError;
 
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "conversion", derive(LabelledGeneric))]
 pub struct InlineResponse200 {
     /// A list of UPCs
     #[serde(rename = "upcs")]
@@ -44,7 +44,9 @@ impl InlineResponse200 {
     }
 }
 
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "conversion", derive(LabelledGeneric))]
 pub struct InlineResponse400 {
     #[serde(rename = "message")]
     #[serde(skip_serializing_if="Option::is_none")]
@@ -52,7 +54,7 @@ pub struct InlineResponse400 {
 
     #[serde(rename = "status")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub status: Option<i32>,
+    pub status: Option<isize>,
 
 }
 
@@ -65,7 +67,9 @@ impl InlineResponse400 {
     }
 }
 
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "conversion", derive(LabelledGeneric))]
 pub struct InvalidCode {
     #[serde(rename = "message")]
     #[serde(skip_serializing_if="Option::is_none")]
@@ -73,7 +77,7 @@ pub struct InvalidCode {
 
     #[serde(rename = "status")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub status: Option<i32>,
+    pub status: Option<isize>,
 
 }
 
@@ -86,7 +90,9 @@ impl InvalidCode {
     }
 }
 
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "conversion", derive(LabelledGeneric))]
 pub struct Item {
     #[serde(rename = "upc")]
     #[serde(skip_serializing_if="Option::is_none")]
@@ -237,7 +243,9 @@ impl Item {
     }
 }
 
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "conversion", derive(LabelledGeneric))]
 pub struct NotFound {
     #[serde(rename = "message")]
     #[serde(skip_serializing_if="Option::is_none")]
@@ -245,7 +253,7 @@ pub struct NotFound {
 
     #[serde(rename = "status")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub status: Option<i32>,
+    pub status: Option<isize>,
 
 }
 
@@ -257,3 +265,4 @@ impl NotFound {
         }
     }
 }
+

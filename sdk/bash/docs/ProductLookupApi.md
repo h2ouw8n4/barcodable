@@ -9,18 +9,21 @@ Method | HTTP request | Description
 [**getItemByUPC**](ProductLookupApi.md#getItemByUPC) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-## **getItemByASIN**
+
+## getItemByASIN
 
 Find item by asin code
 
 Returns a single item
 
 ### Example
+
 ```bash
  getItemByASIN asin=value
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -36,23 +39,26 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not Applicable
- - **Accept**: application/json
+- **Content-Type**: Not Applicable
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-## **getItemByEAN**
+
+## getItemByEAN
 
 Find item by UPC code
 
 Returns a single item
 
 ### Example
+
 ```bash
  getItemByEAN ean=value
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -68,23 +74,26 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not Applicable
- - **Accept**: application/json
+- **Content-Type**: Not Applicable
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-## **getItemByUPC**
+
+## getItemByUPC
 
 Find item by UPC code
 
 Returns a single item
 
 ### Example
+
 ```bash
  getItemByUPC upc=value
 ```
 
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -100,8 +109,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not Applicable
- - **Accept**: application/json
+- **Content-Type**: Not Applicable
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

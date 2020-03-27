@@ -14,21 +14,20 @@
 
 
 
-
 typedef struct invalid_code_t {
-        char *message; //no enum string
-        int status; //numeric
+    char *message; // string
+    int status; //numeric
 
 } invalid_code_t;
 
 invalid_code_t *invalid_code_create(
-        char *message,
-        int status
+    char *message,
+    int status
 );
 
 void invalid_code_free(invalid_code_t *invalid_code);
 
-invalid_code_t *invalid_code_parseFromJSON(char *jsonString);
+invalid_code_t *invalid_code_parseFromJSON(cJSON *invalid_codeJSON);
 
 cJSON *invalid_code_convertToJSON(invalid_code_t *invalid_code);
 

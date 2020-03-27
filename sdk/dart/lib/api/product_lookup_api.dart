@@ -7,15 +7,15 @@ class ProductLookupApi {
 
   ProductLookupApi([ApiClient apiClient]) : apiClient = apiClient ?? defaultApiClient;
 
-  /// Find item by asin code
+  /// Find item by asin code with HTTP info returned
   ///
   /// Returns a single item
-  Future<Item> getItemByASIN(String asin) async {
+  Future<Response> getItemByASINWithHttpInfo(String asin) async {
     Object postBody;
 
     // verify required params are set
     if(asin == null) {
-     throw new ApiException(400, "Missing required param: asin");
+     throw ApiException(400, "Missing required param: asin");
     }
 
     // create path and map variables
@@ -28,12 +28,12 @@ class ProductLookupApi {
 
     List<String> contentTypes = [];
 
-    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+    String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
     List<String> authNames = [];
 
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
-      MultipartRequest mp = new MultipartRequest(null, null);
+      MultipartRequest mp = MultipartRequest(null, null);
       if(hasFields)
         postBody = mp;
     }
@@ -48,24 +48,32 @@ class ProductLookupApi {
                                              formParams,
                                              contentType,
                                              authNames);
+    return response;
+  }
 
+  /// Find item by asin code
+  ///
+  /// Returns a single item
+  Future<Item> getItemByASIN(String asin) async {
+    Response response = await getItemByASINWithHttpInfo(asin);
     if(response.statusCode >= 400) {
-      throw new ApiException(response.statusCode, _decodeBodyBytes(response));
+      throw ApiException(response.statusCode, _decodeBodyBytes(response));
     } else if(response.body != null) {
       return apiClient.deserialize(_decodeBodyBytes(response), 'Item') as Item;
     } else {
       return null;
     }
   }
-  /// Find item by UPC code
+
+  /// Find item by UPC code with HTTP info returned
   ///
   /// Returns a single item
-  Future<Item> getItemByEAN(String ean) async {
+  Future<Response> getItemByEANWithHttpInfo(String ean) async {
     Object postBody;
 
     // verify required params are set
     if(ean == null) {
-     throw new ApiException(400, "Missing required param: ean");
+     throw ApiException(400, "Missing required param: ean");
     }
 
     // create path and map variables
@@ -78,12 +86,12 @@ class ProductLookupApi {
 
     List<String> contentTypes = [];
 
-    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+    String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
     List<String> authNames = [];
 
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
-      MultipartRequest mp = new MultipartRequest(null, null);
+      MultipartRequest mp = MultipartRequest(null, null);
       if(hasFields)
         postBody = mp;
     }
@@ -98,24 +106,32 @@ class ProductLookupApi {
                                              formParams,
                                              contentType,
                                              authNames);
+    return response;
+  }
 
+  /// Find item by UPC code
+  ///
+  /// Returns a single item
+  Future<Item> getItemByEAN(String ean) async {
+    Response response = await getItemByEANWithHttpInfo(ean);
     if(response.statusCode >= 400) {
-      throw new ApiException(response.statusCode, _decodeBodyBytes(response));
+      throw ApiException(response.statusCode, _decodeBodyBytes(response));
     } else if(response.body != null) {
       return apiClient.deserialize(_decodeBodyBytes(response), 'Item') as Item;
     } else {
       return null;
     }
   }
-  /// Find item by UPC code
+
+  /// Find item by UPC code with HTTP info returned
   ///
   /// Returns a single item
-  Future<Item> getItemByUPC(String upc) async {
+  Future<Response> getItemByUPCWithHttpInfo(String upc) async {
     Object postBody;
 
     // verify required params are set
     if(upc == null) {
-     throw new ApiException(400, "Missing required param: upc");
+     throw ApiException(400, "Missing required param: upc");
     }
 
     // create path and map variables
@@ -128,12 +144,12 @@ class ProductLookupApi {
 
     List<String> contentTypes = [];
 
-    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+    String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
     List<String> authNames = [];
 
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
-      MultipartRequest mp = new MultipartRequest(null, null);
+      MultipartRequest mp = MultipartRequest(null, null);
       if(hasFields)
         postBody = mp;
     }
@@ -148,13 +164,21 @@ class ProductLookupApi {
                                              formParams,
                                              contentType,
                                              authNames);
+    return response;
+  }
 
+  /// Find item by UPC code
+  ///
+  /// Returns a single item
+  Future<Item> getItemByUPC(String upc) async {
+    Response response = await getItemByUPCWithHttpInfo(upc);
     if(response.statusCode >= 400) {
-      throw new ApiException(response.statusCode, _decodeBodyBytes(response));
+      throw ApiException(response.statusCode, _decodeBodyBytes(response));
     } else if(response.body != null) {
       return apiClient.deserialize(_decodeBodyBytes(response), 'Item') as Item;
     } else {
       return null;
     }
   }
+
 }

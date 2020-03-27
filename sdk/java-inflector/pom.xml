@@ -10,7 +10,7 @@
     <artifactId>openapi-inflector-server</artifactId>
     <packaging>jar</packaging>
     <name>openapi-inflector-server</name>
-    <version>1.0.0</version>
+    <version>1.5.0</version>
 
     <licenses>
         <license>

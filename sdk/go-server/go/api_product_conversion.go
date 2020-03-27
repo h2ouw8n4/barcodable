@@ -11,11 +11,44 @@
 package openapi
 
 import (
+	"encoding/json"
 	"net/http"
+	"strings"
+
+	"github.com/gorilla/mux"
 )
 
+// A ProductConversionApiController binds http requests to an api service and writes the service results to the http response
+type ProductConversionApiController struct {
+	service ProductConversionApiServicer
+}
+
+// NewProductConversionApiController creates a default api controller
+func NewProductConversionApiController(s ProductConversionApiServicer) Router {
+	return &ProductConversionApiController{ service: s }
+}
+
+// Routes returns all of the api route for the ProductConversionApiController
+func (c *ProductConversionApiController) Routes() Routes {
+	return Routes{ 
+		{
+			"ConvertCode",
+			strings.ToUpper("Get"),
+			"/magicCashew/barcodable/1.0.0/api/v1/convert/{upc | ean | asin}",
+			c.ConvertCode,
+		},
+	}
+}
+
 // ConvertCode - Convert between UPC, EAN, and ASIN product codes.
-func ConvertCode(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+func (c *ProductConversionApiController) ConvertCode(w http.ResponseWriter, r *http.Request) { 
+	params := mux.Vars(r)
+	upcEanAsin := params["upcEanAsin"]
+	result, err := c.service.ConvertCode(upcEanAsin)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	
+	EncodeJSONResponse(result, nil, w)
 }

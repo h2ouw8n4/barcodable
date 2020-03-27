@@ -25,16 +25,18 @@ import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
-api_instance = openapi_client.ProductLookupApi()
-asin = 'asin_example' # str | ASIN code of item to return
+# Enter a context with an instance of the API client
+with openapi_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ProductLookupApi(api_client)
+    asin = 'asin_example' # str | ASIN code of item to return
 
-try:
-    # Find item by asin code
-    api_response = api_instance.get_item_by_asin(asin)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProductLookupApi->get_item_by_asin: %s\n" % e)
+    try:
+        # Find item by asin code
+        api_response = api_instance.get_item_by_asin(asin)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProductLookupApi->get_item_by_asin: %s\n" % e)
 ```
 
 ### Parameters
@@ -56,6 +58,13 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+**400** | search results matching criteria |  -  |
+**404** | search results matching criteria |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_item_by_ean**
@@ -74,16 +83,18 @@ import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
-api_instance = openapi_client.ProductLookupApi()
-ean = 'ean_example' # str | EAN code of item to return
+# Enter a context with an instance of the API client
+with openapi_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ProductLookupApi(api_client)
+    ean = 'ean_example' # str | EAN code of item to return
 
-try:
-    # Find item by UPC code
-    api_response = api_instance.get_item_by_ean(ean)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProductLookupApi->get_item_by_ean: %s\n" % e)
+    try:
+        # Find item by UPC code
+        api_response = api_instance.get_item_by_ean(ean)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProductLookupApi->get_item_by_ean: %s\n" % e)
 ```
 
 ### Parameters
@@ -105,6 +116,13 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+**400** | search results matching criteria |  -  |
+**404** | search results matching criteria |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_item_by_upc**
@@ -123,16 +141,18 @@ import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
-api_instance = openapi_client.ProductLookupApi()
-upc = 'upc_example' # str | UPC code of item to return
+# Enter a context with an instance of the API client
+with openapi_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ProductLookupApi(api_client)
+    upc = 'upc_example' # str | UPC code of item to return
 
-try:
-    # Find item by UPC code
-    api_response = api_instance.get_item_by_upc(upc)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProductLookupApi->get_item_by_upc: %s\n" % e)
+    try:
+        # Find item by UPC code
+        api_response = api_instance.get_item_by_upc(upc)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProductLookupApi->get_item_by_upc: %s\n" % e)
 ```
 
 ### Parameters
@@ -153,6 +173,13 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | successful operation |  * X-ValidAuthorization - A boolean indicating whether the API key in use is valid. Requests with an invalid subscription, incorrect key, or no key will return &#39;false&#39;. <br>  * X-RateLimit-Limit - An integer specifying the number of requests available per day. This number is definied by your subscription plan. <br>  * X-RateLimit-Remaining - An integer specifying the number of remaining requests per day. <br>  * X-RateLimit-Reset - A timestamp specifying the time in which the daily rate limit is reset. <br>  |
+**400** | search results matching criteria |  -  |
+**404** | search results matching criteria |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -9,7 +9,7 @@
  */
 
 package openapi
-
+// InlineResponse200 struct for InlineResponse200
 type InlineResponse200 struct {
 	// A list of UPCs
 	Upcs []string `json:"upcs,omitempty"`

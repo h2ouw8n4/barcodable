@@ -1,4 +1,6 @@
+
 # Org.OpenAPITools.Model.InlineResponse200
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -8,5 +10,7 @@ Name | Type | Description | Notes
 **Asins** | **List&lt;string&gt;** | A list of ASINs | [optional] 
 **Message** | **string** |  | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

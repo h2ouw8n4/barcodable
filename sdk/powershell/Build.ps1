@@ -58,7 +58,7 @@ $Manifest = @{
     Description = 'Org.OpenAPITools - the PowerShell module for Barcodable.com API'
 
     RootModule = 'Org.OpenAPITools.psm1'
-    Guid = '{4033164C-4137-4DE8-ABA9-C818CC9C1941}' # Has to be static, otherwise each new build will be considered different module
+    Guid = '{079E35AA-AEB6-4000-8166-4F6438F38679}' # Has to be static, otherwise each new build will be considered different module
 
     PowerShellVersion = '3.0'
 
@@ -78,9 +78,10 @@ $Manifest = @{
     # Kirk Munro recommends against it:
     # https://www.sapien.com/blog/2016/02/15/use-prefixes-to-prevent-command-name-collision/#comment-20820
     #
-    # If not, we'd need to generate functions name with prefix.
+    # If not, we'd need to generate functions name with prefix. For examples,
     #
-    # DefaultCommandPrefix = 'PetStore'
+    # DefaultCommandPrefix = 'ProductConversionApi'
+    # DefaultCommandPrefix = 'ProductLookupApi'
 }
 
 New-ModuleManifest @Manifest

@@ -5,7 +5,7 @@ using NodaTime.Text;
 using System;
 using System.Collections.Generic;
 
-namespace Org.OpenAPITools.magicCashewbarcodable1_0_0.Utils
+namespace Org.OpenAPITools._magicCashew_barcodable_1_0_0.Utils
 {
     /// <summary>
     /// (De)serializes a <see cref="NodaTime.LocalDate"/> to a string using 

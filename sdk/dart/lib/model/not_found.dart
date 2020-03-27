@@ -14,35 +14,40 @@ class NotFound {
 
   NotFound.fromJson(Map<String, dynamic> json) {
     if (json == null) return;
-    if (json['message'] == null) {
-      message = null;
-    } else {
-          message = json['message'];
-    }
-    if (json['status'] == null) {
-      status = null;
-    } else {
-          status = json['status'];
-    }
+    message = json['message'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'message': message,
-      'status': status
-    };
+    Map <String, dynamic> json = {};
+    if (message != null)
+      json['message'] = message;
+    if (status != null)
+      json['status'] = status;
+    return json;
   }
 
   static List<NotFound> listFromJson(List<dynamic> json) {
-    return json == null ? new List<NotFound>() : json.map((value) => new NotFound.fromJson(value)).toList();
+    return json == null ? List<NotFound>() : json.map((value) => NotFound.fromJson(value)).toList();
   }
 
   static Map<String, NotFound> mapFromJson(Map<String, dynamic> json) {
-    var map = new Map<String, NotFound>();
-    if (json != null && json.length > 0) {
-      json.forEach((String key, dynamic value) => map[key] = new NotFound.fromJson(value));
+    var map = Map<String, NotFound>();
+    if (json != null && json.isNotEmpty) {
+      json.forEach((String key, dynamic value) => map[key] = NotFound.fromJson(value));
     }
     return map;
+  }
+
+  // maps a json object with a list of NotFound-objects as value to a dart map
+  static Map<String, List<NotFound>> mapListFromJson(Map<String, dynamic> json) {
+    var map = Map<String, List<NotFound>>();
+     if (json != null && json.isNotEmpty) {
+       json.forEach((String key, dynamic value) {
+         map[key] = NotFound.listFromJson(value);
+       });
+     }
+     return map;
   }
 }
 

@@ -14,7 +14,7 @@ Python 2.7 and 3.4+
 ## Installation & Usage
 ### pip install
 
-If the python package is hosted on Github, you can install directly from Github
+If the python package is hosted on a repository, you can install directly using:
 
 ```sh
 pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
@@ -23,7 +23,7 @@ pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 
 Then import the package:
 ```python
-import openapi_client 
+import openapi_client
 ```
 
 ### Setuptools
@@ -52,17 +52,21 @@ from openapi_client.rest import ApiException
 from pprint import pprint
 
 
-# create an instance of the API class
-api_instance = openapi_client.ProductConversionApi(openapi_client.ApiClient(configuration))
-upc___ean___asin = 'upc___ean___asin_example' # str | UPC, EAN, or ASIN
+# Defining host is optional and default to https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0
+configuration.host = "https://virtserver.swaggerhub.com/magicCashew/barcodable/1.0.0"
+# Enter a context with an instance of the API client
+with openapi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.ProductConversionApi(api_client)
+    upc___ean___asin = 'upc___ean___asin_example' # str | UPC, EAN, or ASIN
 
-try:
-    # Convert between UPC, EAN, and ASIN product codes.
-    api_response = api_instance.convert_code(upc___ean___asin)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProductConversionApi->convert_code: %s\n" % e)
-
+    try:
+        # Convert between UPC, EAN, and ASIN product codes.
+        api_response = api_instance.convert_code(upc___ean___asin)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProductConversionApi->convert_code: %s\n" % e)
+    
 ```
 
 ## Documentation for API Endpoints

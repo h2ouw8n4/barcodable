@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Canonical
 class InlineResponse400 {
-    String message = 
-
-    Integer status = 
-
+    
+    String message
+    
+    Integer status
 }

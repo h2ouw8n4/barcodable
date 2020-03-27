@@ -93,3 +93,4 @@ Authentication schemes defined for the API:
 ## Author
 
 support@barcodable.com
+

@@ -8,8 +8,8 @@
 import Foundation
 
 
+public struct InvalidCode: Codable { 
 
-public struct InvalidCode: Codable {
 
     public var message: String?
     public var status: Int?
@@ -19,6 +19,4 @@ public struct InvalidCode: Codable {
         self.status = status
     }
 
-
 }
-

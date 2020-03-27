@@ -12,7 +12,6 @@ package openapi
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,13 +36,13 @@ func NewRouter() *gin.Engine {
 	router := gin.Default()
 	for _, route := range routes {
 		switch route.Method {
-		case "GET":
+		case http.MethodGet:
 			router.GET(route.Pattern, route.HandlerFunc)
-		case "POST":
+		case http.MethodPost:
 			router.POST(route.Pattern, route.HandlerFunc)
-		case "PUT":
+		case http.MethodPut:
 			router.PUT(route.Pattern, route.HandlerFunc)
-		case "DELETE":
+		case http.MethodDelete:
 			router.DELETE(route.Pattern, route.HandlerFunc)
 		}
 	}
@@ -59,35 +58,35 @@ func Index(c *gin.Context) {
 var routes = Routes{
 	{
 		"Index",
-		"GET",
+		http.MethodGet,
 		"/magicCashew/barcodable/1.0.0/",
 		Index,
 	},
 
 	{
 		"ConvertCode",
-		strings.ToUpper("Get"),
+		http.MethodGet,
 		"/magicCashew/barcodable/1.0.0/api/v1/convert/:upc | ean | asin",
 		ConvertCode,
 	},
 
 	{
 		"GetItemByASIN",
-		strings.ToUpper("Get"),
+		http.MethodGet,
 		"/magicCashew/barcodable/1.0.0/api/v1/asin/:asin",
 		GetItemByASIN,
 	},
 
 	{
 		"GetItemByEAN",
-		strings.ToUpper("Get"),
+		http.MethodGet,
 		"/magicCashew/barcodable/1.0.0/api/v1/ean/:ean",
 		GetItemByEAN,
 	},
 
 	{
 		"GetItemByUPC",
-		strings.ToUpper("Get"),
+		http.MethodGet,
 		"/magicCashew/barcodable/1.0.0/api/v1/upc/:upc",
 		GetItemByUPC,
 	},

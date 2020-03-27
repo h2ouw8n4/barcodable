@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 
 
@@ -33,7 +32,7 @@ open class ProductLookupAPI {
      */
     open class func getItemByASINWithRequestBuilder(asin: String) -> RequestBuilder<Item> {
         var path = "/api/v1/asin/{asin}"
-        let asinPreEscape = "\(asin)"
+        let asinPreEscape = "\(APIHelper.mapValueToPathItem(asin))"
         let asinPostEscape = asinPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{asin}", with: asinPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
@@ -68,7 +67,7 @@ open class ProductLookupAPI {
      */
     open class func getItemByEANWithRequestBuilder(ean: String) -> RequestBuilder<Item> {
         var path = "/api/v1/ean/{ean}"
-        let eanPreEscape = "\(ean)"
+        let eanPreEscape = "\(APIHelper.mapValueToPathItem(ean))"
         let eanPostEscape = eanPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{ean}", with: eanPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
@@ -103,7 +102,7 @@ open class ProductLookupAPI {
      */
     open class func getItemByUPCWithRequestBuilder(upc: String) -> RequestBuilder<Item> {
         var path = "/api/v1/upc/{upc}"
-        let upcPreEscape = "\(upc)"
+        let upcPreEscape = "\(APIHelper.mapValueToPathItem(upc))"
         let upcPostEscape = upcPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{upc}", with: upcPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path

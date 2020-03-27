@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2020-03-27T18:10:17.418-04:00[America/New_York]")
 public class InlineResponse400   {
   
   private @Valid String message;
@@ -62,8 +63,8 @@ public class InlineResponse400   {
       return false;
     }
     InlineResponse400 inlineResponse400 = (InlineResponse400) o;
-    return Objects.equals(message, inlineResponse400.message) &&
-        Objects.equals(status, inlineResponse400.status);
+    return Objects.equals(this.message, inlineResponse400.message) &&
+        Objects.equals(this.status, inlineResponse400.status);
   }
 
   @Override

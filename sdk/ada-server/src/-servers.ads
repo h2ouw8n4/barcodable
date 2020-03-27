@@ -23,7 +23,7 @@ package .Servers is
    procedure Convert_Code
       (Server : in out Server_Type;
        Upc _Pipe ean _Pipe asin : in Swagger.UString;
-       Result  : out .Models.InlineResponse200Type;
+       Result  : out .Models.InlineResponse200_Type;
        Context : in out Swagger.Servers.Context_Type);
 
    --  Find item by asin code
@@ -32,7 +32,7 @@ package .Servers is
    procedure Get_Item_By_A_S_I_N
       (Server : in out Server_Type;
        Asin : in Swagger.UString;
-       Result  : out .Models.ItemType;
+       Result  : out .Models.Item_Type;
        Context : in out Swagger.Servers.Context_Type);
 
    --  Find item by UPC code
@@ -41,7 +41,7 @@ package .Servers is
    procedure Get_Item_By_E_A_N
       (Server : in out Server_Type;
        Ean : in Swagger.UString;
-       Result  : out .Models.ItemType;
+       Result  : out .Models.Item_Type;
        Context : in out Swagger.Servers.Context_Type);
 
    --  Find item by UPC code
@@ -50,7 +50,7 @@ package .Servers is
    procedure Get_Item_By_U_P_C
       (Server : in out Server_Type;
        Upc : in Swagger.UString;
-       Result  : out .Models.ItemType;
+       Result  : out .Models.Item_Type;
        Context : in out Swagger.Servers.Context_Type);
 
    package Server_Impl is

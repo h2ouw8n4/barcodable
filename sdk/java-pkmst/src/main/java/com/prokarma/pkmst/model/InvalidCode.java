@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * InvalidCode
  */
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaPKMSTServerCodegen", date = "2019-03-04T22:38:53.460Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaPKMSTServerCodegen", date = "2020-03-27T18:10:02.490-04:00[America/New_York]")
 
 public class InvalidCode   {
   @JsonProperty("message")

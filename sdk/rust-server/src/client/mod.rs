@@ -7,8 +7,6 @@ extern crate mime;
 extern crate chrono;
 extern crate url;
 
-
-
 use hyper;
 use hyper::header::{Headers, ContentType};
 use hyper::Uri;
@@ -25,11 +23,11 @@ use std::path::Path;
 use std::sync::Arc;
 use std::str;
 use std::str::FromStr;
+use std::string::ToString;
+use swagger::headers::SafeHeaders;
 
 use mimetypes;
-
 use serde_json;
-
 
 #[allow(unused_imports)]
 use std::collections::{HashMap, BTreeMap};
@@ -76,7 +74,7 @@ fn into_base_path(input: &str, correct_scheme: Option<&'static str>) -> Result<S
 /// A client that implements the API by making HTTP calls out to a server.
 pub struct Client<F> where
   F: Future<Item=hyper::Response, Error=hyper::Error> + 'static {
-    client_service: Arc<Box<hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=F>>>,
+    client_service: Arc<Box<dyn hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=F>>>,
     base_path: String,
 }
 
@@ -187,7 +185,7 @@ impl Client<hyper::client::FutureResponse> {
         handle: Handle,
         base_path: &str,
         protocol: Option<&'static str>,
-        connector_fn: Box<Fn(&Handle) -> C + Send + Sync>,
+        connector_fn: Box<dyn Fn(&Handle) -> C + Send + Sync>,
     ) -> Result<Client<hyper::client::FutureResponse>, ClientInitError>
     where
         C: hyper::client::Connect + hyper::client::Service,
@@ -214,7 +212,7 @@ impl Client<hyper::client::FutureResponse> {
     /// should be mentioned here.
     #[deprecated(note="Use try_new_with_client_service instead")]
     pub fn try_new_with_hyper_client(
-        hyper_client: Arc<Box<hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=hyper::client::FutureResponse>>>,
+        hyper_client: Arc<Box<dyn hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=hyper::client::FutureResponse>>>,
         handle: Handle,
         base_path: &str
     ) -> Result<Client<hyper::client::FutureResponse>, ClientInitError>
@@ -232,7 +230,7 @@ impl<F> Client<F> where
     /// Constructor for creating a `Client` by passing in a pre-made `hyper` client Service.
     ///
     /// This allows adding custom wrappers around the underlying transport, for example for logging.
-    pub fn try_new_with_client_service(client_service: Arc<Box<hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=F>>>,
+    pub fn try_new_with_client_service(client_service: Arc<Box<dyn hyper::client::Service<Request=hyper::Request<hyper::Body>, Response=hyper::Response, Error=hyper::Error, Future=F>>>,
                                        handle: Handle,
                                        base_path: &str)
                                     -> Result<Client<F>, ClientInitError>
@@ -248,13 +246,20 @@ impl<F, C> Api<C> for Client<F> where
     F: Future<Item=hyper::Response, Error=hyper::Error>  + 'static,
     C: Has<XSpanIdString> + Has<Option<AuthData>>{
 
-    fn convert_code(&self, param_upc___ean___asin: String, context: &C) -> Box<Future<Item=ConvertCodeResponse, Error=ApiError>> {
-
-
-        let uri = format!(
-            "{}/magicCashew/barcodable/1.0.0/api/v1/convert/{upc | ean | asin}",
-            self.base_path, upc | ean | asin=utf8_percent_encode(&param_upc___ean___asin.to_string(), ID_ENCODE_SET)
+    fn convert_code(&self, param_upc___ean___asin: String, context: &C) -> Box<dyn Future<Item=ConvertCodeResponse, Error=ApiError>> {
+        let mut uri = format!(
+            "{}/magicCashew/barcodable/1.0.0/api/v1/convert/{upc___ean___asin}",
+            self.base_path, upc___ean___asin=utf8_percent_encode(&param_upc___ean___asin.to_string(), ID_ENCODE_SET)
         );
+
+        let mut query_string = self::url::form_urlencoded::Serializer::new("".to_owned());
+
+
+        let query_string_str = query_string.finish();
+        if !query_string_str.is_empty() {
+            uri += "?";
+            uri += &query_string_str;
+        }
 
         let uri = match Uri::from_str(&uri) {
             Ok(uri) => uri,
@@ -264,52 +269,49 @@ impl<F, C> Api<C> for Client<F> where
         let mut request = hyper::Request::new(hyper::Method::Get, uri);
 
 
-
-        request.headers_mut().set(XSpanId((context as &Has<XSpanIdString>).get().0.clone()));
-
-
+        request.headers_mut().set(XSpanId((context as &dyn Has<XSpanIdString>).get().0.clone()));
         Box::new(self.client_service.call(request)
                              .map_err(|e| ApiError(format!("No response received: {}", e)))
                              .and_then(|mut response| {
             match response.status().as_u16() {
                 200 => {
                     header! { (ResponseXValidAuthorization, "X-ValidAuthorization") => [bool] }
-                    let response_x_valid_authorization = match response.headers().get::<ResponseXValidAuthorization>() {
+                    let response_x_valid_authorization = match response.headers().safe_get::<ResponseXValidAuthorization>() {
                         Some(response_x_valid_authorization) => response_x_valid_authorization.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitLimit, "X-RateLimit-Limit") => [i32] }
-                    let response_x_rate_limit_limit = match response.headers().get::<ResponseXRateLimitLimit>() {
+                    let response_x_rate_limit_limit = match response.headers().safe_get::<ResponseXRateLimitLimit>() {
                         Some(response_x_rate_limit_limit) => response_x_rate_limit_limit.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitRemaining, "X-RateLimit-Remaining") => [i32] }
-                    let response_x_rate_limit_remaining = match response.headers().get::<ResponseXRateLimitRemaining>() {
+                    let response_x_rate_limit_remaining = match response.headers().safe_get::<ResponseXRateLimitRemaining>() {
                         Some(response_x_rate_limit_remaining) => response_x_rate_limit_remaining.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitReset, "X-RateLimit-Reset") => [chrono::DateTime<chrono::Utc>] }
-                    let response_x_rate_limit_reset = match response.headers().get::<ResponseXRateLimitReset>() {
+                    let response_x_rate_limit_reset = match response.headers().safe_get::<ResponseXRateLimitReset>() {
                         Some(response_x_rate_limit_reset) => response_x_rate_limit_reset.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     let body = response.body();
                     Box::new(
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::InlineResponse200>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            ConvertCodeResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::InlineResponse200>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            ConvertCodeResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 400 => {
                     let body = response.body();
@@ -317,18 +319,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::InlineResponse400>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            ConvertCodeResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::InlineResponse400>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            ConvertCodeResponse::SearchResultsMatchingCriteria(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 code => {
                     let headers = response.headers().clone();
@@ -347,21 +349,28 @@ impl<F, C> Api<C> for Client<F> where
                                         Err(e) => Cow::from(format!("<Failed to read body: {}>", e)),
                                     })))
                             )
-                    ) as Box<Future<Item=_, Error=_>>
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 }
             }
         }))
 
     }
 
-    fn get_item_by_asin(&self, param_asin: String, context: &C) -> Box<Future<Item=GetItemByASINResponse, Error=ApiError>> {
-
-
-        let uri = format!(
+    fn get_item_by_asin(&self, param_asin: String, context: &C) -> Box<dyn Future<Item=GetItemByASINResponse, Error=ApiError>> {
+        let mut uri = format!(
             "{}/magicCashew/barcodable/1.0.0/api/v1/asin/{asin}",
             self.base_path, asin=utf8_percent_encode(&param_asin.to_string(), ID_ENCODE_SET)
         );
 
+        let mut query_string = self::url::form_urlencoded::Serializer::new("".to_owned());
+
+
+        let query_string_str = query_string.finish();
+        if !query_string_str.is_empty() {
+            uri += "?";
+            uri += &query_string_str;
+        }
+
         let uri = match Uri::from_str(&uri) {
             Ok(uri) => uri,
             Err(err) => return Box::new(futures::done(Err(ApiError(format!("Unable to build URI: {}", err))))),
@@ -370,52 +379,49 @@ impl<F, C> Api<C> for Client<F> where
         let mut request = hyper::Request::new(hyper::Method::Get, uri);
 
 
-
-        request.headers_mut().set(XSpanId((context as &Has<XSpanIdString>).get().0.clone()));
-
-
+        request.headers_mut().set(XSpanId((context as &dyn Has<XSpanIdString>).get().0.clone()));
         Box::new(self.client_service.call(request)
                              .map_err(|e| ApiError(format!("No response received: {}", e)))
                              .and_then(|mut response| {
             match response.status().as_u16() {
                 200 => {
                     header! { (ResponseXValidAuthorization, "X-ValidAuthorization") => [bool] }
-                    let response_x_valid_authorization = match response.headers().get::<ResponseXValidAuthorization>() {
+                    let response_x_valid_authorization = match response.headers().safe_get::<ResponseXValidAuthorization>() {
                         Some(response_x_valid_authorization) => response_x_valid_authorization.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitLimit, "X-RateLimit-Limit") => [i32] }
-                    let response_x_rate_limit_limit = match response.headers().get::<ResponseXRateLimitLimit>() {
+                    let response_x_rate_limit_limit = match response.headers().safe_get::<ResponseXRateLimitLimit>() {
                         Some(response_x_rate_limit_limit) => response_x_rate_limit_limit.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitRemaining, "X-RateLimit-Remaining") => [i32] }
-                    let response_x_rate_limit_remaining = match response.headers().get::<ResponseXRateLimitRemaining>() {
+                    let response_x_rate_limit_remaining = match response.headers().safe_get::<ResponseXRateLimitRemaining>() {
                         Some(response_x_rate_limit_remaining) => response_x_rate_limit_remaining.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitReset, "X-RateLimit-Reset") => [chrono::DateTime<chrono::Utc>] }
-                    let response_x_rate_limit_reset = match response.headers().get::<ResponseXRateLimitReset>() {
+                    let response_x_rate_limit_reset = match response.headers().safe_get::<ResponseXRateLimitReset>() {
                         Some(response_x_rate_limit_reset) => response_x_rate_limit_reset.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     let body = response.body();
                     Box::new(
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::Item>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByASINResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::Item>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByASINResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 400 => {
                     let body = response.body();
@@ -423,18 +429,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::InvalidCode>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByASINResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::InvalidCode>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByASINResponse::SearchResultsMatchingCriteria(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 404 => {
                     let body = response.body();
@@ -442,18 +448,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::NotFound>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByASINResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::NotFound>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByASINResponse::SearchResultsMatchingCriteria_2(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 code => {
                     let headers = response.headers().clone();
@@ -472,21 +478,28 @@ impl<F, C> Api<C> for Client<F> where
                                         Err(e) => Cow::from(format!("<Failed to read body: {}>", e)),
                                     })))
                             )
-                    ) as Box<Future<Item=_, Error=_>>
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 }
             }
         }))
 
     }
 
-    fn get_item_by_ean(&self, param_ean: String, context: &C) -> Box<Future<Item=GetItemByEANResponse, Error=ApiError>> {
-
-
-        let uri = format!(
+    fn get_item_by_ean(&self, param_ean: String, context: &C) -> Box<dyn Future<Item=GetItemByEANResponse, Error=ApiError>> {
+        let mut uri = format!(
             "{}/magicCashew/barcodable/1.0.0/api/v1/ean/{ean}",
             self.base_path, ean=utf8_percent_encode(&param_ean.to_string(), ID_ENCODE_SET)
         );
 
+        let mut query_string = self::url::form_urlencoded::Serializer::new("".to_owned());
+
+
+        let query_string_str = query_string.finish();
+        if !query_string_str.is_empty() {
+            uri += "?";
+            uri += &query_string_str;
+        }
+
         let uri = match Uri::from_str(&uri) {
             Ok(uri) => uri,
             Err(err) => return Box::new(futures::done(Err(ApiError(format!("Unable to build URI: {}", err))))),
@@ -495,52 +508,49 @@ impl<F, C> Api<C> for Client<F> where
         let mut request = hyper::Request::new(hyper::Method::Get, uri);
 
 
-
-        request.headers_mut().set(XSpanId((context as &Has<XSpanIdString>).get().0.clone()));
-
-
+        request.headers_mut().set(XSpanId((context as &dyn Has<XSpanIdString>).get().0.clone()));
         Box::new(self.client_service.call(request)
                              .map_err(|e| ApiError(format!("No response received: {}", e)))
                              .and_then(|mut response| {
             match response.status().as_u16() {
                 200 => {
                     header! { (ResponseXValidAuthorization, "X-ValidAuthorization") => [bool] }
-                    let response_x_valid_authorization = match response.headers().get::<ResponseXValidAuthorization>() {
+                    let response_x_valid_authorization = match response.headers().safe_get::<ResponseXValidAuthorization>() {
                         Some(response_x_valid_authorization) => response_x_valid_authorization.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitLimit, "X-RateLimit-Limit") => [i32] }
-                    let response_x_rate_limit_limit = match response.headers().get::<ResponseXRateLimitLimit>() {
+                    let response_x_rate_limit_limit = match response.headers().safe_get::<ResponseXRateLimitLimit>() {
                         Some(response_x_rate_limit_limit) => response_x_rate_limit_limit.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitRemaining, "X-RateLimit-Remaining") => [i32] }
-                    let response_x_rate_limit_remaining = match response.headers().get::<ResponseXRateLimitRemaining>() {
+                    let response_x_rate_limit_remaining = match response.headers().safe_get::<ResponseXRateLimitRemaining>() {
                         Some(response_x_rate_limit_remaining) => response_x_rate_limit_remaining.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitReset, "X-RateLimit-Reset") => [chrono::DateTime<chrono::Utc>] }
-                    let response_x_rate_limit_reset = match response.headers().get::<ResponseXRateLimitReset>() {
+                    let response_x_rate_limit_reset = match response.headers().safe_get::<ResponseXRateLimitReset>() {
                         Some(response_x_rate_limit_reset) => response_x_rate_limit_reset.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     let body = response.body();
                     Box::new(
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::Item>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByEANResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::Item>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByEANResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 400 => {
                     let body = response.body();
@@ -548,18 +558,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::InvalidCode>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByEANResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::InvalidCode>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByEANResponse::SearchResultsMatchingCriteria(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 404 => {
                     let body = response.body();
@@ -567,18 +577,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::NotFound>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByEANResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::NotFound>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByEANResponse::SearchResultsMatchingCriteria_2(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 code => {
                     let headers = response.headers().clone();
@@ -597,20 +607,27 @@ impl<F, C> Api<C> for Client<F> where
                                         Err(e) => Cow::from(format!("<Failed to read body: {}>", e)),
                                     })))
                             )
-                    ) as Box<Future<Item=_, Error=_>>
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 }
             }
         }))
 
     }
 
-    fn get_item_by_upc(&self, param_upc: String, context: &C) -> Box<Future<Item=GetItemByUPCResponse, Error=ApiError>> {
-
-
-        let uri = format!(
+    fn get_item_by_upc(&self, param_upc: String, context: &C) -> Box<dyn Future<Item=GetItemByUPCResponse, Error=ApiError>> {
+        let mut uri = format!(
             "{}/magicCashew/barcodable/1.0.0/api/v1/upc/{upc}",
             self.base_path, upc=utf8_percent_encode(&param_upc.to_string(), ID_ENCODE_SET)
         );
+
+        let mut query_string = self::url::form_urlencoded::Serializer::new("".to_owned());
+
+
+        let query_string_str = query_string.finish();
+        if !query_string_str.is_empty() {
+            uri += "?";
+            uri += &query_string_str;
+        }
 
         let uri = match Uri::from_str(&uri) {
             Ok(uri) => uri,
@@ -620,52 +637,49 @@ impl<F, C> Api<C> for Client<F> where
         let mut request = hyper::Request::new(hyper::Method::Get, uri);
 
 
-
-        request.headers_mut().set(XSpanId((context as &Has<XSpanIdString>).get().0.clone()));
-
-
+        request.headers_mut().set(XSpanId((context as &dyn Has<XSpanIdString>).get().0.clone()));
         Box::new(self.client_service.call(request)
                              .map_err(|e| ApiError(format!("No response received: {}", e)))
                              .and_then(|mut response| {
             match response.status().as_u16() {
                 200 => {
                     header! { (ResponseXValidAuthorization, "X-ValidAuthorization") => [bool] }
-                    let response_x_valid_authorization = match response.headers().get::<ResponseXValidAuthorization>() {
+                    let response_x_valid_authorization = match response.headers().safe_get::<ResponseXValidAuthorization>() {
                         Some(response_x_valid_authorization) => response_x_valid_authorization.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-ValidAuthorization for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitLimit, "X-RateLimit-Limit") => [i32] }
-                    let response_x_rate_limit_limit = match response.headers().get::<ResponseXRateLimitLimit>() {
+                    let response_x_rate_limit_limit = match response.headers().safe_get::<ResponseXRateLimitLimit>() {
                         Some(response_x_rate_limit_limit) => response_x_rate_limit_limit.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Limit for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitRemaining, "X-RateLimit-Remaining") => [i32] }
-                    let response_x_rate_limit_remaining = match response.headers().get::<ResponseXRateLimitRemaining>() {
+                    let response_x_rate_limit_remaining = match response.headers().safe_get::<ResponseXRateLimitRemaining>() {
                         Some(response_x_rate_limit_remaining) => response_x_rate_limit_remaining.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Remaining for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     header! { (ResponseXRateLimitReset, "X-RateLimit-Reset") => [chrono::DateTime<chrono::Utc>] }
-                    let response_x_rate_limit_reset = match response.headers().get::<ResponseXRateLimitReset>() {
+                    let response_x_rate_limit_reset = match response.headers().safe_get::<ResponseXRateLimitReset>() {
                         Some(response_x_rate_limit_reset) => response_x_rate_limit_reset.0.clone(),
-                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<Future<Item=_, Error=_>>,
+                        None => return Box::new(future::err(ApiError(String::from("Required response header X-RateLimit-Reset for response 200 was not found.")))) as Box<dyn Future<Item=_, Error=_>>,
                     };
                     let body = response.body();
                     Box::new(
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::Item>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByUPCResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::Item>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByUPCResponse::SuccessfulOperation{ body: body, x_valid_authorization: response_x_valid_authorization, x_rate_limit_limit: response_x_rate_limit_limit, x_rate_limit_remaining: response_x_rate_limit_remaining, x_rate_limit_reset: response_x_rate_limit_reset }
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 400 => {
                     let body = response.body();
@@ -673,18 +687,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::InvalidCode>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByUPCResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::InvalidCode>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByUPCResponse::SearchResultsMatchingCriteria(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 404 => {
                     let body = response.body();
@@ -692,18 +706,18 @@ impl<F, C> Api<C> for Client<F> where
                         body
                         .concat2()
                         .map_err(|e| ApiError(format!("Failed to read response: {}", e)))
-                        .and_then(|body| str::from_utf8(&body)
-                                             .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
-                                             .and_then(|body|
-
-                                                 serde_json::from_str::<models::NotFound>(body)
-                                                     .map_err(|e| e.into())
-
-                                             ))
-                        .map(move |body|
-                            GetItemByUPCResponse::SearchResultsMatchingCriteria(body)
+                        .and_then(|body|
+                            str::from_utf8(&body)
+                            .map_err(|e| ApiError(format!("Response was not valid UTF8: {}", e)))
+                            .and_then(|body|
+                                serde_json::from_str::<models::NotFound>(body)
+                                .map_err(|e| e.into())
+                            )
                         )
-                    ) as Box<Future<Item=_, Error=_>>
+                        .map(move |body| {
+                            GetItemByUPCResponse::SearchResultsMatchingCriteria_2(body)
+                        })
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 },
                 code => {
                     let headers = response.headers().clone();
@@ -722,7 +736,7 @@ impl<F, C> Api<C> for Client<F> where
                                         Err(e) => Cow::from(format!("<Failed to read body: {}>", e)),
                                     })))
                             )
-                    ) as Box<Future<Item=_, Error=_>>
+                    ) as Box<dyn Future<Item=_, Error=_>>
                 }
             }
         }))
@@ -753,7 +767,7 @@ impl From<openssl::error::ErrorStack> for ClientInitError {
 
 impl fmt::Display for ClientInitError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        (self as &fmt::Debug).fmt(f)
+        (self as &dyn fmt::Debug).fmt(f)
     }
 }
 

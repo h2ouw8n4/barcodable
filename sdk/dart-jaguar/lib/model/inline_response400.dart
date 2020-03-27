@@ -1,13 +1,14 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
+
 part 'inline_response400.jser.dart';
 
 class InlineResponse400 {
   
-  @Alias('message')
+  @Alias('message', isNullable: false,  )
   final String message;
   
-  @Alias('status')
+  @Alias('status', isNullable: false,  )
   final int status;
   
 
@@ -31,3 +32,4 @@ class InlineResponse400 {
 class InlineResponse400Serializer extends Serializer<InlineResponse400> with _$InlineResponse400Serializer {
 
 }
+

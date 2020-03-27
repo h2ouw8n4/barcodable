@@ -14,21 +14,20 @@
 
 
 
-
 typedef struct not_found_t {
-        char *message; //no enum string
-        int status; //numeric
+    char *message; // string
+    int status; //numeric
 
 } not_found_t;
 
 not_found_t *not_found_create(
-        char *message,
-        int status
+    char *message,
+    int status
 );
 
 void not_found_free(not_found_t *not_found);
 
-not_found_t *not_found_parseFromJSON(char *jsonString);
+not_found_t *not_found_parseFromJSON(cJSON *not_foundJSON);
 
 cJSON *not_found_convertToJSON(not_found_t *not_found);
 

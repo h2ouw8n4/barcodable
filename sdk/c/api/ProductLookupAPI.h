@@ -14,17 +14,7 @@
 // Returns a single item
 //
 item_t*
-ProductLookupAPI_getItemByASIN(apiClient_t *apiClient,char* asin );
-
-
-
-// Find item by UPC code
-//
-// Returns a single item
-//
-item_t*
-ProductLookupAPI_getItemByEAN(apiClient_t *apiClient,char* ean );
-
+ProductLookupAPI_getItemByASIN(apiClient_t *apiClient, char * asin );
 
 
 // Find item by UPC code
@@ -32,7 +22,14 @@ ProductLookupAPI_getItemByEAN(apiClient_t *apiClient,char* ean );
 // Returns a single item
 //
 item_t*
-ProductLookupAPI_getItemByUPC(apiClient_t *apiClient,char* upc );
+ProductLookupAPI_getItemByEAN(apiClient_t *apiClient, char * ean );
 
+
+// Find item by UPC code
+//
+// Returns a single item
+//
+item_t*
+ProductLookupAPI_getItemByUPC(apiClient_t *apiClient, char * upc );
 
 

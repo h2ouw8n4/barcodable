@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**getItemByUPC**](ProductLookupApi.md#getItemByUPC) | **GET** /api/v1/upc/{upc} | Find item by UPC code
 
 
-<a name="getItemByASIN"></a>
-# **getItemByASIN**
+
+## getItemByASIN
+
 > Item getItemByASIN(asin)
 
 Find item by asin code
@@ -18,6 +19,7 @@ Find item by asin code
 Returns a single item
 
 ### Example
+
 ```java
 // Import classes:
 //import org.openapitools.client.api.ProductLookupApi;
@@ -35,6 +37,7 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **asin** | **String**| ASIN code of item to return | [default to null]
@@ -49,11 +52,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-<a name="getItemByEAN"></a>
-# **getItemByEAN**
+
+## getItemByEAN
+
 > Item getItemByEAN(ean)
 
 Find item by UPC code
@@ -61,6 +65,7 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```java
 // Import classes:
 //import org.openapitools.client.api.ProductLookupApi;
@@ -78,6 +83,7 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ean** | **String**| EAN code of item to return | [default to null]
@@ -92,11 +98,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-<a name="getItemByUPC"></a>
-# **getItemByUPC**
+
+## getItemByUPC
+
 > Item getItemByUPC(upc)
 
 Find item by UPC code
@@ -104,6 +111,7 @@ Find item by UPC code
 Returns a single item
 
 ### Example
+
 ```java
 // Import classes:
 //import org.openapitools.client.api.ProductLookupApi;
@@ -121,6 +129,7 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **upc** | **String**| UPC code of item to return | [default to null]
@@ -135,6 +144,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 

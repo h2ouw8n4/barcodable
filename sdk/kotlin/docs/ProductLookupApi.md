@@ -41,7 +41,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **asin** | **kotlin.String**| ASIN code of item to return | [default to null]
+ **asin** | **kotlin.String**| ASIN code of item to return |
 
 ### Return type
 
@@ -88,7 +88,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ean** | **kotlin.String**| EAN code of item to return | [default to null]
+ **ean** | **kotlin.String**| EAN code of item to return |
 
 ### Return type
 
@@ -135,7 +135,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **upc** | **kotlin.String**| UPC code of item to return | [default to null]
+ **upc** | **kotlin.String**| UPC code of item to return |
 
 ### Return type
 

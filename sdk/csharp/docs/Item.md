@@ -1,4 +1,6 @@
+
 # Org.OpenAPITools.Model.Item
+
 ## Properties
 
 Name | Type | Description | Notes
@@ -16,8 +18,8 @@ Name | Type | Description | Notes
 **Brand** | **string** |  | [optional] 
 **Manufacturer** | **string** |  | [optional] 
 **Color** | **string** |  | [optional] 
-**NewPrice** | **decimal?** |  | [optional] 
-**UsedPrice** | **decimal?** |  | [optional] 
+**NewPrice** | **decimal** |  | [optional] 
+**UsedPrice** | **decimal** |  | [optional] 
 **CurrencyCode** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 **Features** | **List&lt;string&gt;** | A list of product feature descriptions. | [optional] 
@@ -30,5 +32,7 @@ Name | Type | Description | Notes
 **Categories** | **List&lt;string&gt;** | A list of categories for this product. | [optional] 
 **CategoryHierarchies** | **List&lt;string&gt;** | A list of category hierarchies for this product. Categories are listed in order of generic category to most specific category. | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to README]](../README.md)
 

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 
 
@@ -33,7 +32,7 @@ open class ProductConversionAPI {
      */
     open class func convertCodeWithRequestBuilder(upcEanAsin: String) -> RequestBuilder<InlineResponse200> {
         var path = "/api/v1/convert/{upc | ean | asin}"
-        let upcEanAsinPreEscape = "\(upcEanAsin)"
+        let upcEanAsinPreEscape = "\(APIHelper.mapValueToPathItem(upcEanAsin))"
         let upcEanAsinPostEscape = upcEanAsinPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{upc | ean | asin}", with: upcEanAsinPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path

@@ -32,6 +32,9 @@ defmodule BarcodableComAPI.Api.ProductConversion do
     |> url("/api/v1/convert/#{upc_|_ean_|_asin}")
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
-    |> decode(%BarcodableComAPI.Model.InlineResponse200{})
+    |> evaluate_response([
+      { 200, %BarcodableComAPI.Model.InlineResponse200{}},
+      { 400, %BarcodableComAPI.Model.InlineResponse400{}}
+    ])
   end
 end

@@ -7,8 +7,9 @@ Method | HTTP request | Description
 [**convertCode**](ProductConversionApi.md#convertCode) | **GET** /api/v1/convert/{upc | ean | asin} | Convert between UPC, EAN, and ASIN product codes.
 
 
-<a name="convertCode"></a>
-# **convertCode**
+
+## convertCode
+
 > InlineResponse200 convertCode(upcEanAsin)
 
 Convert between UPC, EAN, and ASIN product codes.
@@ -16,6 +17,7 @@ Convert between UPC, EAN, and ASIN product codes.
 Returns the converted UPC, EAN, and ASIN codes.
 
 ### Example
+
 ```java
 // Import classes:
 //import org.openapitools.client.api.ProductConversionApi;
@@ -33,6 +35,7 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **upcEanAsin** | **String**| UPC, EAN, or ASIN | [default to null]
@@ -47,6 +50,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
